@@ -1,12 +1,13 @@
 require 'spec_helper_acceptance'
 
-describe 'cis_hardening_auth_cron class' do
-  context 'default parameters' do
-    it 'behaves idempotently' do
-      idempotent_apply(pp)
+describe 'CRON configurations' do
+  describe 'cis_hardening_auth_cron class' do
+    context 'default parameters' do
+      it 'behaves idempotently' do
+        idempotent_apply(pp)
+      end
     end
   end
-end
 
   # Enable Cron Daemon - Section 5.1.1
   describe service('crond') do
@@ -18,7 +19,7 @@ end
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
   end
 
   # Ensure permissions on /etc/cron.hourly are configured - Section 5.1.3
@@ -26,7 +27,7 @@ end
     it { is_expected.to be_directory }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 700 }
+    it { is_expected.to be_mode 0o0700 }
   end
 
   # Ensure permissions on /etc/cron.daily are configured - Section 5.1.4
@@ -34,7 +35,7 @@ end
     it { is_expected.to be_directory }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 700 }
+    it { is_expected.to be_mode 0o0700 }
   end
 
   # Ensure permissions on /etc/cron.weekly are configured - Section 5.1.5
@@ -42,7 +43,7 @@ end
     it { is_expected.to be_directory }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 700 }
+    it { is_expected.to be_mode 0o0700 }
   end
 
   # Ensure permissions on /etc/cron.monthly are configured - Section 5.1.6
@@ -50,7 +51,7 @@ end
     it { is_expected.to be_directory }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 700 }
+    it { is_expected.to be_mode 0o0700 }
   end
 
   # Ensure permissions on /etc/cron.d are configured - Section 5.1.7
@@ -58,7 +59,7 @@ end
     it { is_expected.to be_directory }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 700 }
+    it { is_expected.to be_mode 0o0700 }
   end
 
   # Ensure at/cron is restricted to authorized users - Section 5.1.8
@@ -74,12 +75,13 @@ end
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 600 }
+    it { is_expected.to be_mode 0o0600 }
   end
 
   describe file('/etc/at.allow') do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 600 }
+    it { is_expected.to be_mode 0o0600 }
   end
+end
