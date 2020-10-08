@@ -1,6 +1,6 @@
 # @summary A manifest to set filesystem configurations according to CIS hardening guidelines
 #
-# Section 1
+# Section 1 - Initial Setup
 #
 # @example
 #   include cis_hardening::setup::filesystem
