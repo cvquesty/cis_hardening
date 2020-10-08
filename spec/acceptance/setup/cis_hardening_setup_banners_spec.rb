@@ -7,7 +7,7 @@ describe file('/etc/motd') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 644 }
-    its(:content) { should match /Puppet/ }
+    its(:content) { should match (/Puppet/) }
 end
 
 # Ensure local login warning banner is configured properly - Section 1.7.1.2
@@ -17,7 +17,7 @@ describe file('/etc/issue') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 644 }
-    its(:content) { should match /Puppet/ }
+    its(:content) { should match (/Puppet/) }
 end
 
 # Ensure remote login warnig banner is configured properly - Section 1.7.1.3
@@ -27,13 +27,12 @@ describe file('/etc/issue.net') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 644 }
-    its(:content) { should match /Puppet/ }
+    its(:content) { should match (/Puppet/) }
 end
 
 # Had to get wild on this. The gdm system is not supposed to be installed so the
-# default state is for those files not to exist. So, I inverted the logic to 
+# default state is for those files not to exist. So, I inverted the logic to
 # declare that if gdm isn't installed, this is what should occur.
-# It should work for Aflac's purposes until it doesn't. --JMS
 context 'gdm is not installed' do
   let (:facts) do
     {
