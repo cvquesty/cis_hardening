@@ -29,7 +29,7 @@ describe file('/usr/lib/systemd/system/ntpd.service') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 644 }
-    its(:content) { should match /ExecStart=\/usr\/sbin\/ntpd -u ntp:ntp \$OPTIONS/ }
+    its(:content) { should match (/ExecStart=\/usr\/sbin\/ntpd -u ntp:ntp \$OPTIONS/) }
 end
 
 # Ensure Chrony is configured - Section 2.2.1.3
@@ -45,7 +45,7 @@ describe file('/etc/sysconfig/chronyd') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 644 }
-    its(:content) { should match /OPTIONS="-u chrony"/ }
+    its(:content) { should match (/OPTIONS="-u chrony"/) }
 end
 
 # Ensure X Window System is not installed - Section 2.2.2
@@ -127,7 +127,7 @@ describe file('/etc/postfix/main.cf') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 644 }
-    its(:content) { should match /inet_interfaces = loopback-only/ }
+    its(:content) { should match (/inet_interfaces = loopback-only/) }
 end
 
 # Ensure NIS Server is not enabled - Section 2.2.16

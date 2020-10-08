@@ -23,6 +23,6 @@ describe file('/etc/sysconfig/iptables') do
     it { should be_owned_by 'root' }
     it { should be_grouped_into 'root' }
     it { should be_mode 600 }
-    its (:content) { should match /# This File Managed by Puppet. DO NOT EDIT./ }
-    its (:content) { should match /-A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT/ }
+    its (:content) { should match (/# This File Managed by Puppet. DO NOT EDIT./) }
+    its (:content) { should match (/-A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT/) }
 end
