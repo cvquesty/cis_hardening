@@ -21,7 +21,7 @@ describe file('/etc/shadow') do
   it { is_expected.to be_file }
   it { is_expected.to be_owned_by 'root' }
   it { is_expected.to be_grouped_into 'root' }
-  it { is_expected.to be_mode 000 }
+  it { is_expected.to be_mode 0o0000 }
 end
 
 # Ensure permissions on /etc/group are configured - Section 6.1.4
@@ -37,7 +37,7 @@ describe file('/etc/gshadow') do
   it { is_expected.to be_file }
   it { is_expected.to be_owned_by 'root' }
   it { is_expected.to be_grouped_into 'root' }
-  it { is_expected.to be_mode 000 }
+  it { is_expected.to be_mode 0o0000 }
 end
 
 # Ensure permissions on /etc/passwd- are configured - Section 6.1.6
@@ -53,7 +53,7 @@ describe file('/etc/shadow-') do
   it { is_expected.to be_file }
   it { is_expected.to be_owned_by 'root' }
   it { is_expected.to be_grouped_into 'root' }
-  it { is_expected.to be_mode 000 }
+  it { is_expected.to be_mode 0o0000 }
 end
 
 # Ensure permissions on /etc/group- are configured - Section 6.1.8
@@ -69,5 +69,5 @@ describe file('/etc/gshadow-') do
   it { is_expected.to be_file }
   it { is_expected.to be_owned_by 'root' }
   it { is_expected.to be_grouped_into 'root' }
-  it { is_expected.to be_mode 000 }
+  it { is_expected.to be_mode 0o0000 }
 end
