@@ -7,7 +7,7 @@ describe 'Setup System Banners' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
     its(:content) { is_expected.to match %r{/Puppet/} }
   end
 
@@ -17,7 +17,7 @@ describe 'Setup System Banners' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
     its(:content) { is_expected.to match %r{/Puppet/} }
   end
 
@@ -27,7 +27,7 @@ describe 'Setup System Banners' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
     its(:content) { is_expected.to match %r{/Puppet/} }
   end
 

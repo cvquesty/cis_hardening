@@ -15,21 +15,21 @@ describe 'Special Network Services' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
   end
 
   describe file('/etc/sysconfig/ntpd') do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
   end
 
   describe file('/usr/lib/systemd/system/ntpd.service') do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
     its(:content) { is_expected.to match %r{/ExecStart=\/usr\/sbin\/ntpd -u ntp:ntp \$OPTIONS/} }
   end
 
@@ -38,14 +38,14 @@ describe 'Special Network Services' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
   end
 
   describe file('/etc/sysconfig/chronyd') do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
     its(:content) { is_expected.to match %r{/OPTIONS="-u chrony"/} }
   end
 
@@ -127,7 +127,7 @@ describe 'Special Network Services' do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
     its(:content) { is_expected.to match %r{/inet_interfaces = loopback-only/} }
   end
 
