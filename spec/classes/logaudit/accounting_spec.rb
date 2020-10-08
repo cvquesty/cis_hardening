@@ -383,7 +383,7 @@ describe 'cis_hardening::logaudit::accounting' do
 
       it {
         is_expected.to contain_file_line('make_auditd_immutable').with(
-          'ensure'           => 'present',
+          'ensure'             => 'present',
           'path'               => '/etc/audit/audit.rules',
           'line'               => '-e 2',
           'match'              => '^-e\ ',

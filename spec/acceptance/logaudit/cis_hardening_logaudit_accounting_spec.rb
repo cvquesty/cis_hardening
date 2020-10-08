@@ -1,16 +1,16 @@
 require 'spec_helper_acceptance'
 
-describe 'cis_hardening_logaudit_accounting class' do
-  context 'default parameters' do
-    it 'behaves idempotently' do
-      idempotent_apply(pp)
+  describe 'cis_hardening_logaudit_accounting class' do
+    context 'default parameters' do
+      it 'behaves idempotently' do
+        idempotent_apply(pp)
+      end
     end
   end
-end
 
   # Ensure that audit is installed
   describe package('audit') do
-    it { should be_installed }
+    it { is_expected.to be_installed }
   end
 
   # Make sure rules file is present
@@ -33,40 +33,40 @@ end
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
     it { is_expected.to be_mode 640 }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change/) }
-    its(:content) { should match (/-a always\,exit -F arch=b64 -S clock_settime -k time-change/) }
-    its(:content) { should match (/-w \/etc\/localtime -p wa -k time-change/) }
-    its(:content) { should match (/-w \/etc\/group -p wa -k identity/) }
-    its(:content) { should match (/-w \/etc\/passwd -p wa -k identity/) }
-    its(:content) { should match (/-w \/etc\/gshadow -p wa -k identity/) }
-    its(:content) { should match (/-w \/etc\/shadow -p wa -k identity/) }
-    its(:content) { should match (/-w \/etc\/security\/opasswd -p wa -k identity/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale/) }
-    its(:content) { should match (/-w \/etc\/issue -p wa -k system-locale/) }
-    its(:content) { should match (/-w \/etc\/issue\.net -p wa -k system-locale/) }
-    its(:content) { should match (/-w \/etc\/sysconfig\/network -p wa -k system-locale/) }
-    its(:content) { should match (/-w \/etc\/sysconfig\/network-scripts\/ -p wa -k system-locale/) }
-    its(:content) { should match (/-w \/etc\/selinux\/ -p wa -k MAC-policy/) }
-    its(:content) { should match (/-w \/usr\/share\/selinux\/ -p wa -k MAC-policy/) }
-    its(:content) { should match (/-w \/var\/log\/lastlog -p wa -k logins/) }
-    its(:content) { should match (/-w \/var\/run\/faillock\/ -p wa -k logins/) }
-    its(:content) { should match (/-w \/var\/run\/utmp -p wa -k session/) }
-    its(:content) { should match (/-w \/var\/run\/wtmp -p wa -k logins/) }
-    its(:content) { should match (/-w \/var\/run\/btmp -p wa -k logins/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete/) }
-    its(:content) { should match (/-w \/etc\/sudoers -p wa -k scope/) }
-    its(:content) { should match (/-w \/etc\/sudoers\.d\/ -p wa -k scope/) }
-    its(:content) { should match (/-w \/var\/log\/sudo\.log -p wa -k actions/) }
-    its(:content) { should match (/-w \/sbin\/insmod -p x -k modules/) }
-    its(:content) { should match (/-w \/sbin\/rmmod -p x -k modules/) }
-    its(:content) { should match (/-w \/sbin\/modprobe -p x -k modules/) }
-    its(:content) { should match (/-a always,exit -F arch=b64 -S init_module -S delete_module -k modules/) }
-    its(:content) { should match (/-e 2/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change/) }
+    its(:content) { is_expected.to match (/-a always\,exit -F arch=b64 -S clock_settime -k time-change/) }
+    its(:content) { is_expected.to match (/-w \/etc\/localtime -p wa -k time-change/) }
+    its(:content) { is_expected.to match (/-w \/etc\/group -p wa -k identity/) }
+    its(:content) { is_expected.to match (/-w \/etc\/passwd -p wa -k identity/) }
+    its(:content) { is_expected.to match (/-w \/etc\/gshadow -p wa -k identity/) }
+    its(:content) { is_expected.to match (/-w \/etc\/shadow -p wa -k identity/) }
+    its(:content) { is_expected.to match (/-w \/etc\/security\/opasswd -p wa -k identity/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale/) }
+    its(:content) { is_expected.to match (/-w \/etc\/issue -p wa -k system-locale/) }
+    its(:content) { is_expected.to match (/-w \/etc\/issue\.net -p wa -k system-locale/) }
+    its(:content) { is_expected.to match (/-w \/etc\/sysconfig\/network -p wa -k system-locale/) }
+    its(:content) { is_expected.to match (/-w \/etc\/sysconfig\/network-scripts\/ -p wa -k system-locale/) }
+    its(:content) { is_expected.to match (/-w \/etc\/selinux\/ -p wa -k MAC-policy/) }
+    its(:content) { is_expected.to match (/-w \/usr\/share\/selinux\/ -p wa -k MAC-policy/) }
+    its(:content) { is_expected.to match (/-w \/var\/log\/lastlog -p wa -k logins/) }
+    its(:content) { is_expected.to match (/-w \/var\/run\/faillock\/ -p wa -k logins/) }
+    its(:content) { is_expected.to match (/-w \/var\/run\/utmp -p wa -k session/) }
+    its(:content) { is_expected.to match (/-w \/var\/run\/wtmp -p wa -k logins/) }
+    its(:content) { is_expected.to match (/-w \/var\/run\/btmp -p wa -k logins/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete/) }
+    its(:content) { is_expected.to match (/-w \/etc\/sudoers -p wa -k scope/) }
+    its(:content) { is_expected.to match (/-w \/etc\/sudoers\.d\/ -p wa -k scope/) }
+    its(:content) { is_expected.to match (/-w \/var\/log\/sudo\.log -p wa -k actions/) }
+    its(:content) { is_expected.to match (/-w \/sbin\/insmod -p x -k modules/) }
+    its(:content) { is_expected.to match (/-w \/sbin\/rmmod -p x -k modules/) }
+    its(:content) { is_expected.to match (/-w \/sbin\/modprobe -p x -k modules/) }
+    its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S init_module -S delete_module -k modules/) }
+    its(:content) { is_expected.to match (/-e 2/) }
   end
 
   # Check AuditD Configuration Options
@@ -75,17 +75,17 @@ end
   # Ensure audit logs are not automatically deleted - Section 4.1.1.3
   describe file('/etc/audit/auditd.conf') do
     it { is_expected.to be_file }
-    its (:content) { should match (/max_log_file = 1024/) }
-    its (:content) { should match (/space_left_action\ \=\ email/) }
-    its (:content) { should match (/action_mail_acct = root/) }
-    its (:content) { should match (/admin_space_left_action = SYSLOG/) }
-    its (:content) { should match (/max_log_file_action = keep_logs/) }
+    its (:content) { is_expected.to match (/max_log_file = 1024/) }
+    its (:content) { is_expected.to match (/space_left_action\ \=\ email/) }
+    its (:content) { is_expected.to match (/action_mail_acct = root/) }
+    its (:content) { is_expected.to match (/admin_space_left_action = SYSLOG/) }
+    its (:content) { is_expected.to match (/max_log_file_action = keep_logs/) }
   end
 
   # Ensure auditd service is enabled - Section 4.1.2
   describe service('auditd') do
-    it { should be_enabled }
-    it { should be_running }
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
   end
 
   # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
@@ -103,5 +103,5 @@ end
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
     it { is_expected.to be_mode 644 }
-    its (:content) { should match (/GRUB_CMDLINE_LINUX="audit=1"/) }
+    its (:content) { is_expected.to match (/GRUB_CMDLINE_LINUX="audit=1"/) }
   end

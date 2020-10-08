@@ -2,35 +2,35 @@ require 'spec_helper_acceptance'
 
 # Ensure SELinux is not disabled in bootloader configuration - Section 1.6.1.1
 describe file('/etc/default/grub') do
-    it { should be_file }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
-    it { should be_mode 644 }
-    its(:content) { should match (/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/) }
-    its(:content) { should match (/GRUB_CMDLINE_LINUX="audit=1"/) }
+    it { is_expected.to be_file }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into 'root' }
+    it { is_expected.to be_mode 644 }
+    its(:content) { is_expected.to match (/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/) }
+    its(:content) { is_expected.to match (/GRUB_CMDLINE_LINUX="audit=1"/) }
 end
 
 # Ensure the SELinux state is "enforcing" - Section 1.6.1.2
 describe file('/etc/selinux/config') do
-    it { should be_file }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
-    it { should be_mode 644 }
-    its(:content) { should match (/SELINUX=enforcing/) }
-    its(:content) { should match (/SELINUXTYPE=targeted/) }
+    it { is_expected.to be_file }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into 'root' }
+    it { is_expected.to be_mode 644 }
+    its(:content) { is_expected.to match (/SELINUX=enforcing/) }
+    its(:content) { is_expected.to match (/SELINUXTYPE=targeted/) }
 end
 
 # Ensure SETroubleshoot is not installed - Section 1.6.1.4
 describe package('setroubleshoot') do
-    it { should_not be_installed }
+    it { is_expected.not_to be_installed }
 end
 
 # Ensure MCS Translation Service is not installed - Section 1.6.1.5
 describe package('mcstrans') do
-    it { should_not be_installed }
+    it { is_expected.not_to be_installed }
 end
 
 # Ensure SELinux is installed - Section 1.6.2
 describe package('libselinux') do
-    it { should be_installed }
+    it { is_expected.to be_installed }
 end

@@ -10,13 +10,13 @@ end
 
 # Verify TCP Wrappers are installed - Section 3.4.1
 describe package('tcp_wrappers') do
-    it { should be_installed }
+    it { is_expected.to be_installed }
 end
 
 # Ensure /etc/hosts.allow is configured - Section 3.4.2, 3.4.4
 describe file('/etc/hosts.allow') do
-    it { should be_file }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into 'root' }
-    it { should be_mode 644 }
+    it { is_expected.to be_file }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into 'root' }
+    it { is_expected.to be_mode 644 }
 end

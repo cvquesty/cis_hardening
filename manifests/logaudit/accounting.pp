@@ -40,12 +40,12 @@ class cis_hardening::logaudit::accounting {
 
   # Ensure system is disabled when audit logs are full - Section 4.1.1.2
   #
-  # Acceptable risk. The servers cannot be shut down in production due to a 
+  # Acceptable risk. The servers cannot be shut down in production due to a
   # lack of logging. Instead, the below will alert SysLog that logging is not
-  # occurring, and an alert should be set for the related condition, that is, 
+  # occurring, and an alert should be set for the related condition, that is,
   # that logs are no longer being produced. One would also argue that disk space
   # alerts would also notify operational personnel of the condition
-  
+
   file_line { 'full_logfile_notify_action':
     ensure => 'present',
     path   => '/etc/audit/auditd.conf',
@@ -53,7 +53,7 @@ class cis_hardening::logaudit::accounting {
     match  => '^space_left_action\ \=',
     notify => Exec['restart_auditd'],
   }
-  
+
   file_line { 'set_action_mail_account':
     ensure => 'present',
     path   => '/etc/audit/auditd.conf',
