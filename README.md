@@ -1,6 +1,8 @@
 # cis_hardening
 
 Welcome to the CIS Hardening Module.
+This module implements the CIS hardening benchmarks to version 2.2.0 for CentOS7
+as per the CIS Benchmarks document v2.2.0 - 12-27-2017
 
 #### Table of Contents
 
@@ -8,8 +10,8 @@ Welcome to the CIS Hardening Module.
 
 ## Description
 
-This module is a base level hardening module designed to implement the CIS hardenng 
-standards for CentOS7/RHEL7. There are no parameters, and there is no special calling 
+This module is a base level hardening module designed to implement the CIS hardenng
+standards for CentOS7/RHEL7. There are no parameters, and there is no special calling
 protocol.  As with other modules with a single entry point:
 
 include cis_hardening
@@ -33,10 +35,11 @@ Puppet RSPEC:  https://rspec-puppet.com
 ServerSPEC:    https://serverspec.org
 Puppet Litmus: https://puppetlabs.github.io/litmus/
 
-It should be noted that since the acceptance testing affects Grub and other booting 
-mechanisms, that the docker provisioners could not be used, as containers do not "boot".
+It should be noted that since the acceptance testing affects Grub and other booting
+mechanisms, that the docker provisioners could not be used, as containers do not "boot"
+and code to work with the Grub subsystem would not function..
 
-In those circumstances, I utilized the vagrant provisioner to stand up full VMs to 
+In those circumstances, I utilized the vagrant provisioner to stand up full VMs to
 execute acceptance testing.
 
 # Current Allowances Needing Remediation
