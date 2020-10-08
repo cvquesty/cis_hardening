@@ -32,7 +32,7 @@ require 'spec_helper_acceptance'
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 640 }
+    it { is_expected.to be_mode 0o0640 }
     its(:content) { is_expected.to match (/-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change/) }
     its(:content) { is_expected.to match (/-a always\,exit -F arch=b64 -S clock_settime -k time-change/) }
     its(:content) { is_expected.to match (/-w \/etc\/localtime -p wa -k time-change/) }
@@ -95,13 +95,13 @@ require 'spec_helper_acceptance'
     it { is_expected.to be_directory }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 755 }
+    it { is_expected.to be_mode 0o0755 }
   end
 
   describe file('/etc/default/grub') do
     it { is_expected.to be_file }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_mode 0o0644 }
     its (:content) { is_expected.to match (/GRUB_CMDLINE_LINUX="audit=1"/) }
   end

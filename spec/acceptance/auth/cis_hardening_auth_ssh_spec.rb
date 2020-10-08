@@ -25,7 +25,7 @@ describe file('/etc/ssh/sshd_config') do
   it { is_expected.to be_file }
   it { is_expected.to be_owned_by 'root' }
   it { is_expected.to be_grouped_into 'root' }
-  it { is_expected.to be_mode 600 }
+  it { is_expected.to be_mode 0o0600 }
   it { is_expected.to contain 'Protocol 2' }
   it { is_expected.to contain 'LogLevel INFO' }
   it { is_expected.to contain 'X11Forwarding no' }
