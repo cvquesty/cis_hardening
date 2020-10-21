@@ -40,7 +40,7 @@ class cis_hardening::maint::usergroups {
     exec { 'check_trailing_colon_root_path':
       path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
       command => 'logger -p crit "Trailing : in root PATH."',
-      onlyif  => 'test ! `echo "$PATH" |grep -q ":$"`',
+      onlyif  => 'test `echo "$PATH" |grep -q ":$"`',
     }
 
     # Check for group and world writable directories
