@@ -25,39 +25,7 @@ class cis_hardening::setup::filesystem {
     require => File['/etc/modprobe.d/CIS.conf'],
   }
 
-  # Ensure mounting of freevxfs filesystems is disabled - Section 1.1.1.2
-  file_line { 'freevxfs_disable':
-    ensure  => 'present',
-    path    => '/etc/modprobe.d/CIS.conf',
-    line    => 'install freevxfs /bin/true',
-    require => File['/etc/modprobe.d/CIS.conf'],
-  }
-
-  # Ensure mounting of jffs2 Filesystems is disabled - Section 1.1.1.3
-  file_line { 'jffs2_disable':
-    ensure  => 'present',
-    path    => '/etc/modprobe.d/CIS.conf',
-    line    => 'install jffs2 /bin/true',
-    require => File['/etc/modprobe.d/CIS.conf'],
-  }
-
-  # Ensure mounting of hfs filesystems is disabled - Section 1.1.1.4
-  file_line { 'hfs_disable':
-    ensure  => 'present',
-    path    => '/etc/modprobe.d/CIS.conf',
-    line    => 'install hfs /bin/true',
-    require => File['/etc/modprobe.d/CIS.conf'],
-  }
-
-  # Ensure mounting of hfsplus filesystems is disabled - Section 1.1.1.5
-  file_line { 'hfsplus_disable':
-    ensure  => 'present',
-    path    => '/etc/modprobe.d/CIS.conf',
-    line    => 'install hfsplus /bin/true',
-    require => File['/etc/modprobe.d/CIS.conf'],
-  }
-
-  # Ensure mounting of squashfs filesystems is disabled - Section 1.1.1.6
+  # Ensure mounting of squashfs filesystems is disabled - Section 1.1.1.2
   file_line { 'squashfs_disable':
     ensure  => 'present',
     path    => '/etc/modprobe.d/CIS.conf',
@@ -65,7 +33,7 @@ class cis_hardening::setup::filesystem {
     require => File['/etc/modprobe.d/CIS.conf'],
   }
 
-  # Ensure mounting of udf filesystem is disabled - Section 1.1.1.7
+  # Ensure mounting of udf Filesystems is disabled - Section 1.1.1.3
   file_line { 'udf_disable':
     ensure  => 'present',
     path    => '/etc/modprobe.d/CIS.conf',
@@ -73,11 +41,25 @@ class cis_hardening::setup::filesystem {
     require => File['/etc/modprobe.d/CIS.conf'],
   }
 
-  # Ensure mounting of FAT filesystems (vfat) is disabled - Section 1.1.1.8
+  # Ensure mounting of FAT filesystems (vfat) is disabled - Section 1.1.1.4
   file_line { 'vfat_disable':
     ensure  => 'present',
     path    => '/etc/modprobe.d/CIS.conf',
     line    => 'install vfat /bin/true',
+    require => File['/etc/modprobe.d/CIS.conf'],
+  }
+
+  file_line { 'fat_disable':
+    ensure  => 'present',
+    path    => '/etc/modprobe.d/CIS.conf',
+    line    => 'install fat /bin/true',
+    require => File['/etc/modprobe.d/CIS.conf'],
+  }
+
+  file_line { 'msdos_disable':
+    ensure  => 'present',
+    path    => '/etc/modprobe.d/CIS.conf',
+    line    => 'install msdos /bin/true',
     require => File['/etc/modprobe.d/CIS.conf'],
   }
 
