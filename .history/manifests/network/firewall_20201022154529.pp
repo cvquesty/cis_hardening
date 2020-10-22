@@ -48,12 +48,7 @@ class cis_hardening::network::firewall {
   # Ensure outbound and established connections are configured - Section 3.5.3.2.3
   # Ensure Firewall rules exist for all open ports - Section 3.5.3.2.4
   # Ensure IPTables rules are saved - Section 3.5.3.2.5
-
-  # Ensure IPTables is enabled and running - Section 3.5.3.2.6
-  service { 'iptables':
-    ensure => 'running',
-    enable => true,
-  }
+  # Ensure IPTables is e
 
   # Place IPTABLES config file
   file { '/etc/sysconfig/iptables':
@@ -63,11 +58,4 @@ class cis_hardening::network::firewall {
     mode   => '0600',
     source => 'puppet:///modules/cis_hardening/iptables.conf',
   }
-
-  # Configure IPv6 IPTables - Section 3.5.3.3
-  #
-  # IPv6 is disabled in this iteration. As such, all IPv6 IPTables configuration elements will
-  # be ignored. Those controls are:
-  #
-  # 3.5.3.3.1, 3.5.3.3.2, 3.5.3.3.3, 3.5.3.3.4, 3.5.3.3.5, 3.5.3.3.6, 
 }

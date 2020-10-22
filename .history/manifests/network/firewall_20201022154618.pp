@@ -51,8 +51,7 @@ class cis_hardening::network::firewall {
 
   # Ensure IPTables is enabled and running - Section 3.5.3.2.6
   service { 'iptables':
-    ensure => 'running',
-    enable => true,
+    ensure => 
   }
 
   # Place IPTABLES config file
@@ -63,11 +62,4 @@ class cis_hardening::network::firewall {
     mode   => '0600',
     source => 'puppet:///modules/cis_hardening/iptables.conf',
   }
-
-  # Configure IPv6 IPTables - Section 3.5.3.3
-  #
-  # IPv6 is disabled in this iteration. As such, all IPv6 IPTables configuration elements will
-  # be ignored. Those controls are:
-  #
-  # 3.5.3.3.1, 3.5.3.3.2, 3.5.3.3.3, 3.5.3.3.4, 3.5.3.3.5, 3.5.3.3.6, 
 }
