@@ -28,5 +28,5 @@ class cis_hardening::network::ipv6 {
   }
 
   # Ensure Wireless Interfaces are disabled - Section 3.1.2
-  # TODO: Create fact to find wireless interfaces for disabling
+  # TODO: Create fact to find wireless interfaces
 }

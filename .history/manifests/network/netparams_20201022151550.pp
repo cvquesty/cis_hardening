@@ -67,7 +67,7 @@ class cis_hardening::network::netparams {
     notify => Exec['restart_sysctl'],
   }
 
-  # Ensure secure ICMP redirects are not accepted - Section 3.3.3
+  # Ensure secure ICMP redirects are not accepted - Section 3..3
   file_line { 'icmp_redirects_all_secure':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
@@ -82,7 +82,7 @@ class cis_hardening::network::netparams {
     notify => Exec['restart_sysctl'],
   }
 
-  # Ensure suspicious packets are logged - Section 3.3.4
+  # Ensure suspicious packets are logged - Section 3.2.4
   file_line { 'log_suspicious_all':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
@@ -97,7 +97,7 @@ class cis_hardening::network::netparams {
     notify => Exec['restart_sysctl'],
   }
 
-  # Ensure broadcast ICMP requests are ignored - Section 3.3.5
+  # Ensure broadcast ICMP requests are ignored - Section 3.2.5
   file_line { 'ignore_broadcasts':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
@@ -105,7 +105,7 @@ class cis_hardening::network::netparams {
     notify => Exec['restart_sysctl'],
   }
 
-  # Ensure bogus ICMP responses are ignored - Section 3.3.6
+  # Ensure bogus ICMP responses are ignored - Section 3.2.6
   file_line { 'ignore_bogus_icmp_errors':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
@@ -113,7 +113,7 @@ class cis_hardening::network::netparams {
     notify => Exec['restart_sysctl'],
   }
 
-  # Ensure reverse path filtering is enabled - Section 3.3.7
+  # Ensure reverse path filtering is enabled - Section 3.2.7
   file_line { 'reverse_path_filter_all':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
@@ -128,26 +128,11 @@ class cis_hardening::network::netparams {
     notify => Exec['restart_sysctl'],
   }
 
-  # Ensure TCP SYN Cookies is enabled - Section 3.3.8
+  # Ensure TCP SYN Cookies is enabled - Section 3.2.8
   file_line { 'tcp_syncookies':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
     line   => 'net.ipv4.tcp_syncookies = 1',
-    notify => Exec['restart_sysctl'],
-  }
-
-  # Ensure IPv6 router advertisements are not accepted - Section 3.3.9
-  file_line { 'net_ipv6_all_accept_ra':
-    ensure => 'present',
-    path   => '/etc/sysctl.d/99-sysctl.conf',
-    line   => 'net.ipv6.conf.all.accept_ra = 0',
-    notify => Exec['restart_sysctl'],
-  }
-
-  file_line { 'net_ipv6_default_accept_ra':
-    ensure => 'present',
-    path   => '/etc/sysctl.d/99-sysctl.conf',
-    line   => 'net.ipv6.conf.default.accept_ra = 0',
     notify => Exec['restart_sysctl'],
   }
 }

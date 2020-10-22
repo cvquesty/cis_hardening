@@ -148,6 +148,6 @@ class cis_hardening::network::netparams {
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
     line   => 'net.ipv6.conf.default.accept_ra = 0',
-    notify => Exec['restart_sysctl'],
+    
   }
 }
