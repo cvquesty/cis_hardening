@@ -347,13 +347,37 @@ class cis_hardening::logaudit::accounting {
     line   => '-a always,exit -F arch=b64 -S init_module -S delete_module -k modules',
   }
 
-  # Ensure the audit configuration is immutable - Section 4.1.17
-  file_line { 'make_auditd_immutable':
-    ensure             => 'present',
-    path               => '/etc/audit/audit.rules',
-    line               => '-e 2',
-    match              => '^-e\ ',
-    append_on_no_match => true,
-  }
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
 
 }

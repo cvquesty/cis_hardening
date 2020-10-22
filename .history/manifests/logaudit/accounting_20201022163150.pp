@@ -109,22 +109,6 @@ class cis_hardening::logaudit::accounting {
   # backlog limit globbing into the grub.conf could generate a "non-bootable" situation
   # TODO: Develop a good scenario for alloting grub options via automation
 
-    # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
-  file { '/etc/default':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
-  file { '/etc/default/grub':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => File['/etc/default'],
-  }
-
   # Ensure events that modify date and time information are collected - Section 4.1.3
   file_line { 'time_change_64bit_item1':
     ensure => 'present',
@@ -322,7 +306,48 @@ class cis_hardening::logaudit::accounting {
     line   => '-w /var/log/sudo.log -p wa -k actions',
   }
 
-  # Ensure Kernel module loading and unloading are collected - Section 4.1.16
+  # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
+  file { '/etc/default':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  file { '/etc/default/grub':
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => File['/etc/default'],
+  }
+
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  # Ensure Kernel module loading and unloading are collected - Section 4.1.17
   file_line { 'check_insmod':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
@@ -347,7 +372,7 @@ class cis_hardening::logaudit::accounting {
     line   => '-a always,exit -F arch=b64 -S init_module -S delete_module -k modules',
   }
 
-  # Ensure the audit configuration is immutable - Section 4.1.17
+  # Ensure the audit configuration is immutable - Section 4.1.18
   file_line { 'make_auditd_immutable':
     ensure             => 'present',
     path               => '/etc/audit/audit.rules',
@@ -355,5 +380,4 @@ class cis_hardening::logaudit::accounting {
     match              => '^-e\ ',
     append_on_no_match => true,
   }
-
 }

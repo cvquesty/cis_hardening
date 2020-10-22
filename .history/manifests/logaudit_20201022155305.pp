@@ -1,7 +1,7 @@
 # @summary A manifest to configure logging and auditing according
 # to CIS Hardening guidelines
 #
-# Section 4 - Logging and Auditing
+# Section 4 
 #
 # Enforces CIS recommendations for logging and auditing  according to 
 # published hardening guidelines for CentOS 7.x systems

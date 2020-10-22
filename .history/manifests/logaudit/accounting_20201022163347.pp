@@ -356,4 +356,35 @@ class cis_hardening::logaudit::accounting {
     append_on_no_match => true,
   }
 
+
+
+
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+
 }

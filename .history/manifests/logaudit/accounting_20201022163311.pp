@@ -108,22 +108,7 @@ class cis_hardening::logaudit::accounting {
   # Ensure audit_backlog_limit is sufficient - Section 4.1.2.4
   # backlog limit globbing into the grub.conf could generate a "non-bootable" situation
   # TODO: Develop a good scenario for alloting grub options via automation
-
-    # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
-  file { '/etc/default':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
-  file { '/etc/default/grub':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => File['/etc/default'],
-  }
+  
 
   # Ensure events that modify date and time information are collected - Section 4.1.3
   file_line { 'time_change_64bit_item1':
@@ -347,7 +332,39 @@ class cis_hardening::logaudit::accounting {
     line   => '-a always,exit -F arch=b64 -S init_module -S delete_module -k modules',
   }
 
-  # Ensure the audit configuration is immutable - Section 4.1.17
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+  
+
+  # Ensure the audit configuration is immutable - Section 4.1.18
   file_line { 'make_auditd_immutable':
     ensure             => 'present',
     path               => '/etc/audit/audit.rules',
@@ -355,5 +372,4 @@ class cis_hardening::logaudit::accounting {
     match              => '^-e\ ',
     append_on_no_match => true,
   }
-
 }

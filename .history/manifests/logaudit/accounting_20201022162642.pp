@@ -19,11 +19,8 @@ class cis_hardening::logaudit::accounting {
 
   # Ensure auditd service is enabled and running - Section 4.1.1.2
   service { 'auditd':
-    ensure     => 'running',
-    enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
-    require    => File['/etc/audit/audit.rules'],
+    ensure => 'running',
+    enable => true,
   }
 
   # Exec to notify from auditd rules changes
@@ -39,9 +36,7 @@ class cis_hardening::logaudit::accounting {
     path    => '/etc/default/grub',
     line    => 'GRUB_CMDLINE_LINUX="audit=1"',
     require => File['/etc/default/grub'],
-  }
-  
-  # NOTE: Above audit.rules settings may require a reboot to become effective especially in regards
+  }# NOTE: Above audit.rules settings may require a reboot to become effective especially in regards
   # to those rules to be activated prior to Grub's loading
 
   # AuditD is using an include directory now, but I have opted for audit.rules for the time being.
@@ -108,22 +103,6 @@ class cis_hardening::logaudit::accounting {
   # Ensure audit_backlog_limit is sufficient - Section 4.1.2.4
   # backlog limit globbing into the grub.conf could generate a "non-bootable" situation
   # TODO: Develop a good scenario for alloting grub options via automation
-
-    # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
-  file { '/etc/default':
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-
-  file { '/etc/default/grub':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => File['/etc/default'],
-  }
 
   # Ensure events that modify date and time information are collected - Section 4.1.3
   file_line { 'time_change_64bit_item1':
@@ -276,33 +255,73 @@ class cis_hardening::logaudit::accounting {
     line   => '-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod',
   }
 
-# Ensure unsuccessful unauthorized file access attempts are collected - Section 4.1.10
+  # Ensure auditd service is enabled - Section 4.1.2
+  service { 'auditd':
+    ensure     => 'running',
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+    require    => File['/etc/audit/audit.rules'],
+  }
+
+  # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
+  file { '/etc/default':
+    ensure => 'directory',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  file { '/etc/default/grub':
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => File['/etc/default'],
+  }
+
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  # Ensure unsuccessful unauthorized file access attempts are collected - Section 4.1.11
   file_line { 'file_truncate':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
     line   => '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access',
   }
-    
-  # Ensure use of privileged commands is collected - Section 4.1.11
+
+  # Ensure use of privileged commands is collected - Section 4.1.12
   # Given that elevated privilege commands can only be found via ad-hoc queries
   # of the filesystem/logfiles, it is not possible to generate the needed audit rules
   # without orchestration and/or custom facts. Will revisit
 
-  # Ensure succesful filesystem mounts are collected - Section 4.1.12
+  # Ensure succesful filesystem mounts are collected - Section 4.1.13
   file_line { 'mount_cmds':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
     line   => '-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts',
   }
 
-# Ensure file deletion events by users are captured - Section 4.1.13
+  # Ensure file deletion events by users are captured - Section 4.1.14
   file_line { 'file_deletions':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
     line   => '-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete',
   }
 
-# Ensure changes to system administration scope (sudoers) is collected - Section 4.1.14
+  # Ensure changes to system administration scope (sudoers) is collected - Section 4.1.15
   file_line { 'sudoers_file':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
@@ -315,14 +334,14 @@ class cis_hardening::logaudit::accounting {
     line   => '-w /etc/sudoers.d/ -p wa -k scope',
   }
 
-  # Ensure system administrator actions (sudolog) are collected - Section 4.1.15
+  # Ensure system administrator actions (sudolog) are collected - Section 4.1.16
   file_line { 'sudolog':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
     line   => '-w /var/log/sudo.log -p wa -k actions',
   }
 
-  # Ensure Kernel module loading and unloading are collected - Section 4.1.16
+  # Ensure Kernel module loading and unloading are collected - Section 4.1.17
   file_line { 'check_insmod':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
@@ -347,7 +366,7 @@ class cis_hardening::logaudit::accounting {
     line   => '-a always,exit -F arch=b64 -S init_module -S delete_module -k modules',
   }
 
-  # Ensure the audit configuration is immutable - Section 4.1.17
+  # Ensure the audit configuration is immutable - Section 4.1.18
   file_line { 'make_auditd_immutable':
     ensure             => 'present',
     path               => '/etc/audit/audit.rules',
@@ -355,5 +374,4 @@ class cis_hardening::logaudit::accounting {
     match              => '^-e\ ',
     append_on_no_match => true,
   }
-
 }
