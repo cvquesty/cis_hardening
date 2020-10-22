@@ -51,14 +51,22 @@ class cis_hardening::setup::accessctl {
     onlyif  => 'test `ps -eZ | grep unconfined_service_t`',
   }
 
-  # Ensure SETroubleshoot is not installed - Section 1.7.1.7
+  # Ensure SETroubleshoot is not installed - Section 1.7.1.4
   package { 'setroubleshoot':
     ensure => 'absent',
   }
 
-  # Ensure MCS Translation Service is not installed - Section 1.7.1.8
+  # Ensure MCS Translation Service is not installed - Section 1.6.1.5
   package { 'mcstrans':
     ensure => 'absent',
   }
- 
+
+  # Ensure no unconfined daemons exist - Section 1.6.1.6
+  #
+  # NOTE: This is a manual inspection item. Check for unconfined daemons with:
+  #
+  # ps -eZ | egrep "initrc" | egrem -vw "tr|ps|egrep|bash|awk" | tr ':' ' ' | awk '{ print $NF }'
+
+
+
 }

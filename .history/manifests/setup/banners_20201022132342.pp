@@ -84,7 +84,7 @@ class cis_hardening::setup::banners {
     file_line { 'gdm_banner_message_text':
       ensure => 'present',
       path   => '/etc/dconf/db/gdm.d/01-banner-message',
-      line   => "banner-message-text='Secure Login'",
+      line   => "banner-message-text='<banner message>'",
       notify => Exec['refresh_dconf'],
     }
 

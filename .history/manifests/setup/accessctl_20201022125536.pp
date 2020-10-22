@@ -27,16 +27,7 @@ class cis_hardening::setup::accessctl {
     match  => '^GRUB_CMDLINE_LINUX\=',
   }
 
-  # Ensure SELINUX Policy is configured - Section 1.7.1.3
-  file_line { 'selinux_policy':
-    ensure => 'present',
-    path   => '/etc/selinux/config',
-    line   => 'SELINUXTYPE=targeted',
-    match  => '^SELINUXTYPE\=',
-  }
-
-  # Ensure the SELinux mode is "enforcing" or "permisive - Section 1.7.1.4
-  # Ensure the SELinux mode is "enforcing" - Section 1.7.1.5
+  # Ensure the SELinux state is "enforcing" - Section 1.7.1.4
   file_line { 'selinux_state':
     ensure => 'present',
     path   => '/etc/selinux/config',
@@ -44,21 +35,30 @@ class cis_hardening::setup::accessctl {
     match  => '^SELINUX\=',
   }
 
-  # Ensure no unconfined services exist - Section 1.7.1.6
-  exec { 'unconfined_services':
-    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => 'logger -p crit "Some unconfined services are running"',
-    onlyif  => 'test `ps -eZ | grep unconfined_service_t`',
+  # Ensure SELINUX Policy is configured - Section 1.6.1.3
+  file_line { 'selinux_policy':
+    ensure => 'present',
+    path   => '/etc/selinux/config',
+    line   => 'SELINUXTYPE=targeted',
+    match  => '^SELINUXTYPE\=',
   }
 
-  # Ensure SETroubleshoot is not installed - Section 1.7.1.7
+  # Ensure SETroubleshoot is not installed - Section 1.6.1.4
   package { 'setroubleshoot':
     ensure => 'absent',
   }
 
-  # Ensure MCS Translation Service is not installed - Section 1.7.1.8
+  # Ensure MCS Translation Service is not installed - Section 1.6.1.5
   package { 'mcstrans':
     ensure => 'absent',
   }
- 
+
+  # Ensure no unconfined daemons exist - Section 1.6.1.6
+  #
+  # NOTE: This is a manual inspection item. Check for unconfined daemons with:
+  #
+  # ps -eZ | egrep "initrc" | egrem -vw "tr|ps|egrep|bash|awk" | tr ':' ' ' | awk '{ print $NF }'
+
+
+
 }

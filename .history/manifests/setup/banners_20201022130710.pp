@@ -7,10 +7,10 @@
 #   include cis_hardening::setup::banners
 class cis_hardening::setup::banners {
 
-  # 1.8.1 - Command Line Warning Banners
+  # 1.7 - Command Line Warning Banners
 
-  # Ensure message of the day (MOTD) is properly configured - Section 1.8.1.1,
-  # Ensure permisisons on /etc/motd are configured - Section 1.8.1.4
+  # Ensure message of the day (MOTD) is properly configured - Section 1.7.1.1,
+  # Ensure permisisons on /etc/motd are configured - Section 1.7.1.4
   file { '/etc/motd':
     ensure => 'present',
     owner  => 'root',
@@ -19,8 +19,8 @@ class cis_hardening::setup::banners {
     source => 'puppet:///modules/cis_hardening/etc_motd',
   }
 
-  # Ensure local login warning banner is configured properly - Section 1.8.1.2
-  # Ensure permissions on /etc/issue are configured - Section 1.8.1.5
+  # Ensure local login warning banner is configured properly - Section 1.7.1.2
+  # Ensure permissions on /etc/issue are configured - Section 1.7.1.5
   file { '/etc/issue':
     ensure => 'present',
     owner  => 'root',
@@ -29,8 +29,8 @@ class cis_hardening::setup::banners {
     source => 'puppet:///modules/cis_hardening/etc_issue',
   }
 
-  # Ensure remote login warning banner is configured properly - Section 1.8.1.3
-  # Ensure permissions on /etc/issue.net are configured - Section 1.8.1.6
+  # Ensure remote login warnig banner is configured properly - Section 1.7.1.3
+  # Ensure permissions on /etc/issue.net are configured - Section 1.7.1.6
   file { '/etc/issue.net':
     ensure => 'present',
     owner  => 'root',
@@ -39,16 +39,9 @@ class cis_hardening::setup::banners {
     source => 'puppet:///modules/cis_hardening/etc_issue_net',
   }
 
-  # Ensure updates, patches, and additional security software are installed - Section 1.9
-  exec { 'check_for_updates':
-    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => 'logger -p crit "Updates to the system are available."',
-    onlyif  => 'test ! `yum check-update`',
-  }
-
-  # Check that GDM is removed or login is configured - Section 1.10
+  # Check that GDM is even installed before performing next section
   if $facts['gdm'] == 'present' {
-    # Ensure GDM login banner is configured
+    # Ensure GDM login banner is configured - Section 1.7.2
     file_line { 'gdm_userdb':
       ensure => 'present',
       path   => '/etc/dconf/profile/gdm',
@@ -84,7 +77,7 @@ class cis_hardening::setup::banners {
     file_line { 'gdm_banner_message_text':
       ensure => 'present',
       path   => '/etc/dconf/db/gdm.d/01-banner-message',
-      line   => "banner-message-text='Secure Login'",
+      line   => "banner-message-text='<banner message>'",
       notify => Exec['refresh_dconf'],
     }
 

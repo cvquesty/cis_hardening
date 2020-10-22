@@ -48,7 +48,7 @@ class cis_hardening::setup::banners {
 
   # Check that GDM is removed or login is configured - Section 1.10
   if $facts['gdm'] == 'present' {
-    # Ensure GDM login banner is configured
+    # Ensure GDM login banner is configured - Section 1.7.2
     file_line { 'gdm_userdb':
       ensure => 'present',
       path   => '/etc/dconf/profile/gdm',
@@ -84,7 +84,7 @@ class cis_hardening::setup::banners {
     file_line { 'gdm_banner_message_text':
       ensure => 'present',
       path   => '/etc/dconf/db/gdm.d/01-banner-message',
-      line   => "banner-message-text='Secure Login'",
+      line   => "banner-message-text='<banner message>'",
       notify => Exec['refresh_dconf'],
     }
 
