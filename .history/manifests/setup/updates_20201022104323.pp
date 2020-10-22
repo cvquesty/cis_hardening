@@ -11,11 +11,7 @@ class cis_hardening::setup::updates {
   # Run "rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'" at the command line to
   # display the configured keys, and compare them against the latest published keys for each repo.
 
-  # Ensure Package Manager Repositories are Configured - Section 1.2.2
-  #
-  # Run "yum repolist" to retrieve the full list of currently configured Repositories.
-  # Manually compare against site policy
-
+  # Ensure Package M
 
   # Ensure gpgcheck is globally activated - Section 1.2.3
   file_line { 'gpgcheck':

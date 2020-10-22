@@ -165,36 +165,50 @@ class cis_hardening::setup::filesystem {
     onlyif  => 'test ! mount |grep /home',
   }
 
-  # Ensure nodev option is set on /home partition - Section 1.1.18
+  # Ensure nodev option is set on /home partition - Section 1.1.1
   exec { 'chkhome_nodev':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Partition /home does not have the nodev option set"',
     onlyif  => 'test ! mount |grep /home |grep nodev',
   }
 
-  # Ensure noexec option set on removable media partitions - Section 1.1.19
-  # Ensure nodev option set on removable media partitions - Section 1.1.20
-  # Ensure nosuid option set on removable media paritions - Section 1.1.21
-  # TODO: Write a fact to check this state
+  # Ensure nodev option set on /dev/shm parition - Section 1.1.15
+  exec { 'chkdevshm_nodev':
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+    command => 'logger -p crit "Parition /dev/shm does not have the nodev option set."',
+    onlyif  => 'test ! mount |grep /dev/shm |grep nodev',
+  }
 
-  # Ensure sticky bit is set on all world-writable directories - Section 1.1.22
-  # TODO: Write a fact to check this state
+  # Ensure nosuid option set on /dev/shm parition - Section 1.1.16
+  exec { 'chkdevshm_nosuid':
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+    command => 'logger -p crit "Partition /dev/shm does not have the nosuid option set."',
+    onlyif  => 'test ! mount |grep /dev/shm |grep nosuid',
+  }
 
-  # Disable Automounting - Section 1.1.23
+  # Ensure noexec option set on /dev/shm parition - Section 1.1.17
+  exec { 'chkdevshm_noexec':
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+    command => 'logger -p crit "Partition /dev/shm does not have the noexec option set."',
+    onlyif  => 'test ! mount |grep /dev/shm |grep noexec',
+  }
+
+  # Ensure nodev option set on removable media partitions - Section 1.1.18
+  # Ensure nosuid option set on removable media partitions - Section 1.1.19
+  # Ensure noexec option set on removable media paritions - Section 1.1.20
+  #
+  # NOTE: These steps require manual inspection and action based on observations
+
+  # Ensure sticky bit is set on all world-writable directories - Section 1.1.21
+  #
+  # NOTE: This step requires manual inspection and action based on observations
+
+  # Disable Automounting - Section 1.1.22
   service { 'autofs':
     ensure     => 'stopped',
     enable     => false,
     hasstatus  => true,
     hasrestart => true,
-  }
-
-  # Disable USB Storage - Section 1.1.24
-  file { '/etc/modprobe.d/cisusbstorage.conf':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content =>  'install usb-storage /bin/true',
   }
 
 }

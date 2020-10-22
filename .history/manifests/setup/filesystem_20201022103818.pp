@@ -189,12 +189,6 @@ class cis_hardening::setup::filesystem {
   }
 
   # Disable USB Storage - Section 1.1.24
-  file { '/etc/modprobe.d/cisusbstorage.conf':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content =>  'install usb-storage /bin/true',
-  }
+  file { '/etc/modprobe.d/cisusbstorage.conf'}
 
 }

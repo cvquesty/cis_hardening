@@ -13,8 +13,7 @@ class cis_hardening::setup::updates {
 
   # Ensure Package Manager Repositories are Configured - Section 1.2.2
   #
-  # Run "yum repolist" to retrieve the full list of currently configured Repositories.
-  # Manually compare against site policy
+  
 
 
   # Ensure gpgcheck is globally activated - Section 1.2.3

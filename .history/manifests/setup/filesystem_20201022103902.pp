@@ -194,7 +194,7 @@ class cis_hardening::setup::filesystem {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content =>  'install usb-storage /bin/true',
+    content => 
   }
 
 }

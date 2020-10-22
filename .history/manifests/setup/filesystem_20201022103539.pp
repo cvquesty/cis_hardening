@@ -178,23 +178,14 @@ class cis_hardening::setup::filesystem {
   # TODO: Write a fact to check this state
 
   # Ensure sticky bit is set on all world-writable directories - Section 1.1.22
-  # TODO: Write a fact to check this state
+  #
 
-  # Disable Automounting - Section 1.1.23
+  # Disable Automounting - Section 1.1.22
   service { 'autofs':
     ensure     => 'stopped',
     enable     => false,
     hasstatus  => true,
     hasrestart => true,
-  }
-
-  # Disable USB Storage - Section 1.1.24
-  file { '/etc/modprobe.d/cisusbstorage.conf':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content =>  'install usb-storage /bin/true',
   }
 
 }
