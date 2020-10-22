@@ -31,8 +31,9 @@ class cis_hardening::setup::secboot {
       group  => 'root',
       mode   => '0600',
     }
+    
 
-    # Ensure authentication required for single user mode - Section 1.5.3
+    # Ensure authentication required for single user mode - Section 1.4.3
     #
     # NOTE: Check for sulogin with "grep /sbin/sulogin /usr/lib/systemd/system/rescue.service" command
     # Remediate manually if desired
@@ -40,13 +41,13 @@ class cis_hardening::setup::secboot {
     file_line { 'sulogin_rescue':
       ensure => 'present',
       path   => '/usr/lib/systemd/system/rescue.service',
-      line   => 'ExecStart=-/bin/sh -c "/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
+      line   => 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
     }
 
     file_line { 'sulogin_emergency':
       ensure => 'present',
       path   => '/usr/lib/systemd/system/emergency.service',
-      line   => 'ExecStart=-/bin/sh -c "/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
+      line   => 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
     }
   }
 }

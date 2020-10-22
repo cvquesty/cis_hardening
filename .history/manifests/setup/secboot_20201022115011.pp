@@ -46,7 +46,7 @@ class cis_hardening::setup::secboot {
     file_line { 'sulogin_emergency':
       ensure => 'present',
       path   => '/usr/lib/systemd/system/emergency.service',
-      line   => 'ExecStart=-/bin/sh -c "/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
+      line   => 'ExecStart=-/bin/sh -c "/usbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
     }
   }
 }

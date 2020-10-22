@@ -12,14 +12,11 @@ class cis_hardening::setup::prochardening {
     command => '/sbin/sysctl -p',
   }
 
-  # Ensure Core Dumps are restricted - Section 1.6.1
-  file { '/etc/security/limits.d/cis_coredumps.conf':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => '* hard core 0',
-    notify => Exec['restart_prochardening_sysctl'],
+  # Ensure Core Dumps are restricted - Section 1.5.1
+  file_line { 'core_limits':
+    ensure => 'present',
+    path   => '/etc/security/limits.conf',
+    line   => '* hard core 0',
   }
 
   file_line { 'fs_dumpable':
@@ -29,11 +26,11 @@ class cis_hardening::setup::prochardening {
     notify => Exec['restart_prochardening_sysctl'],
   }
 
-  # Ensure XD/NX support is enabled - Section 1.6.2
+  # Ensure XD/NX support is enabled - Section 1.5.2
   #
   # NOTE: Enabled by default on 64-bit systems
 
-  # Ensure Address space layout randomization (ASLR) is enabled - Section 1.6.3
+  # Ensure Address space layout randomization - Section 1.5.3
   file_line { 'randomize_va_space':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
@@ -41,9 +38,7 @@ class cis_hardening::setup::prochardening {
     notify => Exec['restart_prochardening_sysctl'],
   }
 
-  # Ensure prelink is disabled - Section 1.6.4
-
-  # First restore binaries to normal:
+  # Ensure prelink is disabled - Section 1.5.3
   package { 'prelink':
     ensure => 'absent',
   }

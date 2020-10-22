@@ -33,7 +33,7 @@ class cis_hardening::setup::prochardening {
   #
   # NOTE: Enabled by default on 64-bit systems
 
-  # Ensure Address space layout randomization (ASLR) is enabled - Section 1.6.3
+  # Ensure Address space layout randomization - Section 1.5.3
   file_line { 'randomize_va_space':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
@@ -41,9 +41,7 @@ class cis_hardening::setup::prochardening {
     notify => Exec['restart_prochardening_sysctl'],
   }
 
-  # Ensure prelink is disabled - Section 1.6.4
-
-  # First restore binaries to normal:
+  # Ensure prelink is disabled - Section 1.5.3
   package { 'prelink':
     ensure => 'absent',
   }

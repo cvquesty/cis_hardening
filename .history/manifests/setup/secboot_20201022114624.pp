@@ -7,13 +7,7 @@
 class cis_hardening::setup::secboot {
 
   # Ensure bootloader password is set - Section 1.5.1
-  # Check that Grub Password is set:
-  #
-  #   grep "^\s*GRUB2_PASSWORD" /boot/grub2/user.cfg
-  #
-  # If not, the password can be set interactively with the following command:
-  #
-  #   
+  # Check 
 
   # Ensure permissions on bootloader config are configured - Section 1.5.2
   if $facts['virtual'] == 'docker' {
@@ -32,7 +26,14 @@ class cis_hardening::setup::secboot {
       mode   => '0600',
     }
 
-    # Ensure authentication required for single user mode - Section 1.5.3
+    # Ensure bootloader password is set - Section 1.4.2
+    #
+    # NOTE: Be sure to set boot password if physical security is unable to be maintained. Use the command:
+    #   grub2-setpassword
+    #
+    # to achieve this goal.
+
+    # Ensure authentication required for single user mode - Section 1.4.3
     #
     # NOTE: Check for sulogin with "grep /sbin/sulogin /usr/lib/systemd/system/rescue.service" command
     # Remediate manually if desired
@@ -40,13 +41,13 @@ class cis_hardening::setup::secboot {
     file_line { 'sulogin_rescue':
       ensure => 'present',
       path   => '/usr/lib/systemd/system/rescue.service',
-      line   => 'ExecStart=-/bin/sh -c "/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
+      line   => 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
     }
 
     file_line { 'sulogin_emergency':
       ensure => 'present',
       path   => '/usr/lib/systemd/system/emergency.service',
-      line   => 'ExecStart=-/bin/sh -c "/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
+      line   => 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
     }
   }
 }

@@ -40,13 +40,13 @@ class cis_hardening::setup::secboot {
     file_line { 'sulogin_rescue':
       ensure => 'present',
       path   => '/usr/lib/systemd/system/rescue.service',
-      line   => 'ExecStart=-/bin/sh -c "/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
+      line   => 'ExecStart=-/bin/sh -c "/u/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
     }
 
     file_line { 'sulogin_emergency':
       ensure => 'present',
       path   => '/usr/lib/systemd/system/emergency.service',
-      line   => 'ExecStart=-/bin/sh -c "/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
+      line   => 'ExecStart=-/bin/sh -c "/usr/sbin/sulogin; /usr/bin/systemctl --fail --no-block default"',
     }
   }
 }

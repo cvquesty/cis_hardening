@@ -41,9 +41,11 @@ class cis_hardening::setup::prochardening {
     notify => Exec['restart_prochardening_sysctl'],
   }
 
-  # Ensure prelink is disabled - Section 1.6.4
+  # Ensure prelink is disabled - Section 1.5.3
 
   # First restore binaries to normal:
+
+  
   package { 'prelink':
     ensure => 'absent',
   }

@@ -6,7 +6,7 @@
 #   include cis_hardening::setup::fim
 class cis_hardening::setup::fim {
 
-  # Ensure AIDE is installed - Section 1.4.1
+  # Ensure AIDE is installed - Section 1.3.1
   package { 'aide':
     ensure => 'present',
   }
@@ -27,7 +27,7 @@ class cis_hardening::setup::fim {
     require => Exec['aideinit'],
   }
 
-  # Ensure filesystem integrity is regularly checked - Section 1.4.2
+  # Ensure filesystem integrity is regularly checked - Section 1.3.2
   cron { 'aide':
     command => '/usr/sbin/aide --check',
     user    => 'root',
