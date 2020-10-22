@@ -47,45 +47,5 @@ class cis_hardening::maint::usergroups {
     # TODO: Write Fact to collect this information
 
     # Ensure all User home directories exist - 6.2.5
-    # TODO: Write fact to collect this information
-
-    # Ensure users' home directory permissions are 750 or more restrictive - 6.2.6
-    # TODO: Write a fact to check this state
-
-    # Ensure users own their home directories - 6.2.7
-    # TODO: Write a fact to check this state
-
-    # Ensure users' dotfiles are not group or world writable - 6.2.8
-    # TODO: Write a fact to check this state
-
-    # Ensure no user has a .forward file - 6.2.9
-    # TODO: Write a fact to check this state
-
-    # Ensure no user as a .netrc file - 6.2.10
-    # TODO: Write a fact to check this state
-
-    # Ensure user's .netrc files are not group or world writable - 6.2.11
-    # TODO: Write a fact to check this state
-    # NOTE: Due to 6.2.10, this item should be redundant. Make a decision here.
-
-    # Ensure no users have .rhosts files - 6.2.12
-    # TODO: Write a fact to check this state
-
-    # Ensure all groups in /etc/passwd exist in /etc/group - 6.2.13
-    # TODO: Write a fact to check this state
-
-    # Ensure no duplicate UIDs exist - 6.2.14
-    # TODO: Write a fact to check this state
-
-    # Ensure no duplicate GIDs exist - 6.2.15
-    # TODO: Write a fact to check this state
-
-    # Ensure no duplicate usernames exist - 6.2.16
-    # TODO: Write a fact to check this state
-
-    # Ensure no duplicate group names exist - 6.2.17
-    # TODO: Write a fact to check this state
-
-    # Ensure shadow group is empty - 6.2.18
-    # TODO: Write a fact to check this state
+    
 }

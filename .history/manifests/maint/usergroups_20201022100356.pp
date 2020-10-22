@@ -86,6 +86,5 @@ class cis_hardening::maint::usergroups {
     # Ensure no duplicate group names exist - 6.2.17
     # TODO: Write a fact to check this state
 
-    # Ensure shadow group is empty - 6.2.18
-    # TODO: Write a fact to check this state
+    # Ensure shadow group is empty 
 }

@@ -87,5 +87,5 @@ class cis_hardening::maint::usergroups {
     # TODO: Write a fact to check this state
 
     # Ensure shadow group is empty - 6.2.18
-    # TODO: Write a fact to check this state
+    awk -F: '($4 == "<shadow-gid>") { print }' /etc/passwd
 }

@@ -74,18 +74,5 @@ class cis_hardening::maint::usergroups {
     # Ensure all groups in /etc/passwd exist in /etc/group - 6.2.13
     # TODO: Write a fact to check this state
 
-    # Ensure no duplicate UIDs exist - 6.2.14
-    # TODO: Write a fact to check this state
-
-    # Ensure no duplicate GIDs exist - 6.2.15
-    # TODO: Write a fact to check this state
-
-    # Ensure no duplicate usernames exist - 6.2.16
-    # TODO: Write a fact to check this state
-
-    # Ensure no duplicate group names exist - 6.2.17
-    # TODO: Write a fact to check this state
-
-    # Ensure shadow group is empty - 6.2.18
-    # TODO: Write a fact to check this state
+    # E
 }
