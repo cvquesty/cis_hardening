@@ -27,4 +27,6 @@ class cis_hardening::network::ipv6 {
     notify => Exec['restart_ipv6_sysctl'],
   }
 
+  
+
 }
