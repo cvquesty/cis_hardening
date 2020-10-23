@@ -31,9 +31,7 @@ class cis_hardening::logaudit::logging {
   }
 
   # Ensure logging is configured - Section 4.2.1.4
-  # Manual step for configuring Rsyslog
-  #
-  # TODO: automate process of configuring rsyslog
+  
 
   # Ensure rsyslog is configured to send logs to a remote log host - Section 4.2.1.5
   # file_line { 'remote_loghost':
@@ -44,7 +42,7 @@ class cis_hardening::logaudit::logging {
   # 
   # NOTE: Uncomment above and populate "line" attribute with appropriate syslog server.
 
-  # Ensure remote rsyslog messages are only accepted on designated log hosts - Section 4.2.1.6
+  # Ensure remote rsyslog messages are only accepted on designated log hosts - Section 4.2.1.5
   # add imtcp setting
   #file_line { 'imtcp_log':
   #  ensure => 'present',
@@ -78,9 +76,9 @@ class cis_hardening::logaudit::logging {
   #   ensure => 'present',
   # }
 
-  # Ensure permissions on all logfiles are configured - Section 4.2.3
+  # Ensure permissions on all logfiles are configured - Section 4.2.4
   exec { 'set_logfile_permissions':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => 'find /var/log -type f -exec chmod g-wx,o-rwx "{}" + -o -type d -exec chmod g-wx,o-rwx "{}" +',
+    command => 'find /var/log -type f -exec chmod g-wx,o-rwx {} +',
   }
 }
