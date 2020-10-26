@@ -96,6 +96,25 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
+      # Check that Ensure default user shell tieout is 900 seconds or less - Section 5.4.5
+      it {
+        is_expected.to contain_file_line('set_user_timeout_etcprofile').with(
+          'ensure' => 'present',
+          'path'   => '/etc/profile.d/cisumaskprofile.sh',
+          'line'   => 'TMOUT=600',
+          'match'  => '^TMOUT\=',
+        ).that_requires('File[/etc/profile.d/cisumaskprofile.sh]')
+      }
+
+      it {
+        is_expected.to contain_file_line('set_user_timeout_etcbashrc').with(
+          'ensure' => 'present',
+          'path'   => '/etc/profile.d/cisumaskbashrc.sh',
+          'line'   => 'TMOUT=600',
+          'match'  => '^TMOUT\=',
+        ).that_requires('File[/etc/profile.d/cisumaskbashrc.sh]')
+      }
+
       # Ensure manifest compiles with all dependencies
       it {
         is_expected.to compile.with_all_deps

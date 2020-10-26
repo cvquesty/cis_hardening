@@ -73,19 +73,8 @@ describe 'cis_hardening::auth::accounts' do
           'gid'    => 'root',
         )
       }
-        
-      # Check that Ensure default user shell timeout is 900 seconds or less - Section 5.4.4
-      it {
-        is_expected.to contain_file('/etc/profile.d/cisusertimeout.sh').with(
-          'ensure'  => 'present',
-          'owner'   => 'root',
-          'group'   => 'root',
-          'mode'    => '0755',
-          'content' => 'readonly TMOUT=600 ; export TMOUT',
-         )
-      }
 
-      # Check that Ensure default user umask is 027 or more restrictive - Section 5.4.5
+      # Check that Ensure default user umask is 027 or more restrictive - Section 5.4.4
       it {
         is_expected.to contain_file('/etc/profile.d/cisumaskprofile.sh').with(
           'ensure'  => 'present',
@@ -94,6 +83,35 @@ describe 'cis_hardening::auth::accounts' do
           'mode'    => '0644',
           'content' => 'umask 027',
         )
+      }
+
+      it {
+        is_expected.to contain_file('/etc/profile.d/cisumaskbashrc.sh').with(
+          'ensure'  => 'present',
+          'owner'   => 'root',
+          'group'   => 'root',
+          'mode'    => '0644',
+          'content' => 'umask 027',
+        )
+      }
+
+      # Check that Ensure default user shell tieout is 900 seconds or less - Section 5.4.5
+      it {
+        is_expected.to contain_file_line('set_user_timeout_etcprofile').with(
+          'ensure' => 'present',
+          'path'   => '/etc/profile.d/cisumaskprofile.sh',
+          'line'   => 'TMOUT=600',
+          'match'  => '^TMOUT\=',
+        ).that_requires('File[/etc/profile.d/cisumaskprofile.sh]')
+      }
+
+      it {
+        is_expected.to contain_file_line('set_user_timeout_etcbashrc').with(
+          'ensure' => 'present',
+          'path'   => '/etc/profile.d/cisumaskbashrc.sh',
+          'line'   => 'TMOUT=600',
+          'match'  => '^TMOUT\=',
+        ).that_requires('File[/etc/profile.d/cisumaskbashrc.sh]')
       }
 
       # Ensure manifest compiles with all dependencies
