@@ -57,7 +57,7 @@ class cis_hardening::auth::accounts {
   # Ensure System Accounts are non-login - Section 5.4.2
   # This requires a manual inspection. Aside from logging state, this will
   # not deliver remediation.
-  # TODO: Write a fact to detect state upon which to operate.
+  # TODO: Write a fact or function to detect 
 
 
   # Ensure default group for the root account is GID 0 - Section 5.4.3
@@ -83,7 +83,7 @@ class cis_hardening::auth::accounts {
     mode    => '0644',
     content => 'umask 027',
   }
-
+  
   # Ensure root login is restricted to system console - Section 5.5
   # This setting is a manual inspection/personal knowledge item.
   # The system has no way of understanding what consoles are "secure"

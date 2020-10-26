@@ -83,7 +83,7 @@ class cis_hardening::auth::accounts {
     mode    => '0644',
     content => 'umask 027',
   }
-
+  
   # Ensure root login is restricted to system console - Section 5.5
   # This setting is a manual inspection/personal knowledge item.
   # The system has no way of understanding what consoles are "secure"

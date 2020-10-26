@@ -51,13 +51,23 @@ class cis_hardening::auth::accounts {
   exec { 'password_change_past':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Password Change date in past for some users."',
-    onlyif  => 'test ! "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep "^Last password change" | cut -d: -f2) > $(date) ]] && echo "$usr :$(chage -- list $usr | grep "^Last password change" | cut -d: -f2)"; done"',
+    onlyif  => 'test ! "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep "^Last password change | cut -d: -f2) > $(date) ]] && echo "$usr :$(chage -- list $usr | grep '^Last password change' | cut -d: -f2)"; done"',
   }
 
   # Ensure System Accounts are non-login - Section 5.4.2
-  # This requires a manual inspection. Aside from logging state, this will
-  # not deliver remediation.
-  # TODO: Write a fact to detect state upon which to operate.
+  # Two checks below to check for login on system accounts, and logs critical to syslog
+  # if present.
+  exec { 'sys_login_shell_check_logindefs':
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+    command => 'logger -p crit "Logindefs and passwd allows shell for system accounts."',
+    onlyif  => 'test ! "awk -F: '($1!="root" && $1!="sync" && $1!="shutdown" && $1!="halt" && $1!~/^\+/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"' && $7!="'"$(which nologin)"'" && $7!="/bin/false") {print}' /etc/passwd"',
+  }
+
+  exec { 'sys_login_shell_check_passwd':
+    path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+    command => 'logger -p crit "Logindefs and passwd allows shell for system accounts."',
+    onlyif  => 'test ! "awk -F: '($1!="root" && $1!~/^\+/ && $3<'"$(awk '/^\s*UID_MIN/{print $2}' /etc/login.defs)"') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | awk '($2!="L" && $2!="LK") {print $1}'"',
+  }
 
 
   # Ensure default group for the root account is GID 0 - Section 5.4.3
@@ -83,7 +93,7 @@ class cis_hardening::auth::accounts {
     mode    => '0644',
     content => 'umask 027',
   }
-
+  
   # Ensure root login is restricted to system console - Section 5.5
   # This setting is a manual inspection/personal knowledge item.
   # The system has no way of understanding what consoles are "secure"
