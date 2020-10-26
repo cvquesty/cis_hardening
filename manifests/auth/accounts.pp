@@ -66,7 +66,7 @@ class cis_hardening::auth::accounts {
     gid    => 'root',
   }
 
-  # Ensure default user shell tieout is 900 seconds or less - Section 5.4.4
+  # Ensure default user shell timeout is 900 seconds or less - Section 5.4.4
   file { '/etc/profile.d/cisusertimeout.sh':
     ensure  => 'present',
     owner   => 'root',
