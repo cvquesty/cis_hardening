@@ -88,9 +88,9 @@ class cis_hardening::auth::ssh {
     ensure => 'present',
     path   => '/etc/ssh/sshd_config',
     line   => 'MaxAuthTries 4',
-    match  => '^MaxAuthTries'
+    match  => '^MaxAuthTries\ '
   }
-    
+
   # Ensure SSH IgnoreRhosts is enabled - Section 5.2.8
   file_line { 'set_ssh_ignore_rhosts':
     ensure => 'present',
