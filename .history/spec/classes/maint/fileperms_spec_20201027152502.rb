@@ -11,7 +11,7 @@ describe 'cis_hardening::maint::fileperms' do
       }
 
       # Audit System File Permissions - Section 6.1.1
-      # Manual Inspection step. Tests skipped.
+      # Manual 
 
       # Ensure that Ensure permissions on /etc/passwd are configured - Section 6.1.2
       it {

@@ -31,29 +31,9 @@ describe 'cis_hardening::maint::usergroups' do
       # Ensure the root account is the only UID 0 Account - Section 6.2.3
       it {
         is_expected.to contain_exec('only_one_uid0').with(
-          'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => 'logger -p crit "More than one user has a UID of 0"',
-          'onlyif'  => "test ! `awk -F: '($3 == 0) { print $1 }' /etc/passwd |grep -v root`",
-        )
-      }
-
-      # Ensure root PATH integrity - Section 6.2.4
-
-      # Check for empty Directory in path
-      it {
-        is_expected.to contain_exec('check_empty_root_dir_path').with(
-          'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => 'logger -p crit "Empty Directory in root PATH (::)"',
-          'onlyif'  => 'test `echo "$PATH" | grep -q "::"`',
-        )
-      }
-
-      # Check for trailing : in root PATH
-      it {
-        is_expected.to contain_exec('check_trailing_colon_root_path').with(
-          'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => 'logger -p crit "Trailing : in root PATH."',
-          'onlyif'  => 'test ! `echo "$PATH" |grep -q ":$"`',
+          path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
+          command => 'logger -p crit "More than one user has a UID of 0"',
+        onlyif  => "test ! `awk -F: '($3 == 0) { print $1 }' /etc/passwd |grep -v root`",
         )
       }
 

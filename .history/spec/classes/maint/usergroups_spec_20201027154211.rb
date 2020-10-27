@@ -46,7 +46,7 @@ describe 'cis_hardening::maint::usergroups' do
           'command' => 'logger -p crit "Empty Directory in root PATH (::)"',
           'onlyif'  => 'test `echo "$PATH" | grep -q "::"`',
         )
-      }
+      }:
 
       # Check for trailing : in root PATH
       it {

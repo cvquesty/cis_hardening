@@ -6,18 +6,18 @@
 #   include cis_hardening::maint::fileperms
 class cis_hardening::maint::fileperms {
 
-  # Audit System File Permissions - Section 6.1.1 
+  # Audit System File Permissions - Section 6.1.1
   #
-  # This item requires manual execution and inspection of output. It suggests a manual 
+  # This item requires manual execution and inspection of output. It suggests a manual
   # inspection of all installed packages on the system, which is marginally infeasible.
   # acceptance of risk for this item is encouraged, lest Puppet runs take entirely too
   # much time and unnecessarily load the system.
-  # 
+  #
   # To run this command in an ad-hoc fashion, run
   #
   # rpm -Va --nomtime --nosize --nomd5 --nolinkto > <filename> | grep -vw c
   #
-  # Upon completion, Investigate the results to ensure any discrepancies found are 
+  # Upon completion, Investigate the results to ensure any discrepancies found are
   # understood and support proper secure operation of the system.
 
 
@@ -96,7 +96,7 @@ class cis_hardening::maint::fileperms {
   # Ensure no worldwritable files exist - Section 6.1.10
   #
   # NOTE: This command is a manual command with manual inspection and remediation of the output.
-  # The command is resource intensive and would execute a search of the entire filesystem on every 
+  # The command is resource intensive and would execute a search of the entire filesystem on every
   # Puppet run, making the run exorbitantly long, and thus introducing overhead to the system.
   #
   # Use "find <parition> -xdev -type f -perm -0002" and manually remediate findings.
@@ -130,7 +130,7 @@ class cis_hardening::maint::fileperms {
   # NOTE: This command is a manual command with manual inspection and remedation of the output.
   #
   # Run: "sudo df --local -P |awk {'if (NR!=1) print $6'} |xargs -I '{}' find '{}' -xdev -type f -perm -4000"
-  # and verify no files are returned. If you would instead prefer to search individual paritions, use the 
+  # and verify no files are returned. If you would instead prefer to search individual paritions, use the
   # following command:
   #
   # find <partition> -xdev -type f -perm 4000
@@ -142,7 +142,7 @@ class cis_hardening::maint::fileperms {
   # NOTE: This command is a manual command with manual inspection and remedation of the output.
   #
   # Run: "sudo df --local -P |awk {'if (NR!=1) print $6'} |xargs -I '{}' find '{}' -xdev -type f -perm -2000"
-  # and verify no files are returned. If you would instead prefer to search individual paritions, use the 
+  # and verify no files are returned. If you would instead prefer to search individual paritions, use the
   # following command:
   #
   # find <partition> -xdev -type f -perm 2000

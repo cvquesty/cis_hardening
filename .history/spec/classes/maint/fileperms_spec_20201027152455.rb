@@ -10,9 +10,7 @@ describe 'cis_hardening::maint::fileperms' do
         is_expected.to contain_class('cis_hardening::maint::fileperms')
       }
 
-      # Audit System File Permissions - Section 6.1.1
-      # Manual Inspection step. Tests skipped.
-
+      
       # Ensure that Ensure permissions on /etc/passwd are configured - Section 6.1.2
       it {
         is_expected.to contain_file('/etc/passwd').with(

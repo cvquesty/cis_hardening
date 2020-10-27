@@ -53,7 +53,7 @@ describe 'cis_hardening::maint::usergroups' do
         is_expected.to contain_exec('check_trailing_colon_root_path').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Trailing : in root PATH."',
-          'onlyif'  => 'test ! `echo "$PATH" |grep -q ":$"`',
+          onlyif  => 'test ! `echo "$PATH" |grep -q ":$"`',
         )
       }
 
