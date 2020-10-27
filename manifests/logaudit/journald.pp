@@ -11,13 +11,15 @@ class cis_hardening::logaudit::journald {
     ensure => 'present',
     path   => '/etc/systemd/journald.conf',
     line   => 'ForwardToSyslog=yes',
-  } 
+    match  => '^ForwardToSyslog\=',
+  }
 
   # Ensure journald is configured to compress large log files - Section 4.2.2.2
   file_line { 'journald_compress':
     ensure => 'present',
     path   => '/etc/systemd/journald.conf',
     line   => 'Compress=yes',
+    match  => '^Compress\=',
   }
 
   # Ensure journald is configured to write logfiles to persistent disk - Section 4.2.2.3
@@ -25,6 +27,7 @@ class cis_hardening::logaudit::journald {
     ensure => 'present',
     path   => '/etc/systemd/journald.conf',
     line   => 'Storage=persistent',
+    match  => '^Storage\=',
   }
 
 }

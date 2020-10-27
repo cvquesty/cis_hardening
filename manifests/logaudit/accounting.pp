@@ -32,7 +32,7 @@ class cis_hardening::logaudit::accounting {
     command => '/bin/systemctl restart auditd',
     require => Package['audit'],
   }
-   
+
   # Ensure auditing for processes that start prior to auditd is enabled - Section 4.1.1.3
   file_line { 'pre_auditd_settings':
     ensure  => 'present',
@@ -40,7 +40,7 @@ class cis_hardening::logaudit::accounting {
     line    => 'GRUB_CMDLINE_LINUX="audit=1"',
     require => File['/etc/default/grub'],
   }
-  
+
   # NOTE: Above audit.rules settings may require a reboot to become effective especially in regards
   # to those rules to be activated prior to Grub's loading
 
@@ -109,7 +109,7 @@ class cis_hardening::logaudit::accounting {
   # backlog limit globbing into the grub.conf could generate a "non-bootable" situation
   # TODO: Develop a good scenario for alloting grub options via automation
 
-    # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
+  # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
   file { '/etc/default':
     ensure => 'directory',
     owner  => 'root',
@@ -282,7 +282,7 @@ class cis_hardening::logaudit::accounting {
     path   => '/etc/audit/audit.rules',
     line   => '-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access',
   }
-    
+
   # Ensure use of privileged commands is collected - Section 4.1.11
   # Given that elevated privilege commands can only be found via ad-hoc queries
   # of the filesystem/logfiles, it is not possible to generate the needed audit rules
