@@ -18,7 +18,7 @@ class cis_hardening::maint::usergroups {
   exec { 'shadow_password_field_check':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Shadow Password Fields Empty. Check manually."',
-    onlyif  => "test ! `cat /etc/shadow | awk -F '{print $2}' |grep -v "" |wc -l` -gt 0",
+    onlyif  => "test ! `cat /etc/shadow | awk '{print $2}' |grep -v "" |wc -l > 0`",
   }
 
   # Ensure the root account is the only UID 0 Account - Section 6.2.3
