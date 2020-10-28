@@ -19,12 +19,30 @@ describe 'cis_hardening::network::edgeprotocols' do
         )
       }
 
-      # Ensure that SCTP is disabled - Section 3.4.2
+      # Ensure that SCTP is disabled - Section 3..2
       it {
         is_expected.to contain_file_line('sctp_disable').with(
           'ensure' => 'present',
           'path'   => '/etc/modprobe.d/CIS.conf',
           'line'   => 'install sctp /bin/true',
+        )
+      }
+
+      # Ensure that RDS is disabled - Section 3.5.3
+      it {
+        is_expected.to contain_file_line('rds_disable').with(
+          'ensure' => 'present',
+          'path'   => '/etc/modprobe.d/CIS.conf',
+          'line'   => 'install rds /bin/true',
+        )
+      }
+
+      # Ensure that TIPC is disabled - Section 3.5.4
+      it {
+        is_expected.to contain_file_line('tipc_disable').with(
+          'ensure' => 'present',
+          'path'   => '/etc/modprobe.d/CIS.conf',
+          'line'   => 'install tipc /bin/true',
         )
       }
 

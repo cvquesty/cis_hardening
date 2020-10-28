@@ -27,6 +27,7 @@ describe 'cis_hardening::network::edgeprotocols' do
           'line'   => 'install sctp /bin/true',
         )
       }
+      
 
       # Ensure manifest compiles with all dependencies
       it {

@@ -19,5 +19,5 @@ class cis_hardening::network::edgeprotocols {
     path   => '/etc/modprobe.d/CIS.conf',
     line   => 'install sctp /bin/true',
   }
-  
+
 }
