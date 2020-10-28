@@ -21,7 +21,7 @@ describe 'cis_hardening::logaudit::accounting' do
           'ensure' => 'present',
         )
       }
-      
+
       # Ensure auditd service is enabled and running - Section 4.1.1.2
       it {
         is_expected.to contain_service('auditd').with(
@@ -54,7 +54,7 @@ describe 'cis_hardening::logaudit::accounting' do
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0640',
-        ).that_requires('Package[audit]'),
+        ).that_requires('Package[audit]')
       }
 
       # Configure Data Retention - 4.1.2

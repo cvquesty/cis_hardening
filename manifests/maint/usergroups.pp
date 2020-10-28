@@ -11,7 +11,7 @@ class cis_hardening::maint::usergroups {
   exec { 'shadowed_passwords_check':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => "sed -e 's/^\([a-zA-Z0-9_]*\):[^:]*:/\1:x:/' -i /etc/passwd",
-    onlyif  => "test ! `awk -F: '($2 != "x" )' /etc/passwd`",
+    onlyif  => "test ! `cat /etc/passwd | awk -F: '{print $2}' |grep -v x`",
   }
 
   # Ensure /etc/shadow password fields are not empty - Section 6.2.2

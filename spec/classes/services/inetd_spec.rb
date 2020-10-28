@@ -8,7 +8,7 @@ describe 'cis_hardening::services::inetd' do
       # Check for default class
       it {
         is_expected.to contain_class('cis_hardening::services::inetd')
-      
+      }
 
       # Ensure xinetd server is not enabled - Section 2.1.1
       it {
@@ -21,6 +21,7 @@ describe 'cis_hardening::services::inetd' do
       it {
         is_expected.to compile.with_all_deps
       }
+
     end
   end
 end
