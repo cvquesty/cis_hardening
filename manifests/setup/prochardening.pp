@@ -42,8 +42,6 @@ class cis_hardening::setup::prochardening {
   }
 
   # Ensure prelink is disabled - Section 1.6.4
-
-  # First restore binaries to normal:
   package { 'prelink':
     ensure => 'absent',
   }

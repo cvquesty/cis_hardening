@@ -5,7 +5,7 @@
 # @example
 #   include cis_hardening::setup::filesystem
 class cis_hardening::setup::filesystem {
-  
+
   # Disable unused Filesystems - Section 1.1.1
 
   # Create CIS.conf to hold CIS specified filesystem configurations
@@ -61,7 +61,7 @@ class cis_hardening::setup::filesystem {
     line    => 'install msdos /bin/true',
     require => File['/etc/modprobe.d/CIS.conf'],
   }
-  
+
   # TODO: tmpfs mounting is touchy and can affect an existing infrastructure. We have
   # opted to warn the user rather than mount a new /tmp due to potential existing needs
   # for SystemD's virtual tmpfs mechanism. Look for ways to allow the user to select an
@@ -75,20 +75,21 @@ class cis_hardening::setup::filesystem {
   }
 
   # Ensure nodev option set on /tmp partition - Section 1.1.3
-    exec { 'chktmp_noexec':
+  exec { 'chktmp_noexec':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Filesystem /tmp is not set noexec"',
     onlyif  => "test ! 'mount |grep -E '\s/tmp\s' |grep -v noexec'",
   }
 
-  # Ensure nosuid option set on /tmp partition - Section 1.1.4
+
+# Ensure nodev option set on /tmp partition - Section 1.1.4
   exec { 'chktmp_nodev':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Partition /tmp is not set nodev!"',
     onlyif  => "test ! 'mount |grep -E '\s/tmp\s' |grep -v nodev'",
   }
 
-  # Ensure noexec option set on /tmp partition - Section 1.1.5
+  # Ensure nosuid option set on /tmp partition - Section 1.1.5
   exec { 'chktmp_nosuid':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Partition /tmp is not set nosuid"',
