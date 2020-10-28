@@ -22,15 +22,15 @@ class cis_hardening::network::firewall {
   # Ensure nftables is not installed or stopped and masked - 3.5.1.3, 3.5.3.1.2
   package { 'nftables':
     ensure => 'absent',
-  }  
+  }
 
-  # Configure nftables - 3.5.2
+  # Configure nftables - Section 3.5.2
   # We have disabled nftables above, therefore the controls to be skiped or ignored are:
   #
   # 3.5.2.1, 3.5.2.2, 3.5.2.3, 3.5.2.4, 3.5.2.5, 3.5.2.6, 3.5.2.7, 3.5.2.8, 3.5.2.9, 3.5.2.10
-  # 3.5.2.11, 
+  # 3.5.2.11,
 
-  # Configure IPTables - 3.5.3
+  # Configure IPTables - Section 3.5.3
   # 3.5.3.1 - Configure Software
 
   # Ensure IPTables packages are installed - 3.5.3.1.1
@@ -69,5 +69,6 @@ class cis_hardening::network::firewall {
   # IPv6 is disabled in this iteration. As such, all IPv6 IPTables configuration elements will
   # be ignored. Those controls are:
   #
-  # 3.5.3.3.1, 3.5.3.3.2, 3.5.3.3.3, 3.5.3.3.4, 3.5.3.3.5, 3.5.3.3.6, 
+  # 3.5.3.3.1, 3.5.3.3.2, 3.5.3.3.3, 3.5.3.3.4, 3.5.3.3.5, 3.5.3.3.6,
 }
+
