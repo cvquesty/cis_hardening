@@ -99,94 +99,120 @@ describe 'cis_hardening::services::special' do
       # Ensure rpcbind is not installed or the rpcbind services are masked - Section 2.2.8
       it {
         is_expected.to contain_package('rpcbind').with(
-          'ensure' => 'absent',
+          'ensure' => false,
         )
       }
 
-      # Ensure DNS Server is not installed - Section 2.2.9
+      # Ensure DNS Server is not enabled - Section 2.2.8
       it {
-        is_expected.to contain_package('bind').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('named').with(
+          'enable' => false,
         )
       }
 
-      # Ensure FTP Server is not installed - Section 2.2.10
+      # Ensure FTP Server is not enabled - Section 2.2.9
       it {
-        is_expected.to contain_package('vsftpd').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('vsftpd').with(
+          'enable' => false,
         )
       }
 
-      # Ensure HTTP Server is not installed - Section 2.2.11
+      # Ensure HTTP Server is not enabled - Section 2.2.10
       it {
-        is_expected.to contain_package('httpd').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('httpd').with(
+          'enable' => false,
         )
       }
 
-      # Ensure IMAP and POP3 Server are not installed - Section 2.2.12
+      # Ensure IMAP and POP3 Server are not enabled - Section 2.2.11
       it {
-        is_expected.to contain_package('dovecot').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('dovecot').with(
+          'enable' => false,
         )
       }
 
-      # Ensure Samba is not installed - Section 2.2.13
+      # Ensure Samba is not enabled - Section 2.2.12
       it {
-        is_expected.to contain_package('samba').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('smb').with(
+          'enable' => false,
         )
       }
 
-      # Ensure HTTP Proxy Server is not installed - Section 2.2.14
+      # Ensure HTTP Proxy Server is not enabled - Section 2.2.13
       it {
-        is_expected.to contain_package('squid').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('squid').with(
+          'enable' => false,
         )
       }
 
-      # Ensure net-snmp Server is not installed - Section 2.2.15
+      # Ensure SNMP Server is not enabled - Section 2.2.14
       it {
-        is_expected.to contain_package('net-snmp').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('snmpd').with(
+          'enable' => false,
         )
       }
 
-      # Ensure MTA is configured for local-only mode - Section 2.2.16
+      # Ensure MTA is configured for local-only mode - Section 2.2.15
       it {
         is_expected.to contain_file_line('smptp_local_only_mode').with(
           'ensure' => 'present',
           'path'   => '/etc/postfix/main.cf',
           'line'   => 'inet_interfaces = loopback-only',
           'match'  => '^inet_interfaces\ =',
-        ).that_notifies('Service[postfix]')
-      }
-
-      it {
-        is_expected.to contain_service('postfix').with(
-          'ensure' => 'running',
-          'enable' => true,
         )
       }
 
-      # Ensure Rsync Service is not installed - Section 2.2.17
+      # Ensure NIS Server is not enabled - Section 2.2.16
       it {
-        is_expected.to contain_package('rsync').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('ypserv').with(
+          'enable' => false,
         )
       }
 
-      # Ensure NIS Server is not installed - Section 2.2.18
+      # Ensure RSH Server is not enabled - Section 2.2.17
       it {
-        is_expected.to contain_package('ypserv').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('rsh.socket').with(
+          'enable' => false,
         )
       }
 
-      # Ensure Telnet Server is not installed - Section 2.2.19
       it {
-        is_expected.to contain_package('telnet-server').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('rlogin.socket').with(
+          'enable' => false,
+        )
+      }
+
+      it {
+        is_expected.to contain_service('rexec.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Telnet Server is not enabled - Section 2.2.18
+      it {
+        is_expected.to contain_service('telnet.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure tftp Server is not enabled - Section 2.2.19
+      it {
+        is_expected.to contain_service('tftp.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Rsync Service is not enabled - Section 2.2.20
+      it {
+        is_expected.to contain_service('rsyncd').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Talk server is not enabled - Section 2.2.21
+      it {
+        is_expected.to contain_service('ntalk').with(
+          'enable' => false,
         )
       }
 

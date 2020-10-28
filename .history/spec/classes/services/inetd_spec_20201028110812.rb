@@ -8,12 +8,16 @@ describe 'cis_hardening::services::inetd' do
       # Check for default class
       it {
         is_expected.to contain_class('cis_hardening::services::inetd')
+
       
 
-      # Ensure xinetd server is not enabled - Section 2.1.1
+      # Ensure xinetd server is not enabled - Section 2.1.7
       it {
-        is_expected.to contain_package('xinetd').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('xinetd').with(
+          'ensure'     => 'stopped',
+          'enable'     => false,
+          'hasstatus'  => true,
+          'hasrestart' => true,
         )
       }
 

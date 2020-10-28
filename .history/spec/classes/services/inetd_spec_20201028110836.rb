@@ -10,10 +10,10 @@ describe 'cis_hardening::services::inetd' do
         is_expected.to contain_class('cis_hardening::services::inetd')
       
 
-      # Ensure xinetd server is not enabled - Section 2.1.1
+      # Ensure xinetd server is not enabled - Section 2.1.7
       it {
         is_expected.to contain_package('xinetd').with(
-          'ensure' => 'absent',
+          'ensure'     => 's',
         )
       }
 

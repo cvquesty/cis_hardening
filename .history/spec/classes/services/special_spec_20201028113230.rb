@@ -185,8 +185,29 @@ describe 'cis_hardening::services::special' do
 
       # Ensure Telnet Server is not installed - Section 2.2.19
       it {
-        is_expected.to contain_package('telnet-server').with(
-          'ensure' => 'absent',
+        is_expected.to contain_se('telnet.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure tftp Server is not enabled - Section 2.2.19
+      it {
+        is_expected.to contain_service('tftp.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Rsync Service is not enabled - Section 2.2.20
+      it {
+        is_expected.to contain_service('rsyncd').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Talk server is not enabled - Section 2.2.21
+      it {
+        is_expected.to contain_service('ntalk').with(
+          'enable' => false,
         )
       }
 

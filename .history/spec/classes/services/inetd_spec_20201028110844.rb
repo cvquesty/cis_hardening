@@ -13,7 +13,7 @@ describe 'cis_hardening::services::inetd' do
       # Ensure xinetd server is not enabled - Section 2.1.1
       it {
         is_expected.to contain_package('xinetd').with(
-          'ensure' => 'absent',
+          'ensure'     => 'absent',
         )
       }
 

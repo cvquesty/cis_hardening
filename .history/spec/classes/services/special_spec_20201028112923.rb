@@ -161,32 +161,59 @@ describe 'cis_hardening::services::special' do
           'match'  => '^inet_interfaces\ =',
         ).that_notifies('Service[postfix]')
       }
+      
 
+      # Ensure NIS Server is not enabled - Section 2.2.16
       it {
-        is_expected.to contain_service('postfix').with(
-          'ensure' => 'running',
-          'enable' => true,
+        is_expected.to contain_service('ypserv').with(
+          'enable' => false,
         )
       }
 
-      # Ensure Rsync Service is not installed - Section 2.2.17
+      # Ensure RSH Server is not enabled - Section 2.2.17
       it {
-        is_expected.to contain_package('rsync').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('rsh.socket').with(
+          'enable' => false,
         )
       }
 
-      # Ensure NIS Server is not installed - Section 2.2.18
       it {
-        is_expected.to contain_package('ypserv').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('rlogin.socket').with(
+          'enable' => false,
         )
       }
 
-      # Ensure Telnet Server is not installed - Section 2.2.19
       it {
-        is_expected.to contain_package('telnet-server').with(
-          'ensure' => 'absent',
+        is_expected.to contain_service('rexec.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Telnet Server is not enabled - Section 2.2.18
+      it {
+        is_expected.to contain_service('telnet.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure tftp Server is not enabled - Section 2.2.19
+      it {
+        is_expected.to contain_service('tftp.socket').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Rsync Service is not enabled - Section 2.2.20
+      it {
+        is_expected.to contain_service('rsyncd').with(
+          'enable' => false,
+        )
+      }
+
+      # Ensure Talk server is not enabled - Section 2.2.21
+      it {
+        is_expected.to contain_service('ntalk').with(
+          'enable' => false,
         )
       }
 

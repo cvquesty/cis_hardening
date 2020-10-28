@@ -1,4 +1,4 @@
-# @summary A manifest to configure special services according to 
+# @summary A manifest to configure special services according to
 # CIS Hardening Guidelines
 #
 # Section 2.2 - Special Purpose Services
@@ -98,7 +98,7 @@ class cis_hardening::services::special {
   package { 'rpcbind':
     ensure => 'absent',
   }
- 
+
   # Ensure DNS Server is not installed - Section 2.2.9
   package { 'bind':
     ensure => 'absent',
@@ -162,5 +162,5 @@ class cis_hardening::services::special {
   package { 'telnet-server':
     ensure => 'absent',
   }
- 
+
 }
