@@ -166,14 +166,6 @@ describe 'cis_hardening::network::netparams' do
         ).that_notifies('Exec[restart_sysctl]')
       }
 
-      it {
-        is_expected.to contain_file_line('net_ipv6_default_accept_ra').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.default.accept_ra = 0',
-        ).that_notifies('Exec[restart_sysctl]')
-      }
-
       # Ensure it compiles with all dependencies
       it {
         is_expected.to compile.with_all_deps

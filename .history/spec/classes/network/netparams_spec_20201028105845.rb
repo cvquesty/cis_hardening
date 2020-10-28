@@ -148,29 +148,12 @@ describe 'cis_hardening::network::netparams' do
         ).that_notifies('Exec[restart_sysctl]')
       }
 
-      # Ensure TCP SYN Cookies is enabled - Section 3.3.8
+      # Ensure TCP SYN Cookies is enabled - Section 3.2.8
       it {
         is_expected.to contain_file_line('tcp_syncookies').with(
           'ensure' => 'present',
           'path'   => '/etc/sysctl.d/99-sysctl.conf',
           'line'   => 'net.ipv4.tcp_syncookies = 1',
-        ).that_notifies('Exec[restart_sysctl]')
-      }
-
-      # Ensure IPv6 router advertisements are not accepted - Section 3.3.9
-      it {
-        is_expected.to contain_file_line('net_ipv6_all_accept_ra').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.all.accept_ra = 0',
-        ).that_notifies('Exec[restart_sysctl]')
-      }
-
-      it {
-        is_expected.to contain_file_line('net_ipv6_default_accept_ra').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.default.accept_ra = 0',
         ).that_notifies('Exec[restart_sysctl]')
       }
 

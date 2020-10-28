@@ -43,6 +43,7 @@ describe 'cis_hardening::network::unused_protocols' do
           'line'   => 'net.ipv6.conf.all.disable_ipv6 = 1',
         ).that_notifies('Exec[restart_ipv6_sysctl]')
       }
+      
 
       # Ensure it compiles with all dependencies
       it {

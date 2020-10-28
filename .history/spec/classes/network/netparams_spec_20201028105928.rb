@@ -156,23 +156,7 @@ describe 'cis_hardening::network::netparams' do
           'line'   => 'net.ipv4.tcp_syncookies = 1',
         ).that_notifies('Exec[restart_sysctl]')
       }
-
-      # Ensure IPv6 router advertisements are not accepted - Section 3.3.9
-      it {
-        is_expected.to contain_file_line('net_ipv6_all_accept_ra').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.all.accept_ra = 0',
-        ).that_notifies('Exec[restart_sysctl]')
-      }
-
-      it {
-        is_expected.to contain_file_line('net_ipv6_default_accept_ra').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.default.accept_ra = 0',
-        ).that_notifies('Exec[restart_sysctl]')
-      }
+      
 
       # Ensure it compiles with all dependencies
       it {

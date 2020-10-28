@@ -29,18 +29,31 @@ describe 'cis_hardening::network::unused_protocols' do
 
       # Disable IPv6 - Section 3.1.1
       it {
-        is_expected.to contain_file_line('disable_ipv6_sysctl_default').with(
+        is_expected.to contain_file_line('disable_ipv6_sysctl_default').with
+      }
+
+      it {
+        is_expected.to contain_file_line('ipv6_acept_ra_default').with(
           'ensure' => 'present',
           'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.default.disable_ipv6 = 1',
+          'line'   => 'net.ipv6.conf.default.accept_ra = 0',
+        ).that_notifies('Exec[restart_ipv6_sysctl]')
+      }
+
+      # Ensure that IPv6 redirets are not accepted - Section 3.3.2
+      it {
+        is_expected.to contain_file_line('ipv6_accept_redirects_all').with(
+          'ensure' => 'present',
+          'path'   => '/etc/sysctl.d/99-sysctl.conf',
+          'line'   => 'net.ipv6.conf.all.accept_redirects = 0',
         ).that_notifies('Exec[restart_ipv6_sysctl]')
       }
 
       it {
-        is_expected.to contain_file_line('disable_ipv6_sysctl_all').with(
+        is_expected.to contain_file_line('ipv6_accept_redirects_default').with(
           'ensure' => 'present',
           'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.all.disable_ipv6 = 1',
+          'line'   => 'net.ipv6.conf.default.accept_redirects = 0',
         ).that_notifies('Exec[restart_ipv6_sysctl]')
       }
 

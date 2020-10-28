@@ -44,6 +44,8 @@ describe 'cis_hardening::network::unused_protocols' do
         ).that_notifies('Exec[restart_ipv6_sysctl]')
       }
 
+      
+
       # Ensure it compiles with all dependencies
       it {
         is_expected.to compile.with_all_deps

@@ -96,7 +96,7 @@ describe 'cis_hardening::network::netparams' do
         ).that_notifies('Exec[restart_sysctl]')
       }
 
-      # Ensure suspicious packets are logged - Section 3.3.4
+      # Ensure suspicious packets are logged - Section 3.2.4
       it {
         is_expected.to contain_file_line('log_suspicious_all').with(
           'ensure' => 'present',
@@ -113,7 +113,7 @@ describe 'cis_hardening::network::netparams' do
         ).that_notifies('Exec[restart_sysctl]')
       }
 
-      # Ensure broadcast ICMP requests are ignored - Section 3.3.5
+      # Ensure broadcast ICMP requests are ignored - Section 3.2.5
       it {
         is_expected.to contain_file_line('ignore_broadcasts').with(
           'ensure' => 'present',
@@ -122,7 +122,7 @@ describe 'cis_hardening::network::netparams' do
         ).that_notifies('Exec[restart_sysctl]')
       }
 
-      # Ensure bogus ICMP responses are ignored - Section 3.3.6
+      # Ensure bogus ICMP responses are ignored - Section 3.2.6
       it {
         is_expected.to contain_file_line('ignore_bogus_icmp_errors').with(
           'ensure' => 'present',
@@ -131,7 +131,7 @@ describe 'cis_hardening::network::netparams' do
         ).that_notifies('Exec[restart_sysctl]')
       }
 
-      # Ensure reverse path filtering is enabled - Section 3.3.7
+      # Ensure reverse path filtering is enabled - Section 3.2.7
       it {
         is_expected.to contain_file_line('reverse_path_filter_all').with(
           'ensure' => 'present',
@@ -148,29 +148,12 @@ describe 'cis_hardening::network::netparams' do
         ).that_notifies('Exec[restart_sysctl]')
       }
 
-      # Ensure TCP SYN Cookies is enabled - Section 3.3.8
+      # Ensure TCP SYN Cookies is enabled - Section 3.2.8
       it {
         is_expected.to contain_file_line('tcp_syncookies').with(
           'ensure' => 'present',
           'path'   => '/etc/sysctl.d/99-sysctl.conf',
           'line'   => 'net.ipv4.tcp_syncookies = 1',
-        ).that_notifies('Exec[restart_sysctl]')
-      }
-
-      # Ensure IPv6 router advertisements are not accepted - Section 3.3.9
-      it {
-        is_expected.to contain_file_line('net_ipv6_all_accept_ra').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.all.accept_ra = 0',
-        ).that_notifies('Exec[restart_sysctl]')
-      }
-
-      it {
-        is_expected.to contain_file_line('net_ipv6_default_accept_ra').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.default.accept_ra = 0',
         ).that_notifies('Exec[restart_sysctl]')
       }
 
