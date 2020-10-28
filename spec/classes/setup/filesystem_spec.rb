@@ -122,8 +122,8 @@ describe 'cis_hardening::setup::filesystem' do
           'device'  => 'tmpfs',
           'options' => 'defaults,noexec,nodev,nosuid,seclabel',
           'fstype'  => 'tmpfs',
-          'atboot'  => 0,
-          'pass'    => 0,
+          'atboot'  => 'no',
+          'pass'    => 'no',
         )
       }
 
