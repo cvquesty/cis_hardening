@@ -168,7 +168,7 @@ class cis_hardening::auth::ssh {
     ensure => 'present',
     path   => '/etc/ssh/sshd_config',
     line   => 'LoginGraceTime 60',
-    match  => '^LoginGraceTime',
+    match  => '^LoginGraceTime\ ',
   }
 
   # Ensure SSH Warning Banner is Configured - Section 5.2.18

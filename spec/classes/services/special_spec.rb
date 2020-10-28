@@ -17,7 +17,7 @@ describe 'cis_hardening::services::special' do
           'ensure' => 'present',
         )
       }
-      
+
       # Ensure ntp is configured - Section 2.2.1.3
       it {
         is_expected.to contain_file('/etc/ntp.conf').with(
@@ -47,7 +47,7 @@ describe 'cis_hardening::services::special' do
           'match'  => '^ExecStart=/usr/sbin/ntpd -u ntp:ntp $OPTIONS',
         )
       }
-      
+
       # Ensure X Window System is not installed - Section 2.2.2
       it {
         is_expected.to contain_package('xorg-x11-server-Xorg').with(
@@ -57,13 +57,13 @@ describe 'cis_hardening::services::special' do
 
       # Ensure Avahi Server is not installed - Section 2.2.3
       it {
-        is_expected.to contain_service('avahi-daemon').with(
-          'enable' => false,
+        is_expected.to contain_package('avahi').with(
+          'ensure' => 'absent',
         )
       }
 
       it {
-        is_expected.to contain_service('avahi-autoipd').with(
+        is_expected.to contain_package('avahi-autoipd').with(
           'ensure' => 'absent',
         )
       }

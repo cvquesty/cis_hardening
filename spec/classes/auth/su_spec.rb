@@ -21,7 +21,7 @@ describe 'cis_hardening::auth::su' do
       it {
         is_expected.to contain_file_line('su_setting').with(
           'path' => '/etc/pam.d/su',
-          'line' => 'auth required pam_wheel.so use_uid',
+          'line' => 'auth required pam_wheel.so use_uid group=sugroup',
         )
       }
 

@@ -29,7 +29,7 @@ describe 'cis_hardening::setup::filesystem' do
           'line'   => 'install cramfs /bin/true',
         ).that_requires('File[/etc/modprobe.d/CIS.conf]')
       }
-      
+
       # Ensure mounting of squashfs filesystems is disabled - Section 1.1.1.2
       it {
         is_expected.to contain_file_line('squashfs_disable').with(
@@ -72,7 +72,7 @@ describe 'cis_hardening::setup::filesystem' do
           'line'   => 'install msdos /bin/true',
         ).that_requires('File[/etc/modprobe.d/CIS.conf]')
       }
-      
+
       # Ensure nosuid option set on /tmp partition - Section 1.1.4
       # Ensure noexec option set on /tmp partition - Section 1.1.5
 
@@ -94,7 +94,7 @@ describe 'cis_hardening::setup::filesystem' do
         )
       }
 
-      # Ensure nodev option set on /tmp partition - Section 1.1.4        
+      # Ensure nodev option set on /tmp partition - Section 1.1.4
       it {
         is_expected.to contain_exec('chktmp_nodev').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -108,7 +108,7 @@ describe 'cis_hardening::setup::filesystem' do
         is_expected.to contain_exec('chktmp_nosuid').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Partition /tmp is not set nosuid"',
-          'onlyif'  => 'test ! mount |grep /tmp |grep nosuid',
+          'onlyif'  => "test ! 'mount |grep -E '\s/tmp\s' |grep -v nosuid'",
         )
       }
 
@@ -122,8 +122,8 @@ describe 'cis_hardening::setup::filesystem' do
           'device'  => 'tmpfs',
           'options' => 'defaults,noexec,nodev,nosuid,seclabel',
           'fstype'  => 'tmpfs',
-          'atboot'  => '0',
-          'pass'    => '0',
+          'atboot'  => 0,
+          'pass'    => 0,
         )
       }
 
@@ -153,13 +153,13 @@ describe 'cis_hardening::setup::filesystem' do
           'onlyif'  => "test ! 'mount | grep -E '\s/var/tmp\s' |grep -v noexec'",
         )
       }
-        
+
       # Ensure nodev option set on /var/tmp partition - Section 1.1.13
       it {
         is_expected.to contain_exec('chkvartmp_nodev').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Partition /var/tmp does not have the nodev option set"',
-          'onlyif'  => 'test ! mount |grep /var/tmp |grep nodev',
+          'onlyif'  => "test ! 'mount | grep -E '\s/var/tmp\s' |grep -v nodev'",
         )
       }
 
@@ -168,7 +168,7 @@ describe 'cis_hardening::setup::filesystem' do
         is_expected.to contain_exec('chkvartmp_nosuid').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Partition /var/tmp does not have the nosuid option set"',
-          'onlyif'  => 'test ! mount |grep /var/tmp |grep nosuid',
+          'onlyif'  => "test ! 'mount | grep -E '\s/var/tmp\s' |grep -v nosuid'",
         )
       }
 
@@ -177,7 +177,7 @@ describe 'cis_hardening::setup::filesystem' do
         is_expected.to contain_exec('chkvarlog_part').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Partition /var/log is not on its own parition."',
-          'onlyif'  => 'test ! mount |grep /var/log',
+          'onlyif'  => "test ! 'mount |grep /var/log'",
         )
       }
 
@@ -186,7 +186,7 @@ describe 'cis_hardening::setup::filesystem' do
         is_expected.to contain_exec('chkvarlogtmp_part').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Partition /var/log/audit is not on its own partition"',
-          'onlyif'  => 'test ! mount |grep /var/log/audit',
+          'onlyif'  => "test ! 'mount |grep /var/log/audit'",
         )
       }
 
@@ -195,7 +195,7 @@ describe 'cis_hardening::setup::filesystem' do
         is_expected.to contain_exec('chkhome_part').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Parition /home is not on its own parition."',
-          'onlyif'  => 'test ! mount |grep /home',
+          'onlyif'  => "test ! 'mount |grep /home'",
         )
       }
 
@@ -204,7 +204,7 @@ describe 'cis_hardening::setup::filesystem' do
         is_expected.to contain_exec('chkhome_nodev').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Partition /home does not have the nodev option set"',
-          'onlyif'  => 'test ! mount |grep /home |grep nodev',
+          'onlyif'  => "test ! 'mount |grep -E '\s/home\s' |grep -v nodev'",
         )
       }
 

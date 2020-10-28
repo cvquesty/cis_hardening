@@ -29,7 +29,7 @@ describe 'cis_hardening::logaudit::accounting' do
           'enable'     => true,
           'hasstatus'  => true,
           'hasrestart' => true,
-        ).that_requires('File[/etc/audit/audit.rules')
+        ).that_requires('File[/etc/audit/audit.rules]')
       }
 
       it {

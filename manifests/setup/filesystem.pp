@@ -105,8 +105,8 @@ class cis_hardening::setup::filesystem {
     device  => 'tmpfs',
     options => 'defaults,noexec,nodev,nosuid,seclabel',
     fstype  => 'tmpfs',
-    atboot  => '0',
-    pass    => '0',
+    atboot  => 0,
+    pass    => 0,
   }
 
   # Ensure separate partition exists for /var - Section 1.1.10

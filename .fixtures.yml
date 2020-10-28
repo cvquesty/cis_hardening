@@ -5,6 +5,7 @@ fixtures:
   forge_modules:
     stdlib: "puppetlabs/stdlib"
     cron: "puppetlabs/cron_core"
+    mount: "puppetlabs/mount_core"
   repositories:
     facts: 'https://github.com/puppetlabs/puppetlabs-facts.git'
     puppet_agent: 'https://github.com/puppetlabs/puppetlabs-puppet_agent.git'

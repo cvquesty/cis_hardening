@@ -24,14 +24,14 @@ describe 'cis_hardening::auth::ssh' do
       it {
         is_expected.to contain_exec('set_sshprivkey_perms').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod u-x,g-wx,o-rwx {} \;",
+          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod u-x,g-wx,o-rwx {} \\;",
         )
       }
 
       it {
         is_expected.to contain_exec('set_sshprivkey_owner').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:ssh_keys {} \;",
+          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:ssh_keys {} \\;",
         )
       }
 
@@ -39,7 +39,7 @@ describe 'cis_hardening::auth::ssh' do
       it {
         is_expected.to contain_exec('set_sshpubkey_perms').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod u-x,go-wx {} \;",
+          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod u-x,go-wx {} \\;",
         )
       }
 
@@ -91,7 +91,7 @@ describe 'cis_hardening::auth::ssh' do
           'ensure' => 'present',
           'path'   => '/etc/ssh/sshd_config',
           'line'   => 'HostBasedAuthentication no',
-          'match'  => '^HostbasedAuthentication\ ',
+          'match'  => '^HostBasedAuthentication\ ',
         )
       }
 
@@ -147,7 +147,7 @@ describe 'cis_hardening::auth::ssh' do
 
       # Ensure only strong Key Exchange algorithms are used - Section 5.2.15
       it {
-        is_expected.to contain_file_line('set_keyexchange_algos').with(
+        is_expected.to contain_file_line('ssh_keyexchange_algos').with(
           'ensure' => 'present',
           'path'   => '/etc/ssh/sshd_config',
           'line'   => 'KeyxAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-helman-group14-sha256,diffie-helman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-helman-group-exchange-sha256',
@@ -197,7 +197,7 @@ describe 'cis_hardening::auth::ssh' do
 
       # Ensure SSH AllowTcpForwarding is disabled - Section 5.2.20
       it {
-        is_expected.to contain_file_line('ssh_allowtcpforwading').with(
+        is_expected.to contain_file_line('ssh_allowtcpforwarding').with(
           'ensure' => 'present',
           'path'   => '/etc/ssh/sshd_config',
           'line'   => 'allowtcpforwarding no',
@@ -207,7 +207,7 @@ describe 'cis_hardening::auth::ssh' do
 
       # Ensure SSH MaxStartups is configured - Section 5.2.21
       it {
-        is_expected.to contain_file_line('ssh_max_startups').with(
+        is_expected.to contain_file_line('ssh_maxstartups').with(
           'ensure' => 'present',
           'path'   => '/etc/ssh/sshd_config',
           'line'   => 'maxstartups 10:30:60',

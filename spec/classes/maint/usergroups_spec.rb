@@ -24,7 +24,7 @@ describe 'cis_hardening::maint::usergroups' do
         is_expected.to contain_exec('shadow_password_field_check').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Shadow Password Fields Empty. Check manually."',
-          'onlyif'  => "test ! `awk -F: '($2 == "" )' /etc/shadow |wc -l` -gt 0",
+          'onlyif'  => "test ! `cat /etc/shadow | awk -F '{print $2}' |grep -v "" |wc -l`",
         )
       }
 
