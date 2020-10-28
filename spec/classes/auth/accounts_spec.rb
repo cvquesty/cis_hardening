@@ -62,7 +62,7 @@ describe 'cis_hardening::auth::accounts' do
         is_expected.to contain_exec('password_change_past').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Password Change date in past for some users."',
-          'onlyif'  => 'test ! "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep "^Last p  assword change" | cut -d: -f2) > $(date) ]] && echo "$usr :$(chage -- list $usr | grep "^Last password c  hange" | cut -d: -f2)"; done"',
+          'onlyif'  => 'test ! "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep "^Last p  assword change" | cut -d: -f2) > $(date) ]] && echo "$usr :$(chage -- list $usr | grep "^Last password change" | cut -d: -f2)"; done"',
         )
       }
 
