@@ -10,6 +10,13 @@ describe 'cis_hardening::auth::cron' do
         is_expected.to contain_class('cis_hardening::auth::cron')
       }
 
+      # Check that cronie is installed
+      it {
+        is_expected.to contain_package('cronie').with(
+          'ensure' => 'installed',
+        )
+      }
+
       # Check that Enable Cron Daemon - Section 5.1.1 is correct
       it {
         is_expected.to contain_service('crond').with(
