@@ -11,21 +11,21 @@ class cis_hardening::maint::usergroups {
   exec { 'shadowed_passwords_check':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => "sed -e 's/^\([a-zA-Z0-9_]*\):[^:]*:/\1:x:/' -i /etc/passwd",
-    onlyif  => "test ! `cat /etc/passwd | awk -F: '{print $2}' |grep -v x`",
+    onlyif  => "test ! `cat /etc/passwd | awk -F: '{print \$2}' |grep -v x`",
   }
 
   # Ensure /etc/shadow password fields are not empty - Section 6.2.2
   exec { 'shadow_password_field_check':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Shadow Password Fields Empty. Check manually."',
-    onlyif  => "test ! `cat /etc/shadow |awk '{print $2}' |grep -v ""`",
+    onlyif  => "test `cat /etc/shadow |awk '{print \$2}'`",
   }
 
   # Ensure the root account is the only UID 0 Account - Section 6.2.3
   exec { 'only_one_uid0':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "More than one user has a UID of 0"',
-    onlyif  => "test ! `awk -F: '($3 == 0) { print $1 }' /etc/passwd |grep -v root`",
+    onlyif  => "test ! `awk -F: '(\$3 == 0) { print \$1 }' /etc/passwd |grep -v root`",
   }
 
   # Ensure root PATH integrity - Section 6.2.4

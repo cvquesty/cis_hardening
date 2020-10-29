@@ -18,15 +18,6 @@ describe 'cis_hardening::network::unused_protocols' do
         )
       }
 
-      # Ensure that IPv6 router advertisements are not accepted - Section 3.3.1
-      it {
-        is_expected.to contain_file_line('ipv6_accept_ra_all').with(
-          'ensure' => 'present',
-          'path'   => '/etc/sysctl.d/99-sysctl.conf',
-          'line'   => 'net.ipv6.conf.all.accept_ra = 0',
-        ).that_notifies('Exec[restart_ipv6_sysctl]')
-      }
-
       # Disable IPv6 - Section 3.1.1
       it {
         is_expected.to contain_file_line('disable_ipv6_sysctl_default').with(

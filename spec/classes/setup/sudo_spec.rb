@@ -36,7 +36,7 @@ describe 'cis_hardening::setup::sudo' do
             'ensure'  => 'present',
             'path'    => '/etc/sudoers.d/cis_sudoers_defaults.conf',
             'line'    => 'Defaults use_pty',
-          ).that_requires('File[/etc/sudoers.d/cis_sudoers_defaults.conf')
+          ).that_requires('File[/etc/sudoers.d/cis_sudoers_defaults.conf]')
         }
 
         # Ensure sudo log file exists - Section 1.3.3
@@ -45,11 +45,11 @@ describe 'cis_hardening::setup::sudo' do
             'ensure' => 'present',
             'path'   => '/etc/sudoers.d/cis_sudoers_defaults.conf',
             'line'   => 'Defaults logfile="/var/log/sudo.log"',
-          ).that_requires('File[/etc/sudoers.d/cis_sudoers_defaults.conf')
+          ).that_requires('File[/etc/sudoers.d/cis_sudoers_defaults.conf]')
         }
-          
-      # Ensure manifest compiles with all dependencies  
-      it { 
+
+      # Ensure manifest compiles with all dependencies
+      it {
         is_expected.to compile.with_all_deps
       }
     end
