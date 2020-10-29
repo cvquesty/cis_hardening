@@ -46,7 +46,7 @@ describe 'cis_hardening::auth::ssh' do
       it {
         is_expected.to contain_exec('set_sshpubkey_owner').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \;",
+          'command' => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \\;",
         )
       }
 
