@@ -19,6 +19,8 @@ No currently known issues
 
 **TODO**
 
+Extract important variables and move to Hiera for sourcing from OSSEC
+
 Implement types/providers to find state on:
 - Files that are SUID or GUID
 - Users that have incorrect or elevated UIDs
