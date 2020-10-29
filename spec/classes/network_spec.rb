@@ -15,10 +15,7 @@ describe 'cis_hardening::network' do
         is_expected.to contain_class('cis_hardening::network::netparams')
       }
       it {
-        is_expected.to contain_class('cis_hardening::network::tcpwrappers')
-      }
-      it {
-        is_expected.to contain_class('cis_hardening::network::ipv6')
+        is_expected.to contain_class('cis_hardening::network::unused_protocols')
       }
       it {
         is_expected.to contain_class('cis_hardening::network::firewall')

@@ -14,7 +14,7 @@ describe 'cis_hardening::maint::usergroups' do
       it {
         is_expected.to contain_exec('shadowed_passwords_check').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => "sed -e 's/^\([a-zA-Z0-9_]*\):[^:]*:/\1:x:/' -i /etc/passwd",
+          'command' => "sed -e 's/^\\([a-zA-Z0-9_]*\\):[^:]*:/\\1:x:/' -i /etc/passwd",
           'onlyif'  => "test ! `cat /etc/passwd | awk -F: '{print $2}' |grep -v x`",
         )
       }
@@ -41,7 +41,7 @@ describe 'cis_hardening::maint::usergroups' do
 
       # Check for empty Directory in path
       it {
-        is_expected.to contain_exec('check_empty_root_dir_path').with(
+        is_expected.to contain_exec('check_empty_root_path_dir').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Empty Directory in root PATH (::)"',
           'onlyif'  => 'test `echo "$PATH" | grep -q "::"`',
