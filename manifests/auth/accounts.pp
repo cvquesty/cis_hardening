@@ -41,7 +41,7 @@ class cis_hardening::auth::accounts {
   # Ensure inactive password lock is 30 days or less - Section 5.4.1.4
   file_line { 'dormant_lock':
     ensure => 'present',
-    path   => '/etc/defaults/useradd',
+    path   => '/etc/default/useradd',
     line   => 'INACTIVE=30',
     match  => '^INACTIVE\=',
   }
