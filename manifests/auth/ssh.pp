@@ -151,8 +151,8 @@ class cis_hardening::auth::ssh {
   file_line { 'ssh_keyexchange_algos':
     ensure => 'present',
     path   => '/etc/ssh/sshd_config',
-    line   => 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-helman-group14-sha256,diffie-helman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256',
-    match  => '^KeyxAlgorithms\ ',
+    line   => 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256',
+    match  => '^KexAlgorithms\ ',
   }
 
   # Ensure SSH Idle Timeout Interval is configured - Section 5.2.16
