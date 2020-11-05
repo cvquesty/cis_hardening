@@ -74,7 +74,7 @@ class cis_hardening::auth::ssh {
     line   => 'LogLevel INFO',
     match  => '^LogLevel\ ',
   }
-    
+
   # Ensure SSH X11 Forwarding is disabled - Section 5.2.6
   file_line { 'set_x11_forwarding':
     ensure => 'present',

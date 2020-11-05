@@ -57,17 +57,21 @@ describe 'cis_hardening::logaudit::accounting' do
         ).that_requires('Package[audit]')
       }
 
-      # If you leave AuditD as-is, you'll get an error because the default is to not allow AuditD to restart. For the
-      # purposes of CIS hardening, you have to be able to specify options and restart the service. This changes the option
-      # when Puppet runs. It will only be activated once booted after the Puppet run.
-      it {
-        is_expected.to contain_file_line('auditd_restart_enable').with(
+      it { 
+        is_expected.top contain_file_line('auditd_restart_enable').with(
           'ensure' => 'present',
-          'path'   => '/usr/lib/systemd/system/auditd.service',
-          'line'   => 'RefuseManualStop=no',
-          'match'  => '^RefuseManualStop\=',
+          
         )
       }
+      # If you leave AuditD as-is, you'll get an error because the default is to not allow AuditD to restart. For the
+# purposes of CIS hardening, you have to be able to specify options and restart the service. This changes the option
+# when Puppet runs. It will only be activated once booted after the Puppet run.
+file_line { 'auditd_restart_enable':
+  ensure => 'present',
+  path   => '/usr/lib/systemd/system/auditd.service',
+  line   => 'RefuseManualStop=no',
+  match  => '^RefuseManualStop\=',
+}
 
       # Configure Data Retention - 4.1.2
       # Ensure audit log storage size is configured - Section 4.1.2.1

@@ -97,12 +97,11 @@ describe 'cis_hardening::services::special' do
       }
 
       # Ensure rpcbind is not installed or the rpcbind services are masked - Section 2.2.8
-      # it {
-      #   is_expected.to contain_package('rpcbind').with(
-      #     'ensure' => 'absent',
-      #   )
+      #it {
+      #  is_expected.to contain_package('rpcbind').with(
+      #    'ensure' => 'absent',
+      #  )
       # }
-      # NOTE: rpcbind is used by the quota system. CIS suggests quotas, therefore the rpcbind package is left in.
 
       # Ensure DNS Server is not installed - Section 2.2.9
       it {

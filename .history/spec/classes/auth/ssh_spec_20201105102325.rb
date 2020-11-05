@@ -157,7 +157,7 @@ describe 'cis_hardening::auth::ssh' do
         is_expected.to contain_file_line('ssh_keyexchange_algos').with(
           'ensure' => 'present',
           'path'   => '/etc/ssh/sshd_config',
-          'line'   => 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256',
+          'line'   => 'KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-helman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-helman-group-exchange-sha256',
           'match'  => '^KexAlgorithms\ ',
         )
       }

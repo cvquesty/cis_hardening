@@ -50,11 +50,11 @@ describe 'cis_hardening::network::firewall' do
 
       # Ensure IPTables is enabled and running - Section 3.5.3.2.6
       #  it {
-      #    is_expected.to contain_service('iptables').with(
-      #      'ensure' => 'running',
-      #      'enable' => true,
-      #    ) 
-      #  }
+           is_expected.to contain_service('iptables').with(
+             'ensure' => 'running',
+             'enable' => true,
+        )
+      }
 
       # Place IPTables config file
       it {
