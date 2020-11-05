@@ -54,7 +54,7 @@ describe 'cis_hardening::network::firewall' do
       #      'ensure' => 'running',
       #      'enable' => true,
       #    ) 
-      #  }
+    }
 
       # Place IPTables config file
       it {
