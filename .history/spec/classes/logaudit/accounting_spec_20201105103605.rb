@@ -8,15 +8,74 @@ describe 'cis_hardening::logaudit::accounting' do
       # Check for default class
       it { is_expected.to contain_class('cis_hardening::logaudit::accounting') }
 
-      # Ensure that Exec to notify from auditd rules changes - Section 4.1.1
+      # Ensure Auditing is enabled - Section 4.1.1
+      # Ensure that auditd is installed - Section 4.1.1.1
+      it {
+        is_expected.to contain_package('audit').with(
+          'ensure' => 'present',
+        )
+      }
+
+      it {
+        is_expected.to contain_package('audit-libs').with(
+          'ensure' => 'present',
+        )
+      }
+
+      # Ensure auditd service is enabled and running - Section 4.1.1.2
+      it {
+        is_expected.to contain_service('auditd').with(
+          'ensure'     => 'running',
+          'enable'     => true,
+          'hasstatus'  => true,
+          'hasrestart' => true,
+        ).that_requires('File[/etc/audit/audit.rules]')
+      }
+
       it {
         is_expected.to contain_exec('restart_auditd').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => '/bin/systemctl restart auditd',
-        )
+        ).that_requires('Package[audit]')
       }
 
-      # Ensure that Ensure audit log storage size is configured - Section 4.1.1.1
+      # Ensure that Ensure auditing for processes that start prior to auditd is enabled - Section 4.1.1.3
+      it {
+        is_expected.to contain_file_line('pre_auditd_settings').with(
+          'ensure' => 'present',
+          'path'   => '/etc/default/grub',
+          'line'   => 'GRUB_CMDLINE_LINUX="audit=1"',
+        ).that_requires('File[/etc/default/grub]')
+      }
+
+      it {
+        is_expected.to contain_file('/etc/audit/audit.rules').with(
+          'ensure' => 'present',
+          'owner'  => 'root',
+          'group'  => 'root',
+          'mode'   => '0640',
+        ).that_requires('Package[audit]')
+      }
+
+      it { 
+        is_expected.top contain_file_line('auditd_restart_enable').with(
+          'ensure' => 'present',
+          'path'   => '/usr/lib/systemd/system/auditd.service',
+          'line'   => 'RefuseManualStop=no',
+        )
+      }
+      # If you leave AuditD as-is, you'll get an error because the default is to not allow AuditD to restart. For the
+# purposes of CIS hardening, you have to be able to specify options and restart the service. This changes the option
+# when Puppet runs. It will only be activated once booted after the Puppet run.
+file_line { 'auditd_restart_enable':
+  ensure => 'present',
+  path   => '/usr/lib/systemd/system/auditd.service',
+  line   => 'RefuseManualStop=no',
+  match  => '^RefuseManualStop\=',
+}
+
+      # Configure Data Retention - 4.1.2
+      # Ensure audit log storage size is configured - Section 4.1.2.1
       it {
         is_expected.to contain_file_line('set_auditd_logfile_size').with(
           'ensure' => 'present',
@@ -26,7 +85,17 @@ describe 'cis_hardening::logaudit::accounting' do
         ).that_notifies('Exec[restart_auditd]')
       }
 
-      # Ensure that system is disabled when audit logs are full - Section 4.1.1.2
+      # Ensure that Ensure audit logs are not automatically deleted - Section 4.1.2.2
+      it {
+        is_expected.to contain_file_line('set_max_logfile_action').with(
+          'ensure' => 'present',
+          'path'   => '/etc/audit/auditd.conf',
+          'line'   => 'max_log_file_action = keep_logs',
+          'match'  => '^max_log_file_action\ \=',
+        )
+      }
+
+      # Ensure system is disabled when audit logs are full - Section 4.1.2.3
       it {
         is_expected.to contain_file_line('full_logfile_notify_action').with(
           'ensure' => 'present',
@@ -54,27 +123,9 @@ describe 'cis_hardening::logaudit::accounting' do
         ).that_notifies('Exec[restart_auditd]')
       }
 
-      # Ensure that Ensure audit logs are not automatically deleted - Section 4.1.1.3
-      it {
-        is_expected.to contain_file_line('set_max_logfile_action').with(
-          'ensure' => 'present',
-          'path'   => '/etc/audit/auditd.conf',
-          'line'   => 'max_log_file_action = keep_logs',
-          'match'  => '^max_log_file_action\ \=',
-        )
-      }
+      # Ensure audit_backlog_limit is sufficient - Section 4.1.2.4 - PASS
 
-      # Ensure that Ensure auditd service is enabled - Section 4.1.2
-      it {
-        is_expected.to contain_service('auditd').with(
-          'ensure'     => 'running',
-          'enable'     => true,
-          'hasstatus'  => true,
-          'hasrestart' => true,
-        )
-      }
-
-      # Ensure that Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
+      # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
       it {
         is_expected.to contain_file('/etc/default').with(
           'ensure' => 'directory',
@@ -93,16 +144,9 @@ describe 'cis_hardening::logaudit::accounting' do
         ).that_requires('File[/etc/default]')
       }
 
-      # Ensure that Ensure auditing for processes that start prior to auditd is enabled - Section 4.1.3
-      it {
-        is_expected.to contain_file_line('pre_auditd_settings').with(
-          'ensure' => 'present',
-          'path'   => '/etc/default/grub',
-          'line'   => 'GRUB_CMDLINE_LINUX="audit=1"',
-        ).that_requires('File[/etc/default/grub]')
-      }
 
-      # Ensure that Ensure events that modify date and time information are collected - Section 4.1.4
+
+      # Ensure events that modify date and time information are collected - Section 4.1.3
       it {
         is_expected.to contain_file_line('time_change_64bit_item1').with(
           'ensure' => 'present',
@@ -127,7 +171,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure events that modify user/group information are collected - Section 4.1.5
+      # Ensure events that modify user/group information are collected - Section 4.1.4
       it {
         is_expected.to contain_file_line('ownerchange_group').with(
           'ensure' => 'present',
@@ -168,7 +212,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure events that modify the system's network environment are collected - Section 4.1.6
+      # Ensure events that modify the system's network environment are collected - Section 4.1.5
       it {
         is_expected.to contain_file_line('network_namechanges').with(
           'ensure' => 'present',
@@ -209,7 +253,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure events that modify the system's Mandatory Access Controls are collected - Section 4.1.7
+      # Ensure events that modify the system's Mandatory Access Controls are collected - Section 4.1.6
       it {
         is_expected.to contain_file_line('macpolicy_selinux').with(
           'ensure' => 'present',
@@ -226,12 +270,20 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure login and logout events are collected - Section 4.1.8
+      # Ensure that Ensure login and logout events are collected - Section 4.1.7
       it {
         is_expected.to contain_file_line('lastlogin').with(
           'ensure' => 'present',
           'path'   => '/etc/audit/audit.rules',
           'line'   => '-w /var/log/lastlog -p wa -k logins',
+        )
+      }
+
+      it {
+        is_expected.to contain_file_line('faillog').with(
+          'ensure' => 'present',
+          'path'   => '/etc/audit/audit.rules',
+          'line'   => '-w /var/log/faillog -p wa -k logins',
         )
       }
 
@@ -243,7 +295,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure session initiation information is collected - Section 4.1.9
+      # Ensure session initiation information is collected - Section 4.1.8
       it {
         is_expected.to contain_file_line('utmp_entry').with(
           'ensure' => 'present',
@@ -268,7 +320,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure discretionary access control permission modification events are collected - Section 4.1.10
+      # Ensure discretionary access control permission modification events are collected - Section 4.1.9
       it {
         is_expected.to contain_file_line('chmod_cmds').with(
           'ensure' => 'present',
@@ -293,7 +345,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure unsuccessful unauthorized file access attempts are collected - Section 4.1.11
+      # Ensure unsuccessful unauthorized file access attempts are collected - Section 4.1.10
       it {
         is_expected.to contain_file_line('file_truncate').with(
           'ensure' => 'present',
@@ -302,9 +354,9 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure use of privileged commands is collected - Section 4.1.12 **unused**
+      # Ensure use of privileged commands is collected - Section 4.1.11 **unused**
 
-      # Ensure that Ensure succesful filesystem mounts are collected - Section 4.1.13
+      # Ensure succesful filesystem mounts are collected - Section 4.1.12
       it {
         is_expected.to contain_file_line('mount_cmds').with(
           'ensure' => 'present',
@@ -313,7 +365,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure file deletion events by users are captured - Section 4.1.14
+      # Ensure that Ensure file deletion events by users are captured - Section 4.1.13
       it {
         is_expected.to contain_file_line('file_deletions').with(
           'ensure' => 'present',
@@ -322,7 +374,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure changes to system administration scope (sudoers) is collected - Section 4.1.15
+      # Ensure that Ensure changes to system administration scope (sudoers) is collected - Section 4.1.14
       it {
         is_expected.to contain_file_line('sudoers_file').with(
           'ensure' => 'present',
@@ -339,7 +391,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure system administrator actions (sudolog) are collected - Section 4.1.16
+      # Ensure that Ensure system administrator actions (sudolog) are collected - Section 4.1.15
       it {
         is_expected.to contain_file_line('sudolog').with(
           'ensure' => 'present',
@@ -348,7 +400,7 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
-      # Ensure that Ensure Kernel module loading and unloading are collected - Section 4.1.17
+      # Ensure that Ensure Kernel module loading and unloading are collected - Section 4.1.16
       it {
         is_expected.to contain_file_line('check_insmod').with(
           'ensure' => 'present',
@@ -381,9 +433,10 @@ describe 'cis_hardening::logaudit::accounting' do
         )
       }
 
+      # Ensure the audit configuration is immutable - Section 4.1.17
       it {
         is_expected.to contain_file_line('make_auditd_immutable').with(
-          'ensure'           => 'present',
+          'ensure'             => 'present',
           'path'               => '/etc/audit/audit.rules',
           'line'               => '-e 2',
           'match'              => '^-e\ ',
