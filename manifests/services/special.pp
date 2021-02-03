@@ -98,6 +98,7 @@ class cis_hardening::services::special {
   # package { 'rpcbind':
   #   ensure => 'absent',
   # }
+  #
   # NOTE: rpcbind is used by the quota system. CIS suggests quotas, therefore the rpcbind package is left in.
 
   # Ensure DNS Server is not installed - Section 2.2.9

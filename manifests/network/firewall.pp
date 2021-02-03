@@ -50,10 +50,12 @@ class cis_hardening::network::firewall {
   # Ensure IPTables rules are saved - Section 3.5.3.2.5
 
   # Ensure IPTables is enabled and running - Section 3.5.3.2.6
+
   # service { 'iptables':
   #   ensure => 'running',
   #   enable => true,
   # }
+
   # NOTE: Disabled for local testing ONLY. May be enabled on physical infrastructure
 
   # Place IPTABLES config file

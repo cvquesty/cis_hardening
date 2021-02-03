@@ -60,5 +60,4 @@ class cis_hardening::setup::accessctl {
   package { 'mcstrans':
     ensure => 'absent',
   }
- 
 }
