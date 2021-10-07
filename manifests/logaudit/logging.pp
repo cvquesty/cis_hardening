@@ -1,4 +1,4 @@
-# @summary A manifest to configuring the logging subsystem according to CIS 
+# @summary A manifest to configuring the logging subsystem according to CIS
 # hardening guidelines
 #
 # Section 4.2 - Configure Logging
@@ -41,7 +41,7 @@ class cis_hardening::logaudit::logging {
   #  path   => '/etc/rsyslog.conf',
   #  line   => '*.* @@loghost.example.com',
   #}
-  # 
+  #
   # NOTE: Uncomment above and populate "line" attribute with appropriate syslog server.
 
   # Ensure remote rsyslog messages are only accepted on designated log hosts - Section 4.2.1.6
