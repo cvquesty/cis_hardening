@@ -48,31 +48,6 @@ describe 'cis_hardening::setup::filesystem' do
         ).that_requires('File[/etc/modprobe.d/CIS.conf]')
       }
 
-      # Ensure mounting of FAT filesystems (vfat) is disabled - Section 1.1.1.4
-      it {
-        is_expected.to contain_file_line('vfat_disable').with(
-          'ensure' => 'present',
-          'path'   => '/etc/modprobe.d/CIS.conf',
-          'line'   => 'install vfat /bin/true',
-        ).that_requires('File[/etc/modprobe.d/CIS.conf]')
-      }
-
-      it {
-        is_expected.to contain_file_line('fat_disable').with(
-          'ensure' => 'present',
-          'path'   => '/etc/modprobe.d/CIS.conf',
-          'line'   => 'install fat /bin/true',
-        ).that_requires('File[/etc/modprobe.d/CIS.conf]')
-      }
-
-      it {
-        is_expected.to contain_file_line('msdos_disable').with(
-          'ensure' => 'present',
-          'path'   => '/etc/modprobe.d/CIS.conf',
-          'line'   => 'install msdos /bin/true',
-        ).that_requires('File[/etc/modprobe.d/CIS.conf]')
-      }
-
       # Ensure nosuid option set on /tmp partition - Section 1.1.4
       # Ensure noexec option set on /tmp partition - Section 1.1.5
 

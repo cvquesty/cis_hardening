@@ -40,28 +40,6 @@ class cis_hardening::setup::filesystem {
     require => File['/etc/modprobe.d/CIS.conf'],
   }
 
-  # Ensure mounting of FAT filesystems (vfat) is disabled - Section 1.1.1.4
-  file_line { 'vfat_disable':
-    ensure  => 'present',
-    path    => '/etc/modprobe.d/CIS.conf',
-    line    => 'install vfat /bin/true',
-    require => File['/etc/modprobe.d/CIS.conf'],
-  }
-
-  file_line { 'fat_disable':
-    ensure  => 'present',
-    path    => '/etc/modprobe.d/CIS.conf',
-    line    => 'install fat /bin/true',
-    require => File['/etc/modprobe.d/CIS.conf'],
-  }
-
-  file_line { 'msdos_disable':
-    ensure  => 'present',
-    path    => '/etc/modprobe.d/CIS.conf',
-    line    => 'install msdos /bin/true',
-    require => File['/etc/modprobe.d/CIS.conf'],
-  }
-
   # TODO: tmpfs mounting is touchy and can affect an existing infrastructure. We have
   # opted to warn the user rather than mount a new /tmp due to potential existing needs
   # for SystemD's virtual tmpfs mechanism. Look for ways to allow the user to select an
