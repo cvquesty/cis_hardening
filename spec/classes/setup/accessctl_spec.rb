@@ -36,7 +36,7 @@ describe 'cis_hardening::setup::accessctl' do
           'match'  => '^GRUB_CMDLINE_LINUX\=',
         )
       }
-      
+
       # Ensure SELINUX Policy is configured - Section 1.7.1.3
       it {
         is_expected.to contain_file_line('selinux_policy').with(
