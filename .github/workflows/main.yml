@@ -28,3 +28,5 @@ jobs:
       # Runs a single command using the runners shell
       - name: action-pdk-validate
         uses: puppets-epic-show-theatre/action-pdk-validate@v1.1.0
+      - name: action-pdk-test-unit
+        uses: puppets-epic-show-theatre/action-pdk-test-unit@v1.2.0
