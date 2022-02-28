@@ -32,8 +32,8 @@ jobs:
         uses: puppets-epic-show-theatre/action-pdk-test-unit@v1.2.0
         with:
           # A string indicating the Puppet version to validate against, such as "5.4.2" or "5.5".
-          puppet-version: 7.14.0
+          puppet-version:
           # A string indicating the PE version to validate against, such as "2017.3.5" or "2018.1".
-          pe-version: 2021.5
+          pe-version:
           # A string indicating the docker image to build from, such as "puppet/pdk:latest" or "puppet/pdk:nightly".
           pdk-image: "puppet/pdk:latest"
