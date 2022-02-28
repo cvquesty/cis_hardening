@@ -15,9 +15,17 @@ describe ' IPv6 Networking' do
     it { is_expected.to be_symlink }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
-    its(:content) { is_expected.to match %r{/net.ipv6.conf.all.accept_ra = 0/} }
-    its(:content) { is_expected.to match %r{/net.ipv6.conf.default.accept_ra = 0/} }
-    its(:content) { is_expected.to match %r{/net.ipv6.conf.all.accept_redirects = 0/} }
-    its(:content) { is_expected.to match %r{/net.ipv6.conf.default.accept_redirects = 0/} }
+    it {
+      its(:content) { is_expected.to match %r{/net.ipv6.conf.all.accept_ra = 0/} }
+    }
+    it {
+      its(:content) { is_expected.to match %r{/net.ipv6.conf.default.accept_ra = 0/} }
+    }
+    it {
+      its(:content) { is_expected.to match %r{/net.ipv6.conf.all.accept_redirects = 0/} }
+    }
+    it {
+      its(:content) { is_expected.to match %r{/net.ipv6.conf.default.accept_redirects = 0/} }
+    }
   end
 end

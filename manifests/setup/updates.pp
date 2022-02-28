@@ -5,7 +5,7 @@
 # @example
 #   include cis_hardening::setup::updates
 class cis_hardening::setup::updates {
-  
+
   # Ensure GPG keys are configured - Section 1.2.1
   #
   # Run "rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'" at the command line to

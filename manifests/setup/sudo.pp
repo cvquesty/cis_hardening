@@ -28,9 +28,9 @@ class cis_hardening::setup::sudo {
 
   # Ensure sudo log file exists - Section 1.3.3
   file_line { 'defaults_sudo_logfile':
-    ensure => 'present',
-    path   => '/etc/sudoers.d/cis_sudoers_defaults.conf',
-    line   => 'Defaults logfile="/var/log/sudo.log"',
+    ensure  => 'present',
+    path    => '/etc/sudoers.d/cis_sudoers_defaults.conf',
+    line    => 'Defaults logfile="/var/log/sudo.log"',
     require => File['/etc/sudoers.d/cis_sudoers_defaults.conf'],
   }
 
