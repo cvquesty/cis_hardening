@@ -25,11 +25,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs pdk test unit
-      - name: action-pdk-test-unit
+      # Runs pdk validate
+      - name: action-pdk-validate
         # You may pin to the exact commit or the version.
         # uses: puppets-epic-show-theatre/action-pdk-test-unit@237550c1eff52a3e457cf4d2d8193fb799823615
-        uses: puppets-epic-show-theatre/action-pdk-test-unit@v1.2.0
+        uses: puppets-epic-show-theatre/action-pdk-validate@v1.1.0
         with:
           # A string indicating the Puppet version to validate against, such as "5.4.2" or "5.5".
           puppet-version:
@@ -37,11 +37,11 @@ jobs:
           pe-version:
           # A string indicating the docker image to build from, such as "puppet/pdk:latest" or "puppet/pdk:nightly".
           pdk-image: "puppet/pdk:latest"
-      # Runs pdk validate
-      - name: action-pdk-validate
+      # Runs pdk test unit
+      - name: action-pdk-test-unit
         # You may pin to the exact commit or the version.
         # uses: puppets-epic-show-theatre/action-pdk-test-unit@237550c1eff52a3e457cf4d2d8193fb799823615
-        uses: puppets-epic-show-theatre/action-pdk-validate@v1.1.0
+        uses: puppets-epic-show-theatre/action-pdk-test-unit@v1.2.0
         with:
           # A string indicating the Puppet version to validate against, such as "5.4.2" or "5.5".
           puppet-version:
