@@ -55,3 +55,6 @@ jobs:
           pe-version:
           # A string indicating the docker image to build from, such as "puppet/pdk:latest" or "puppet/pdk:nightly".
           pdk-image: "puppet/pdk:latest"
+      # Notifies me via Slack
+      - name: Slack Notify
+        uses: rtCamp/action-slack-notify@v2.2.0
