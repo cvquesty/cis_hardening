@@ -58,6 +58,7 @@ describe 'cis_hardening::auth::accounts' do
       }
 
       # Ensure all users last password change date is in the past - Section 5.4.1.5
+      # rubocop:disable all
       it {
         is_expected.to contain_exec('password_change_past').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -65,6 +66,7 @@ describe 'cis_hardening::auth::accounts' do
           'onlyif'  => "test ! \"for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep \"^Last password change\" | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage -- list $usr | grep \"^Last password change\" | cut -d: -f2)\"; done\"",
         )
       }
+      # rubocop:enable all
 
       # Check that Ensure default group for the root account is GID 0 - Section 5.4.3
       it {
