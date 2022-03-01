@@ -18,29 +18,29 @@ class cis_hardening::auth::ssh {
   # Ensure permissions on SSH private host key files are configured - Section 5.2.2
   exec { 'set_sshprivkey_perms':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod u-x,g-wx,o-rwx {} \;",
+    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod u-x,g-wx,o-rwx {} \\;",
   }
 
   exec { 'set_sshprivkey_owner':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:ssh_keys {} \;",
+    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:ssh_keys {} \\;",
   }
 
   # Ensure permissions on SSH public host key files are configured - Section 5.2.3
   exec { 'set_sshpubkey_perms':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod u-x,go-wx {} \;",
+    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod u-x,go-wx {} \\;",
   }
 
   exec { 'set_sshpubkey_owner':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \;",
+    command => "find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \\;",
   }
 
   # Ensure SSH access is limited - Section 5.2.4
   #
-  # NOTE: To use this feature, you must specify the users or groups you wish to allow or deny 
-  # connection to the system via SSH. The below stanzas will allow you to do this by replacing 
+  # NOTE: To use this feature, you must specify the users or groups you wish to allow or deny
+  # connection to the system via SSH. The below stanzas will allow you to do this by replacing
   # the "<userlist>" or "<grouplist>" items with a list of space-seaprated usernames
   #
   # file_line { 'allowusers_ssh':

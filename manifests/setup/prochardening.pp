@@ -19,7 +19,7 @@ class cis_hardening::setup::prochardening {
     group   => 'root',
     mode    => '0644',
     content => '* hard core 0',
-    notify => Exec['restart_prochardening_sysctl'],
+    notify  => Exec['restart_prochardening_sysctl'],
   }
 
   file_line { 'fs_dumpable':

@@ -58,13 +58,15 @@ describe 'cis_hardening::auth::accounts' do
       }
 
       # Ensure all users last password change date is in the past - Section 5.4.1.5
+      # rubocop:disable all
       it {
         is_expected.to contain_exec('password_change_past').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
           'command' => 'logger -p crit "Password Change date in past for some users."',
-          'onlyif'  => "test ! \"for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep \"^Last password change\" | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage -- list $usr | grep \"^Last password change\" | cut -d: -f2)\"; done\""
+          'onlyif'  => "test ! \"for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep \"^Last password change\" | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage -- list $usr | grep \"^Last password change\" | cut -d: -f2)\"; done\"",
         )
       }
+      # rubocop:enable all
 
       # Check that Ensure default group for the root account is GID 0 - Section 5.4.3
       it {
@@ -73,7 +75,7 @@ describe 'cis_hardening::auth::accounts' do
           'gid'    => 'root',
         )
       }
-        
+
       # Check that Ensure default user shell timeout is 900 seconds or less - Section 5.4.4
       it {
         is_expected.to contain_file('/etc/profile.d/cisusertimeout.sh').with(
@@ -82,7 +84,7 @@ describe 'cis_hardening::auth::accounts' do
           'group'   => 'root',
           'mode'    => '0755',
           'content' => 'readonly TMOUT=600 ; export TMOUT',
-         )
+        )
       }
 
       # Check that Ensure default user umask is 027 or more restrictive - Section 5.4.5

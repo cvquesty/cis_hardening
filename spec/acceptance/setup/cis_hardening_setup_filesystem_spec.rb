@@ -21,14 +21,30 @@ describe 'Disable extraneous filesystem types' do
       it { is_expected.to be_owned_by 'root' }
       it { is_expected.to be_grouped_into 'root' }
       it { is_expected.to be_mode 0o0644 }
-      its(:content) { is_expected.to match %r{/install cramfs \/bin\/true/} }
-      its(:content) { is_expected.to match %r{/install freevxfs \/bin\/true/} }
-      its(:content) { is_expected.to match %r{/install jffs2 \/bin\/true/} }
-      its(:content) { is_expected.to match %r{/install hfs \/bin\/true/} }
-      its(:content) { is_expected.to match %r{/install hfsplus \/bin\/true/} }
-      its(:content) { is_expected.to match %r{/install squashfs \/bin\/true/} }
-      its(:content) { is_expected.to match %r{/install udf \/bin\/true/} }
-      its(:content) { is_expected.to match %r{/install vfat \/bin\/true/} }
+      it {
+        its(:content) { is_expected.to match %r{/install cramfs \/bin\/true/} }
+      }
+      it {
+        its(:content) { is_expected.to match %r{/install freevxfs \/bin\/true/} }
+      }
+      it {
+        its(:content) { is_expected.to match %r{/install jffs2 \/bin\/true/} }
+      }
+      it {
+        its(:content) { is_expected.to match %r{/install hfs \/bin\/true/} }
+      }
+      it {
+        its(:content) { is_expected.to match %r{/install hfsplus \/bin\/true/} }
+      }
+      it {
+        its(:content) { is_expected.to match %r{/install squashfs \/bin\/true/} }
+      }
+      it {
+        its(:content) { is_expected.to match %r{/install udf \/bin\/true/} }
+      }
+      it {
+        its(:content) { is_expected.to match %r{/install vfat \/bin\/true/} }
+      }
     end
 
     # Logger lines omitted. If changes in the way we monitor happen, we

@@ -139,8 +139,6 @@ describe 'cis_hardening::logaudit::accounting' do
         ).that_requires('File[/etc/default]')
       }
 
-
-
       # Ensure events that modify date and time information are collected - Section 4.1.3
       it {
         is_expected.to contain_file_line('time_change_64bit_item1').with(

@@ -21,7 +21,6 @@ describe 'cis_hardening::services::inetd' do
       it {
         is_expected.to compile.with_all_deps
       }
-
     end
   end
 end

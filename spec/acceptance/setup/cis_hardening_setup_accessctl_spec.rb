@@ -7,8 +7,12 @@ describe 'Access Control Settings' do
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
     it { is_expected.to be_mode 0o0644 }
-    its(:content) { is_expected.to match %r{/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/} }
-    its(:content) { is_expected.to match %r{/GRUB_CMDLINE_LINUX="audit=1"/} }
+    it {
+      its(:content) { is_expected.to match %r{/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/} }
+    }
+    it {
+      its(:content) { is_expected.to match %r{/GRUB_CMDLINE_LINUX="audit=1"/} }
+    }
   end
 
   # Ensure the SELinux state is "enforcing" - Section 1.6.1.2
@@ -17,8 +21,12 @@ describe 'Access Control Settings' do
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
     it { is_expected.to be_mode 0o0644 }
-    its(:content) { is_expected.to match %r{/SELINUX=enforcing/} }
-    its(:content) { is_expected.to match %r{/SELINUXTYPE=targeted/} }
+    it {
+      its(:content) { is_expected.to match %r{/SELINUX=enforcing/} }
+    }
+    it {
+      its(:content) { is_expected.to match %r{/SELINUXTYPE=targeted/} }
+    }
   end
 
   # Ensure SETroubleshoot is not installed - Section 1.6.1.4

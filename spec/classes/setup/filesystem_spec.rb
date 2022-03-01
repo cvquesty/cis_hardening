@@ -193,17 +193,17 @@ describe 'cis_hardening::setup::filesystem' do
         )
       }
 
-    # Disable USB Storage - Section 1.1.24
-    # NOTE: Managing individually for admins to disable atomically if desired
-    it {
-      is_expected.to contain_file('/etc/modprobe.d/cisusbstorage.conf').with(
-        'ensure'  => 'present',
-        'owner'   => 'root',
-        'group'   => 'root',
-        'mode'    => '0755',
-        'content' => 'install usb-storage /bin/true',
-      )
-    }
+      # Disable USB Storage - Section 1.1.24
+      # NOTE: Managing individually for admins to disable atomically if desired
+      it {
+        is_expected.to contain_file('/etc/modprobe.d/cisusbstorage.conf').with(
+          'ensure'  => 'present',
+          'owner'   => 'root',
+          'group'   => 'root',
+          'mode'    => '0755',
+          'content' => 'install usb-storage /bin/true',
+        )
+      }
 
       # Ensure manifest compiles with all dependencies
       it {

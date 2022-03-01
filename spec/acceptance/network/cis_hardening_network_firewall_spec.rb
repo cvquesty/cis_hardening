@@ -24,7 +24,11 @@ describe 'Network Firewall Configuration' do
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into 'root' }
     it { is_expected.to be_mode 0o0600 }
-    its(:content) { is_expected.to match %r{/# This File Managed by Puppet. DO NOT EDIT./} }
-    its(:content) { is_expected.to match %r{/-A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT/} }
+    it {
+      its(:content) { is_expected.to match %r{/# This File Managed by Puppet. DO NOT EDIT./} }
+    }
+    it {
+      its(:content) { is_expected.to match %r{/-A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT/} }
+    }
   end
 end
