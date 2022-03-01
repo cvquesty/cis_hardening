@@ -1,14 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Development
+name: RHEL8
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the development branch
+  # Triggers the workflow on push or pull request events but only for the rhel8 branch
   push:
-    branches: [ development ]
+    branches: [ rhel8 ]
   pull_request:
-    branches: [ development ]
+    branches: [ rhel8 ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
