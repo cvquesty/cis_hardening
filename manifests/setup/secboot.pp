@@ -1,12 +1,12 @@
 # @summary A manifest to configure secure boot settings according to CIS hardening guidelines
 #
-# Section 1.5 - Secure Boot Settings
+# Section 1.4 - Secure Boot Settings
 #
 # @example
 #   include cis_hardening::setup::secboot
 class cis_hardening::setup::secboot {
 
-  # Ensure bootloader password is set - Section 1.5.1
+  # Ensure bootloader password is set - Section 1.4.1
   # Check that Grub Password is set:
   #
   #   grep "^\s*GRUB2_PASSWORD" /boot/grub2/user.cfg
@@ -15,7 +15,7 @@ class cis_hardening::setup::secboot {
   #
   #   grub2-setpassword
 
-  # Ensure permissions on bootloader config are configured - Section 1.5.2
+  # Ensure permissions on bootloader config are configured - Section 1.4.2
   if $facts['virtual'] == 'docker' {
   } else {
     file { '/boot/grub2/grub.cfg':
@@ -32,7 +32,7 @@ class cis_hardening::setup::secboot {
       mode   => '0600',
     }
 
-    # Ensure authentication required for single user mode - Section 1.5.3
+    # Ensure authentication required for single user mode - Section 1.4.3
     #
     # NOTE: Check for sulogin with "grep /sbin/sulogin /usr/lib/systemd/system/rescue.service" command
     # Remediate manually if desired
