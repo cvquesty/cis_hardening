@@ -52,7 +52,7 @@ class cis_hardening::setup::filesystem {
     onlyif  => "test ! 'mount | grep -E '\s/tmp\s'",
   }
 
-  # Ensure nodev option set on /tmp partition - Section 1.1.3
+  # Ensure noexec option set on /tmp partition - Section 1.1.3
   exec { 'chktmp_noexec':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
     command => 'logger -p crit "Filesystem /tmp is not set noexec"',
