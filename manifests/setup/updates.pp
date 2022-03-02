@@ -24,4 +24,20 @@ class cis_hardening::setup::updates {
     line   => 'gpgcheck=1',
     match  => '^gpgcheck\=',
   }
+
+  # Ensure RedHat Subscription Manager connection is configured - Section 1.2.4
+  # CIS lists this as a manual process. Institutional specifics
+  # around RHSM can be checked, but will be unique to each
+  # implementation.
+  # TODO: Find a method to allow for ad-hoc configuration
+  # post-provisioning
+
+  # Disable the RHNSD daemon - Section 1.2.5
+  service { 'rhnsd':
+    ensure     => 'stopped',
+    enable     => false,
+    hasstatus  => true,
+    hasrestart => true,
+  }
+
 }
