@@ -1,16 +1,14 @@
 # @summary A manifest to configure system warning banners according to policy in line with CIS hardening
 # guidelines
 #
-# Section 1.8 - Warning Banners
+# Section 1.7 - Command Line Warning Banners
 #
 # @example
 #   include cis_hardening::setup::banners
 class cis_hardening::setup::banners {
 
-  # 1.8.1 - Command Line Warning Banners
-
-  # Ensure message of the day (MOTD) is properly configured - Section 1.8.1.1,
-  # Ensure permisisons on /etc/motd are configured - Section 1.8.1.4
+  # Ensure message of the day is configured properly - Section 1.7.1
+  # Ensure permisisons on /etc/motd are configured - Section 1.7.4
   file { '/etc/motd':
     ensure => 'present',
     owner  => 'root',
@@ -19,8 +17,8 @@ class cis_hardening::setup::banners {
     source => 'puppet:///modules/cis_hardening/etc_motd',
   }
 
-  # Ensure local login warning banner is configured properly - Section 1.8.1.2
-  # Ensure permissions on /etc/issue are configured - Section 1.8.1.5
+  # Ensure local login warning banner is configured properly - Section 1.7.2
+  # Ensure permissions on /etc/issue are configured - Section 1.7.5
   file { '/etc/issue':
     ensure => 'present',
     owner  => 'root',
@@ -29,8 +27,8 @@ class cis_hardening::setup::banners {
     source => 'puppet:///modules/cis_hardening/etc_issue',
   }
 
-  # Ensure remote login warning banner is configured properly - Section 1.8.1.3
-  # Ensure permissions on /etc/issue.net are configured - Section 1.8.1.6
+  # Ensure remote login warning banner is configured properly - Section 1.7.3
+  # Ensure permissions on /etc/issue.net are configured - Section 1.7.6
   file { '/etc/issue.net':
     ensure => 'present',
     owner  => 'root',
@@ -46,7 +44,13 @@ class cis_hardening::setup::banners {
     onlyif  => 'test ! `yum check-update`',
   }
 
-  # Check that GDM is removed or login is configured - Section 1.10
+  # Section 1.8 - Gnome Display Manager
+
+  # Check that GDM is configured  - Section 1.8.1
+  # Ensure GDM Login banner is configured - Section 1.8.2
+  #
+  # NOTE: If GDM is intended to be on, the local fact will need to be set in <moduledir>/facts.d/gdm
+  #
   if $facts['gdm'] == 'present' {
     # Ensure GDM login banner is configured
     file_line { 'gdm_userdb':
@@ -85,6 +89,14 @@ class cis_hardening::setup::banners {
       ensure => 'present',
       path   => '/etc/dconf/db/gdm.d/01-banner-message',
       line   => "banner-message-text='Secure Login'",
+      notify => Exec['refresh_dconf'],
+    }
+
+    # Ensure last logged in user display is disabled - Section 1.8.3
+    file_line { 'gdm_lastlogin_list_disable':
+      ensure => 'present',
+      path   => '/etc/dconf/db/gdm.d/00-login-screen',
+      line   => 'disable-user-list=true',
       notify => Exec['refresh_dconf'],
     }
 
