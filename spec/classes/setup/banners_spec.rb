@@ -10,8 +10,8 @@ describe 'cis_hardening::setup::banners' do
         is_expected.to contain_class('cis_hardening::setup::banners')
       }
 
-      # Ensure message of the day (MOTD) is properly configured - Section 1.8.1.1,
-      # Ensure permisisons on /etc/motd are configured - Section 1.8.1.4
+      # Ensure message of the day (MOTD) is properly configured - Section 1.7.1
+      # Ensure permisisons on /etc/motd are configured - Section 1.7.4
       it {
         is_expected.to contain_file('/etc/motd').with(
           'ensure' => 'present',
@@ -22,8 +22,8 @@ describe 'cis_hardening::setup::banners' do
         )
       }
 
-      # Ensure local login warning banner is configured properly - Section 1.8.1.2
-      # Ensure permissions on /etc/issue are configured - Section 1.8.1.5
+      # Ensure local login warning banner is configured properly - Section 1.7.2
+      # Ensure permissions on /etc/issue are configured - Section 1.7.5
       it {
         is_expected.to contain_file('/etc/issue').with(
           'ensure' => 'present',
@@ -34,8 +34,8 @@ describe 'cis_hardening::setup::banners' do
         )
       }
 
-      # Ensure remote login warnig banner is configured properly - Section 1.8.1.3
-      # Ensure permissions on /etc/issue.net are configured - Section 1.8.1.6
+      # Ensure remote login warnig banner is configured properly - Section 1.7.3
+      # Ensure permissions on /etc/issue.net are configured - Section 1.7.6
       it {
         is_expected.to contain_file('/etc/issue.net').with(
           'ensure' => 'present',
@@ -55,7 +55,8 @@ describe 'cis_hardening::setup::banners' do
         )
       }
 
-      # Ensure GDM login banner is configured - Section 1.10
+      # Check that GDM is configured - Section 1.8.1
+      # Ensure GDM login banner is configured - Section 1.8.2
       it {
         is_expected.to contain_file_line('gdm_userdb').with(
           'ensure' => 'present',
@@ -101,6 +102,25 @@ describe 'cis_hardening::setup::banners' do
           'ensure' => 'present',
           'path'   => '/etc/dconf/db/gdm.d/01-banner-message',
           'line'   => "banner-message-text='Secure Login'",
+        ).that_notifies('Exec[refresh_dconf]')
+      }
+
+      # Ensure last logged in user display is disabled - Section 1.8.3
+      it {
+        is_expected.to contain_file_line('gdm_lastlogin_list_disable').with(
+          'ensure' => 'present',
+          'path'   => '/etc/dconf/db/gdm.d/00-login-screen',
+          'line'   => 'disable-user-list=true',
+        ).that_notifies('Exec[refresh_dconf]')
+      }
+
+      # Ensure XDCMP Not Enabled - Section 1.8.4
+      it {
+        is_expected.to contain_file_line('xdcmp_disable').with(
+          'ensure' => 'present',
+          'path'   => '/etc/gdm/custom.conf',
+          'match'  => '^Enable=true',
+          'line'   => 'Enable=false',
         ).that_notifies('Exec[refresh_dconf]')
       }
 

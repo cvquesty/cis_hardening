@@ -100,6 +100,15 @@ class cis_hardening::setup::banners {
       notify => Exec['refresh_dconf'],
     }
 
+    # Ensure XDCMP Not Enabled - Section 1.8.4
+    file_line { 'xdcmp_disable':
+      ensure => 'present',
+      path   => '/etc/gdm/custom.conf',
+      match  => '^Enable=true',
+      line   => 'Enable=false',
+      notify => Exec['refresh_dconf'],
+    }
+
     # Refresh dconf
     exec { 'refresh_dconf':
       path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
