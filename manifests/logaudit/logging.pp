@@ -9,7 +9,7 @@ class cis_hardening::logaudit::logging {
 
   # Configure rsyslog - Section 4.2.1
   #
-  # Ensure rsyslog (or syslog-ng) is installed - Section 4.2.1.1
+  # Ensure rsyslog is installed - Section 4.2.1.1
   package { 'rsyslog':
     ensure => 'present',
   }
