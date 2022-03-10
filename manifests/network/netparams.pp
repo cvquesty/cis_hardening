@@ -1,6 +1,6 @@
 # @summary A manifest to configure Networking parameters according to CIS Hardening Guidelines
 #
-# Section 3.2
+# Section 3.2 - Network Parameters
 #
 # @example
 #   include cis_hardening::network::netparams
