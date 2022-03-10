@@ -43,18 +43,20 @@ class cis_hardening::network::firewall {
   }
 
   # Configure IPv4 IPTables - 3.5.3.2
-  # Ensure Default deny Firewall Policy - Section 3.5.3.2.1
-  # Ensure loopback traffic is configured - Section 3.5.3.2.2
-  # Ensure outbound and established connections are configured - Section 3.5.3.2.3
-  # Ensure Firewall rules exist for all open ports - Section 3.5.3.2.4
+  # Ensure loopback traffic is configured - Section 3.5.3.2.1
+  # Ensure outbound and established connections are configured - Section 3.5.3.2.2
+  # Ensure Firewall rules exist for all open ports - Section 3.5.3.2.3
+  # Ensure Default deny Firewall Policy - Section 3.5.3.2.4
   # Ensure IPTables rules are saved - Section 3.5.3.2.5
 
   # Ensure IPTables is enabled and running - Section 3.5.3.2.6
 
-  # service { 'iptables':
-  #   ensure => 'running',
-  #   enable => true,
-  # }
+  service { 'iptables':
+    ensure     => 'running',
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+  }
 
   # NOTE: Disabled for local testing ONLY. May be enabled on physical infrastructure
 
