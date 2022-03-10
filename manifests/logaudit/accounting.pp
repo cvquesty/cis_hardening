@@ -236,12 +236,6 @@ class cis_hardening::logaudit::accounting {
     line   => '-w /var/log/lastlog -p wa -k logins',
   }
 
-  file_line { 'faillog':
-    ensure => 'present',
-    path   => '/etc/audit/audit.rules',
-    line   => '-w /var/log/faillog -p wa -k logins',
-  }
-
   file_line { 'faillock':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
@@ -294,9 +288,9 @@ class cis_hardening::logaudit::accounting {
   }
 
   # Ensure use of privileged commands is collected - Section 4.1.11
-  # Given that elevated privilege commands can only be found via ad-hoc queries
+  # NOTE: Given that elevated privilege commands can only be found via ad-hoc queries
   # of the filesystem/logfiles, it is not possible to generate the needed audit rules
-  # without orchestration and/or custom facts. Will revisit
+  # without orchestration and/or custom facts. TODO: Will revisit
 
   # Ensure succesful filesystem mounts are collected - Section 4.1.12
   file_line { 'mount_cmds':
@@ -326,10 +320,10 @@ class cis_hardening::logaudit::accounting {
   }
 
   # Ensure system administrator actions (sudolog) are collected - Section 4.1.15
-  file_line { 'sudolog':
+  file_line { 'actions':
     ensure => 'present',
     path   => '/etc/audit/audit.rules',
-    line   => '-w /var/log/sudo.log -p wa -k actions',
+    line   => '-a always,exit -F arch=b32 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions',
   }
 
   # Ensure Kernel module loading and unloading are collected - Section 4.1.16
