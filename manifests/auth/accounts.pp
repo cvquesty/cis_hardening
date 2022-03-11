@@ -1,7 +1,7 @@
 # @summary A manifest to configure system and user accounts according to
 # CIS hardening Guidelines
 #
-# Section 5.4 - User Accounts and Environment
+# Section 5.5 - User Accounts and Environment
 #
 # @example
 #   include cis_hardening::auth::accounts
@@ -12,9 +12,9 @@ class cis_hardening::auth::accounts {
     ensure => 'present',
   }
 
-  # Set Shadow Password Suite Parameters - Section 5.4.1
+  # Set Shadow Password Suite Parameters - Section 5.5.1
 
-  # Ensure Password expiration is 365 days or less - Section 5.4.1.1
+  # Ensure Password expiration is 365 days or less - Section 5.5.1.1
   file_line { 'pass_max_days':
     ensure => 'present',
     path   => '/etc/login.defs',
@@ -22,7 +22,7 @@ class cis_hardening::auth::accounts {
     match  => '^PASS_MAX_DAYS\ ',
   }
 
-  # Ensure minimum days between password changes is no less than one day - Section 5.4.1.2
+  # Ensure minimum days between password changes is no less than one day - Section 5.5.1.2
   file_line { 'pass_min_days':
     ensure => 'present',
     path   => '/etc/login.defs',
@@ -30,7 +30,7 @@ class cis_hardening::auth::accounts {
     match  => '^PASS_MIN_DAYS\ ',
   }
 
-  # Ensure Pasword Expiration warning days is 7 or more - Section 5.4.1.3
+  # Ensure Pasword Expiration warning days is 7 or more - Section 5.5.1.3
   file_line { 'pass_warn_age':
     ensure => 'present',
     path   => '/etc/login.defs',
@@ -38,7 +38,7 @@ class cis_hardening::auth::accounts {
     match  => '^PASS_WARN_AGE\ ',
   }
 
-  # Ensure inactive password lock is 30 days or less - Section 5.4.1.4
+  # Ensure inactive password lock is 30 days or less - Section 5.5.1.4
   file_line { 'dormant_lock':
     ensure => 'present',
     path   => '/etc/default/useradd',
@@ -46,7 +46,7 @@ class cis_hardening::auth::accounts {
     match  => '^INACTIVE\=',
   }
 
-  # Ensure all users last password change date is in the past - Section 5.4.1.5
+  # Ensure all users last password change date is in the past - Section 5.5.1.5
   # Checks for password change in the future and logs at critical to syslog.
   exec { 'password_change_past':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -54,19 +54,19 @@ class cis_hardening::auth::accounts {
     onlyif  => 'test ! "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep "^Last password change" | cut -d: -f2) > $(date) ]] && echo "$usr :$(chage -- list $usr | grep "^Last password change" | cut -d: -f2)"; done"',
   }
 
-  # Ensure System Accounts are non-login - Section 5.4.2
+  # Ensure System Accounts are secured - Section 5.5.2
   # This requires a manual inspection. Aside from logging state, this will
   # not deliver remediation.
   # TODO: Write a fact to detect state upon which to operate.
 
 
-  # Ensure default group for the root account is GID 0 - Section 5.4.3
+  # Ensure default group for the root account is GID 0 - Section 5.5.3
   user { 'root':
     ensure => 'present',
     gid    => 'root',
   }
 
-  # Ensure default user shell timeout is 900 seconds or less - Section 5.4.4
+  # Ensure default user shell timeout is 900 seconds or less - Section 5.5.4
   file { '/etc/profile.d/cisusertimeout.sh':
     ensure  => 'present',
     owner   => 'root',
@@ -75,7 +75,7 @@ class cis_hardening::auth::accounts {
     content => 'readonly TMOUT=600 ; export TMOUT',
   }
 
-  # Ensure default user umask is 027 or more restrictive - Section 5.4.5
+  # Ensure default user umask is 027 or more restrictive - Section 5.5.5
   file { '/etc/profile.d/cisumaskprofile.sh':
     ensure  => 'present',
     owner   => 'root',
