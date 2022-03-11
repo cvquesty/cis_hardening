@@ -84,7 +84,7 @@ class cis_hardening::auth::accounts {
     content => 'umask 027',
   }
 
-  # Ensure root login is restricted to system console - Section 5.5
+  # Ensure root login is restricted to system console - Section 5.6
   # This setting is a manual inspection/personal knowledge item.
   # The system has no way of understanding what consoles are "secure"
   # therefore the user must manually inspect /etc/securetty and determine
