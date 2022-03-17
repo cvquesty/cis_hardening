@@ -10,7 +10,7 @@ describe 'cis_hardening::auth::ssh' do
         is_expected.to contain_class('cis_hardening::auth::ssh')
       }
 
-      # Ensure that Ensure permissions on /etc/ssh/sshd_config are configured - Section 5.2.1
+      # Ensure that Ensure permissions on /etc/ssh/sshd_config are configured - Section 5.3.1
       it {
         is_expected.to contain_file('/etc/ssh/sshd_config').with(
           'ensure' => 'file',
@@ -20,7 +20,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure permissions on SSH private host key files are configured - Section 5.2.2
+      # Ensure permissions on SSH private host key files are configured - Section 5.3.2
       it {
         is_expected.to contain_exec('set_sshprivkey_perms').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -35,7 +35,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure permissions on SSH public host key files are configured - Section 5.2.3
+      # Ensure permissions on SSH public host key files are configured - Section 5.3.3
       it {
         is_expected.to contain_exec('set_sshpubkey_perms').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -50,10 +50,10 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure SSH access is limited - Section 5.2.4
+      # Ensure SSH access is limited - Section 5.3.4
       # Currently commented. Up to the discretion of the user as to whether to enable
 
-      # Ensure that Ensure SSH LogLevel is appropriate - Section 5.2.5
+      # Ensure that Ensure SSH LogLevel is appropriate - Section 5.3.5
       it {
         is_expected.to contain_file_line('set_ssh_loglevel').with(
           'ensure' => 'present',
@@ -63,7 +63,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure SSH X11 Forwarding is disabled - Section 5.2.6
+      # Ensure that Ensure SSH X11 Forwarding is disabled - Section 5.3.6
       it {
         is_expected.to contain_file_line('set_x11_forwarding').with(
           'ensure' => 'present',
@@ -72,7 +72,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure SSH MaxAuthTries is set to 4 or less - Section 5.2.7
+      # Ensure SSH MaxAuthTries is set to 4 or less - Section 5.3.7
       it {
         is_expected.to contain_file_line('set_ssh_maxauthtries').with(
           'ensure' => 'present',
@@ -82,7 +82,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure SSH IgnoreRhosts is enabled - Section 5.2.8
+      # Ensure that Ensure SSH IgnoreRhosts is enabled - Section 5.3.8
       it {
         is_expected.to contain_file_line('set_ssh_ignore_rhosts').with(
           'ensure' => 'present',
@@ -92,7 +92,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure SSH HostBased Authentication is Disabled - Section 5.2.9
+      # Ensure that Ensure SSH HostBased Authentication is Disabled - Section 5.3.9
       it {
         is_expected.to contain_file_line('set_hostbasedauth_off').with(
           'ensure' => 'present',
@@ -102,7 +102,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure SSH Root Login is Disabled - Section 5.2.10
+      # Ensure that Ensure SSH Root Login is Disabled - Section 5.3.10
       it {
         is_expected.to contain_file_line('set_rootlogin_no').with(
           'ensure' => 'present',
@@ -112,7 +112,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure PermitEmptyPasswords is Disabled - Section 5.2.11
+      # Ensure that Ensure PermitEmptyPasswords is Disabled - Section 5.3.11
       it {
         is_expected.to contain_file_line('set_emptypasswords_off').with(
           'ensure' => 'present',
@@ -122,7 +122,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure SSH PermitUserEnvironment is Disabled - Section 5.2.12
+      # Ensure that Ensure SSH PermitUserEnvironment is Disabled - Section 5.3.12
       it {
         is_expected.to contain_file_line('set_permituserenv_off').with(
           'ensure' => 'present',
@@ -132,7 +132,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure only strong ciphers are used - Section 5.2.13
+      # Ensure only strong ciphers are used - Section 5.3.13
       it {
         is_expected.to contain_file_line('set_ssh_ciphers').with(
           'ensure' => 'present',
@@ -142,7 +142,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure only strong MAC algorithms are used - Section 4.2.14
+      # Ensure only strong MAC algorithms are used - Section 5.3.14
       it {
         is_expected.to contain_file_line('set_ssh_macs').with(
           'ensure' => 'present',
@@ -152,7 +152,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure only strong Key Exchange algorithms are used - Section 5.2.15
+      # Ensure only strong Key Exchange algorithms are used - Section 5.3.15
       it {
         is_expected.to contain_file_line('ssh_keyexchange_algos').with(
           'ensure' => 'present',
@@ -162,7 +162,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure SSH Idle Timeout Interval is configured - Section 5.2.16
+      # Ensure that Ensure SSH Idle Timeout Interval is configured - Section 5.3.16
       it {
         is_expected.to contain_file_line('client_alive_interval').with(
           'ensure' => 'present',
@@ -172,7 +172,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure that Ensure SSH LoginGraceTime is set to One Minute or Less - Section 5.2.17
+      # Ensure that Ensure SSH LoginGraceTime is set to One Minute or Less - Section 5.3.17
       it {
         is_expected.to contain_file_line('login_grace_time').with(
           'ensure' => 'present',
@@ -182,7 +182,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure SSH Warning Banner is Configured - Section 5.2.18
+      # Ensure SSH Warning Banner is Configured - Section 5.3.18
       it {
         is_expected.to contain_file_line('set_ssh_banner').with(
           'ensure' => 'present',
@@ -192,7 +192,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure SSH PAM is enabled - Section 5.2.19
+      # Ensure SSH PAM is enabled - Section 5.3.19
       it {
         is_expected.to contain_file_line('set_ssh_pam').with(
           'ensure' => 'present',
@@ -202,7 +202,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure SSH AllowTcpForwarding is disabled - Section 5.2.20
+      # Ensure SSH AllowTcpForwarding is disabled - Section 5.3.20
       it {
         is_expected.to contain_file_line('ssh_allowtcpforwarding').with(
           'ensure' => 'present',
@@ -212,7 +212,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure SSH MaxStartups is configured - Section 5.2.21
+      # Ensure SSH MaxStartups is configured - Section 5.3.21
       it {
         is_expected.to contain_file_line('ssh_maxstartups').with(
           'ensure' => 'present',
@@ -222,7 +222,7 @@ describe 'cis_hardening::auth::ssh' do
         )
       }
 
-      # Ensure SSH MaxSessions is limited - Section 5.2.22
+      # Ensure SSH MaxSessions is limited - Section 5.3.22
       it {
         is_expected.to contain_file_line('ssh_maxsessions').with(
           'ensure' => 'present',

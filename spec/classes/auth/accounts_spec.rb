@@ -17,7 +17,7 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
-      # Check that Ensure Password expiration is 365 days or less - Section 5.4.1.1
+      # Check that Ensure Password expiration is 365 days or less - Section 5.5.1.1
       it {
         is_expected.to contain_file_line('pass_max_days').with(
           'ensure' => 'present',
@@ -27,7 +27,7 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
-      # Check that Ensure minimum days between password changes is no less than one day - Section 5.4.1.2
+      # Check that Ensure minimum days between password changes is no less than one day - Section 5.5.1.2
       it {
         is_expected.to contain_file_line('pass_min_days').with(
           'ensure' => 'present',
@@ -37,7 +37,7 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
-      # Check that Ensure Pasword Expiration warning days is 7 or more - Section 5.4.1.3
+      # Check that Ensure Pasword Expiration warning days is 7 or more - Section 5.5.1.3
       it {
         is_expected.to contain_file_line('pass_warn_age').with(
           'ensure' => 'present',
@@ -47,7 +47,7 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
-      # Ensure inactive password lock is 30 days or less - Section 5.4.1.4
+      # Ensure inactive password lock is 30 days or less - Section 5.5.1.4
       it {
         is_expected.to contain_file_line('dormant_lock').with(
           'ensure' => 'present',
@@ -57,7 +57,7 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
-      # Ensure all users last password change date is in the past - Section 5.4.1.5
+      # Ensure all users last password change date is in the past - Section 5.5.1.5
       # rubocop:disable all
       it {
         is_expected.to contain_exec('password_change_past').with(
@@ -68,7 +68,7 @@ describe 'cis_hardening::auth::accounts' do
       }
       # rubocop:enable all
 
-      # Check that Ensure default group for the root account is GID 0 - Section 5.4.3
+      # Check that Ensure default group for the root account is GID 0 - Section 5.5.3
       it {
         is_expected.to contain_user('root').with(
           'ensure' => 'present',
@@ -76,7 +76,7 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
-      # Check that Ensure default user shell timeout is 900 seconds or less - Section 5.4.4
+      # Check that Ensure default user shell timeout is 900 seconds or less - Section 5.5.4
       it {
         is_expected.to contain_file('/etc/profile.d/cisusertimeout.sh').with(
           'ensure'  => 'present',
@@ -87,7 +87,7 @@ describe 'cis_hardening::auth::accounts' do
         )
       }
 
-      # Check that Ensure default user umask is 027 or more restrictive - Section 5.4.5
+      # Check that Ensure default user umask is 027 or more restrictive - Section 5.5.5
       it {
         is_expected.to contain_file('/etc/profile.d/cisumaskprofile.sh').with(
           'ensure'  => 'present',

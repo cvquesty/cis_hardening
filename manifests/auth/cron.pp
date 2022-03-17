@@ -23,7 +23,7 @@ class cis_hardening::auth::cron {
     ensure => 'present',
     owner  => 'root',
     group  => 'root',
-    mode   => '0644',
+    mode   => '0600',
   }
 
   # Ensure permissions on /etc/cron.hourly are configured - Section 5.1.3

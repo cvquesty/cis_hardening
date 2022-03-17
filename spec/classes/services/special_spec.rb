@@ -89,66 +89,65 @@ describe 'cis_hardening::services::special' do
         )
       }
 
-      # Ensure nfs-utils is not installed or the nfs-server service is masked - Section 2.2.7
-      it {
-        is_expected.to contain_package('nfs-utils').with(
-          'ensure' => 'absent',
-        )
-      }
-
-      # Ensure rpcbind is not installed or the rpcbind services are masked - Section 2.2.8
-      # it {
-      #   is_expected.to contain_package('rpcbind').with(
-      #     'ensure' => 'absent',
-      #   )
-      # }
-      # NOTE: rpcbind is used by the quota system. CIS suggests quotas, therefore the rpcbind package is left in.
-
-      # Ensure DNS Server is not installed - Section 2.2.9
+      # Ensure DNS Server is not installed - Section 2.2.7
       it {
         is_expected.to contain_package('bind').with(
           'ensure' => 'absent',
         )
       }
 
-      # Ensure FTP Server is not installed - Section 2.2.10
+      # Ensure FTP Server is not installed - Section 2.2.8
       it {
         is_expected.to contain_package('vsftpd').with(
           'ensure' => 'absent',
         )
       }
 
-      # Ensure HTTP Server is not installed - Section 2.2.11
+      # Ensure HTTP Server is not installed - Section 2.2.9
       it {
         is_expected.to contain_package('httpd').with(
           'ensure' => 'absent',
         )
       }
 
-      # Ensure IMAP and POP3 Server are not installed - Section 2.2.12
+      # Ensure IMAP and POP3 Server are not installed - Section 2.2.10
       it {
         is_expected.to contain_package('dovecot').with(
           'ensure' => 'absent',
         )
       }
 
-      # Ensure Samba is not installed - Section 2.2.13
+      # Ensure Samba is not installed - Section 2.2.11
       it {
         is_expected.to contain_package('samba').with(
           'ensure' => 'absent',
         )
       }
 
-      # Ensure HTTP Proxy Server is not installed - Section 2.2.14
+      # Ensure HTTP Proxy Server is not installed - Section 2.2.12
       it {
         is_expected.to contain_package('squid').with(
           'ensure' => 'absent',
         )
       }
 
-      # Ensure net-snmp Server is not installed - Section 2.2.15
+      # Ensure net-snmp Server is not installed - Section 2.2.13
       it {
         is_expected.to contain_package('net-snmp').with(
+          'ensure' => 'absent',
+        )
+      }
+
+      # Ensure NIS Server is not installed - Section 2.2.14
+      it {
+        is_expected.to contain_package('ypserv').with(
+          'ensure' => 'absent',
+        )
+      }
+
+      # Ensure Telnet Server is not installed - Section 2.2.15
+      it {
+        is_expected.to contain_package('telnet-server').with(
           'ensure' => 'absent',
         )
       }
@@ -170,23 +169,24 @@ describe 'cis_hardening::services::special' do
         )
       }
 
-      # Ensure Rsync Service is not installed - Section 2.2.17
+      # Ensure nfs-utils is not installed or the nfs-server service is masked - Section 2.2.17
+      it {
+        is_expected.to contain_package('nfs-utils').with(
+          'ensure' => 'absent',
+        )
+      }
+
+      # Ensure rpcbind is not installed or the rpcbind services are masked - Section 2.2.18
+      it {
+        is_expected.to contain_package('rpcbind').with(
+          'ensure' => 'absent',
+        )
+      }
+      # NOTE: rpcbind is used by the quota system. CIS suggests quotas, therefore the rpcbind package is left in.
+
+      # Ensure Rsync Service is not installed - Section 2.2.19
       it {
         is_expected.to contain_package('rsync').with(
-          'ensure' => 'absent',
-        )
-      }
-
-      # Ensure NIS Server is not installed - Section 2.2.18
-      it {
-        is_expected.to contain_package('ypserv').with(
-          'ensure' => 'absent',
-        )
-      }
-
-      # Ensure Telnet Server is not installed - Section 2.2.19
-      it {
-        is_expected.to contain_package('telnet-server').with(
           'ensure' => 'absent',
         )
       }

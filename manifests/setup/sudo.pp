@@ -1,17 +1,17 @@
 # @summary A short summary of the purpose of this class
 #
-# Section 1.3 - Configure sudo
+# Section 5.2 - Configure sudo
 #
 # @example
 #   include cis_hardening::setup::sudo
 class cis_hardening::setup::sudo {
 
-  # Ensure sudo is installed - Section 1.3.1
+  # Ensure sudo is installed - Section 5.2.1
   package { 'sudo':
     ensure => 'installed',
   }
 
-  # Ensure sudo commands use pty - Section 1.3.2
+  # Ensure sudo commands use pty - Section 5.2.2
   file { '/etc/sudoers.d/cis_sudoers_defaults.conf':
     ensure => 'present',
     owner  => 'root',
@@ -26,7 +26,7 @@ class cis_hardening::setup::sudo {
     require => File['/etc/sudoers.d/cis_sudoers_defaults.conf'],
   }
 
-  # Ensure sudo log file exists - Section 1.3.3
+  # Ensure sudo log file exists - Section 5.2.3
   file_line { 'defaults_sudo_logfile':
     ensure  => 'present',
     path    => '/etc/sudoers.d/cis_sudoers_defaults.conf',

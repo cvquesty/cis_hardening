@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## Release 0.1.0
 
-**Features**
+Merged in cis_uplift to Development for tree climb
 
 Standard RHEL/CentOS CIS Hardening
 - Currently only supports version 7 of the OS

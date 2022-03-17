@@ -30,34 +30,8 @@ class cis_hardening::maint::fileperms {
     mode   => '0644',
   }
 
-  # Ensure permissions on /etc/shadow are configured - Section 6.1.3
-  # "verify Uid and Gid are 0/root , and Access is 0000"
-  file { '/etc/shadow':
-    ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0000',
-  }
 
-  # Ensure permissions on /etc/group are configured - Section 6.1.4
-  # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
-  file { '/etc/group':
-    ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-  }
-
-  # Ensure Permissions on /etc/gshadow are configured - Section 6.1.5
-  # "verify Uid is 0/root, Gid is 0/root and Access is 0000"
-  file { '/etc/gshadow':
-    ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0000',
-  }
-
-  # Ensure permissions on /etc/passwd- are configured - Section 6.1.6
+  # Ensure permissions on /etc/passwd- are configured - Section 6.1.3
   # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
   file { '/etc/passwd-':
     ensure => 'present',
@@ -66,7 +40,16 @@ class cis_hardening::maint::fileperms {
     mode   => '0644',
   }
 
-  # Ensure permissions on /etc/shadow- are configured - Section 6.1.7
+  # Ensure permissions on /etc/shadow are configured - Section 6.1.4
+  # "verify Uid and Gid are 0/root , and Access is 0000"
+  file { '/etc/shadow':
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0000',
+  }
+
+  # Ensure permissions on /etc/shadow- are configured - Section 6.1.5
   # "verify Uid is 0/root, Gid is 0/root and Access is 0000"
   file { '/etc/shadow-':
     ensure => 'present',
@@ -75,22 +58,41 @@ class cis_hardening::maint::fileperms {
     mode   => '0000',
   }
 
-  # Ensure permissions on /etc/group- are configured - Section 6.1.8
-  # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
-  file { '/etc/group-':
-    ensure => 'present',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-  }
-
-  # Ensure permissions on /etc/gshadow- are configured - Section 6.1.9
+  # Ensure permissions on /etc/gshadow- are configured - Section 6.1.6
   # "verify Uid is 0/root, Gid is 0/root and Access is 0000"
   file { '/etc/gshadow-':
     ensure => 'present',
     owner  => 'root',
     group  => 'root',
     mode   => '0000',
+  }
+
+  # Ensure Permissions on /etc/gshadow are configured - Section 6.1.7
+  # "verify Uid is 0/root, Gid is 0/root and Access is 0000"
+  file { '/etc/gshadow':
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0000',
+  }
+
+  # Ensure permissions on /etc/group are configured - Section 6.1.8
+  # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
+  file { '/etc/group':
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+
+
+  # Ensure permissions on /etc/group- are configured - Section 6.1.9
+  # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
+  file { '/etc/group-':
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   # Ensure no worldwritable files exist - Section 6.1.10
