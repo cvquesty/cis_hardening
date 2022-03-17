@@ -9,12 +9,10 @@ on:
     branches:
     - development
     - production
-    - cis_uplift
   pull_request:
     branches:
     - development
     - production
-    - cis_uplift
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
