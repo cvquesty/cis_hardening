@@ -3,8 +3,8 @@
 # Section 5.2 - Configure sudo
 #
 # @example
-#   include cis_hardening::setup::sudo
-class cis_hardening::setup::sudo {
+#   include cis_hardening::auth::sudo
+class cis_hardening::auth::sudo {
 
   # Ensure sudo is installed - Section 5.2.1
   package { 'sudo':
