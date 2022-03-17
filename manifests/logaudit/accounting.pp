@@ -117,7 +117,7 @@ class cis_hardening::logaudit::accounting {
 
   # Ensure audit_backlog_limit is sufficient - Section 4.1.2.4
   # backlog limit globbing into the grub.conf could generate a "non-bootable" situation
-  # TODO: Develop a good scenario for alloting grub options via automation
+  # Ticket Submitted: https://github.com/cvquesty/cis_hardening/issues/9
 
   # Ensure defaults directory is present for grub settings - Section 4.1.3 prerequisites
   file { '/etc/default':
@@ -290,7 +290,8 @@ class cis_hardening::logaudit::accounting {
   # Ensure use of privileged commands is collected - Section 4.1.11
   # NOTE: Given that elevated privilege commands can only be found via ad-hoc queries
   # of the filesystem/logfiles, it is not possible to generate the needed audit rules
-  # without orchestration and/or custom facts. TODO: Will revisit
+  # without orchestration and/or custom facts.
+  # Submitted ticket: https://github.com/cvquesty/cis_hardening/issues/10
 
   # Ensure succesful filesystem mounts are collected - Section 4.1.12
   file_line { 'mount_cmds':

@@ -40,7 +40,7 @@ class cis_hardening::setup::filesystem {
     require => File['/etc/modprobe.d/CIS.conf'],
   }
 
-  # TODO: tmpfs mounting is touchy and can affect an existing infrastructure. We have
+  # NOTE: tmpfs mounting is touchy and can affect an existing infrastructure. We have
   # opted to warn the user rather than mount a new /tmp due to potential existing needs
   # for SystemD's virtual tmpfs mechanism. Look for ways to allow the user to select an
   # implicit mount of /tmp on its own filesystem

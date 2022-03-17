@@ -57,7 +57,7 @@ class cis_hardening::auth::accounts {
   # Ensure System Accounts are secured - Section 5.5.2
   # This requires a manual inspection. Aside from logging state, this will
   # not deliver remediation.
-  # TODO: Write a fact to detect state upon which to operate.
+  # Issue created for this: https://github.com/cvquesty/cis_hardening/issues/8
 
 
   # Ensure default group for the root account is GID 0 - Section 5.5.3

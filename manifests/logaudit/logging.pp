@@ -33,7 +33,7 @@ class cis_hardening::logaudit::logging {
   # Ensure logging is configured - Section 4.2.1.4
   # Manual step for configuring Rsyslog
   #
-  # TODO: automate process of configuring rsyslog
+  # Submitted ticket to track - https://github.com/cvquesty/cis_hardening/issues/11
 
   # Ensure rsyslog is configured to send logs to a remote log host - Section 4.2.1.5
   # file_line { 'remote_loghost':
