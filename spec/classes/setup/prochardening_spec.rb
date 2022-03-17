@@ -9,7 +9,7 @@ describe 'cis_hardening::setup::prochardening' do
       it {
         is_expected.to contain_class('cis_hardening::setup::prochardening')
       }
-      # Section 1.6 - Additional Process Hardening
+      # Section 1.5 - Additional Process Hardening
 
       # Ensure Restart sysctl for prochardening items
       it {
@@ -19,7 +19,7 @@ describe 'cis_hardening::setup::prochardening' do
         )
       }
 
-      # Ensure Core Dumps are restricted - Section 1.6.1
+      # Ensure Core Dumps are restricted - Section 1.5.1
       it {
         is_expected.to contain_file('/etc/security/limits.d/cis_coredumps.conf').with(
           'ensure'  => 'present',
@@ -38,7 +38,7 @@ describe 'cis_hardening::setup::prochardening' do
         ).that_notifies('Exec[restart_prochardening_sysctl]')
       }
 
-      # Ensure Address space layout randomization (ASLR) is enabled - Section 1.6.3
+      # Ensure Address space layout randomization (ASLR) is enabled - Section 1.5.3
       it {
         is_expected.to contain_file_line('randomize_va_space').with(
           'ensure' => 'present',
@@ -47,7 +47,7 @@ describe 'cis_hardening::setup::prochardening' do
         ).that_notifies('Exec[restart_prochardening_sysctl]')
       }
 
-      # Ensure prelink is disabled - Section 1.6.4
+      # Ensure prelink is disabled - Section 1.5.4
       it {
         is_expected.to contain_package('prelink').with(
           'ensure' => 'absent',

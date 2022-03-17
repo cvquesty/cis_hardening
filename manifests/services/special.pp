@@ -89,50 +89,48 @@ class cis_hardening::services::special {
     ensure => 'absent',
   }
 
-  # Ensure nfs-utils is not installed or the nfs-server service is masked - Section 2.2.7
-  package { 'nfs-utils':
-    ensure => 'absent',
-  }
-
-  # Ensure rpcbind is not installed or the rpcbind services are masked - Section 2.2.8
-  # package { 'rpcbind':
-  #   ensure => 'absent',
-  # }
-  #
-  # NOTE: rpcbind is used by the quota system. CIS suggests quotas, therefore the rpcbind package is left in.
-
-  # Ensure DNS Server is not installed - Section 2.2.9
+  # Ensure DNS Server is not installed - Section 2.2.7
   package { 'bind':
     ensure => 'absent',
   }
 
-  # Ensure FTP Server is not installed - Section 2.2.10
+  # Ensure FTP Server is not installed - Section 2.2.8
   package { 'vsftpd':
     ensure => 'absent',
   }
 
-  # Ensure HTTP Server is not installed - Section 2.2.11
+  # Ensure HTTP Server is not installed - Section 2.2.9
   package { 'httpd':
     ensure => 'absent',
   }
 
-  # Ensure IMAP and POP3 Server are not installed - Section 2.2.12
+  # Ensure IMAP and POP3 Server are not installed - Section 2.2.10
   package { 'dovecot':
     ensure => 'absent',
   }
 
-  # Ensure Samba is not installed - Section 2.2.13
+  # Ensure Samba is not installed - Section 2.2.11
   package { 'samba':
     ensure => 'absent',
   }
 
-  # Ensure HTTP Proxy Server is not installed - Section 2.2.14
+  # Ensure HTTP Proxy Server is not installed - Section 2.2.12
   package { 'squid':
     ensure => 'absent',
   }
 
-  # Ensure net-snmp Server is not installed - Section 2.2.15
+  # Ensure net-snmp Server is not installed - Section 2.2.13
   package { 'net-snmp':
+    ensure => 'absent',
+  }
+
+  # Ensure NIS Server is not installed - Section 2.2.14
+  package { 'ypserv':
+    ensure => 'absent',
+  }
+
+  # Ensure Telnet Server is not installed - Section 2.2.15
+  package { 'telnet-server':
     ensure => 'absent',
   }
 
@@ -150,18 +148,18 @@ class cis_hardening::services::special {
     enable => true,
   }
 
-  # Ensure Rsync Service is not installed - Section 2.2.17
+  # Ensure nfs-utils is not installed or the nfs-server service is masked - Section 2.2.17
+  package { 'nfs-utils':
+    ensure => 'absent',
+  }
+
+  # Ensure rpcbind is not installed or the rpcbind services are masked - Section 2.2.18
+  package { 'rpcbind':
+    ensure => 'absent',
+  }
+
+  # Ensure Rsync Service is not installed - Section 2.2.19
   package { 'rsync':
-    ensure => 'absent',
-  }
-
-  # Ensure NIS Server is not installed - Section 2.2.18
-  package { 'ypserv':
-    ensure => 'absent',
-  }
-
-  # Ensure Telnet Server is not installed - Section 2.2.19
-  package { 'telnet-server':
     ensure => 'absent',
   }
 

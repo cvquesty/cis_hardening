@@ -10,10 +10,10 @@ describe 'cis_hardening::setup::secboot' do
         is_expected.to contain_class('cis_hardening::setup::secboot')
       }
 
-      # Section 1.5 - Secure Boot Settings
-      # Ensure bootloader password is set - Manual task - Section 1.5.1
+      # Section 1.4 - Secure Boot Settings
+      # Ensure bootloader password is set - Manual task - Section 1.4.1
 
-      # Ensure permissions on bootloader config are configured - Section 1.5.2
+      # Ensure permissions on bootloader config are configured - Section 1.4.2
       it {
         is_expected.to contain_file('/boot/grub2/grub.cfg').with(
           'ensure' => 'present',
@@ -32,7 +32,7 @@ describe 'cis_hardening::setup::secboot' do
         )
       }
 
-      # Ensure authentication required for single user mode - Section 1.5.3
+      # Ensure authentication required for single user mode - Section 1.4.3
       it {
         is_expected.to contain_file_line('sulogin_rescue').with(
           'ensure' => 'present',

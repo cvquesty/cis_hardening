@@ -40,7 +40,7 @@ describe 'cis_hardening::logaudit::logging' do
       it {
         is_expected.to contain_exec('set_logfile_permissions').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-          'command' => 'find /var/log -type f -exec chmod g-wx,o-rwx "{}" + -o -type d -exec chmod g-wx,o-rwx "{}" +',
+          'command' => 'find /var/log -type f -exec chmod g-wx,o-rwx "{}" +',
         )
       }
 

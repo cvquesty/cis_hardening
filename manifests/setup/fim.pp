@@ -1,12 +1,12 @@
 # @summary A short summary of the purpose of this class
 #
-# Section 1.4 - Filesystem Integrity Checking
+# Section 1.3 - Filesystem Integrity Checking
 #
 # @example
 #   include cis_hardening::setup::fim
 class cis_hardening::setup::fim {
 
-  # Ensure AIDE is installed - Section 1.4.1
+  # Ensure AIDE is installed - Section 1.3.1
   package { 'aide':
     ensure => 'present',
   }
@@ -27,7 +27,7 @@ class cis_hardening::setup::fim {
     require => Exec['aideinit'],
   }
 
-  # Ensure filesystem integrity is regularly checked - Section 1.4.2
+  # Ensure filesystem integrity is regularly checked - Section 1.3.2
   cron { 'aide':
     command => '/usr/sbin/aide --check',
     user    => 'root',

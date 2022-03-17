@@ -33,7 +33,7 @@ describe 'cis_hardening::auth::cron' do
           'ensure' => 'present',
           'owner'  => 'root',
           'group'  => 'root',
-          'mode'   => '0644',
+          'mode'   => '0600',
         )
       }
 

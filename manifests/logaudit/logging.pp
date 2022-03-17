@@ -9,7 +9,7 @@ class cis_hardening::logaudit::logging {
 
   # Configure rsyslog - Section 4.2.1
   #
-  # Ensure rsyslog (or syslog-ng) is installed - Section 4.2.1.1
+  # Ensure rsyslog is installed - Section 4.2.1.1
   package { 'rsyslog':
     ensure => 'present',
   }
@@ -81,6 +81,14 @@ class cis_hardening::logaudit::logging {
   # Ensure permissions on all logfiles are configured - Section 4.2.3
   exec { 'set_logfile_permissions':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
-    command => 'find /var/log -type f -exec chmod g-wx,o-rwx "{}" + -o -type d -exec chmod g-wx,o-rwx "{}" +',
+    command => 'find /var/log -type f -exec chmod g-wx,o-rwx "{}" +',
   }
+
+  # Ensure logrotate is configured - Section 4.2.4
+  #
+  # NOTE: LogRotate will be different per site and the needs of the security department will
+  # dictate what and how these are to be configured. I recommend using the puppet-logrotate
+  # module from the Puppet Forge, and instrumenting it with Hiera + a profile to be applied
+  # to systems that need their logs rotated.
+
 }

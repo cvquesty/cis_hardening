@@ -10,15 +10,15 @@ describe 'cis_hardening::setup::accessctl' do
         is_expected.to contain_class('cis_hardening::setup::accessctl')
       }
 
-      # Configure SELinux - Section 1.7.1
-      # Ensure SELinux is installed - Section 1.7.1.1
+      # Configure SELinux - Section 1.6.1
+      # Ensure SELinux is installed - Section 1.6.1.1
       it {
         is_expected.to contain_package('libselinux').with(
           'ensure' => 'present',
         )
       }
 
-      # Ensure SELinux is not disabled in bootloader configuration - Section 1.7.1.2
+      # Ensure SELinux is not disabled in bootloader configuration - Section 1.6.1.2
       it {
         is_expected.to contain_file_line('grub_selinux_default').with(
           'ensure' => 'present',
@@ -37,7 +37,7 @@ describe 'cis_hardening::setup::accessctl' do
         )
       }
 
-      # Ensure SELINUX Policy is configured - Section 1.7.1.3
+      # Ensure SELINUX Policy is configured - Section 1.6.1.3
       it {
         is_expected.to contain_file_line('selinux_policy').with(
           'ensure' => 'present',
@@ -47,8 +47,8 @@ describe 'cis_hardening::setup::accessctl' do
         )
       }
 
-      # Ensure the SELinux mode is "enforcing" or "permisive - Section 1.7.1.4
-      # Ensure the SELinux mode is "enforcing" - Section 1.7.1.5
+      # Ensure the SELinux mode is "enforcing" or "permisive - Section 1.6.1.4
+      # Ensure the SELinux mode is "enforcing" - Section 1.6.1.5
       it {
         is_expected.to contain_file_line('selinux_state').with(
           'ensure' => 'present',
@@ -58,7 +58,7 @@ describe 'cis_hardening::setup::accessctl' do
         )
       }
 
-      # Ensure no unconfined services exist - Section 1.7.1.6
+      # Ensure no unconfined services exist - Section 1.6.1.6
       it {
         is_expected.to contain_exec('unconfined_services').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -67,14 +67,14 @@ describe 'cis_hardening::setup::accessctl' do
         )
       }
 
-      # Ensure SETroubleshoot is not installed - Section 1.7.1.7
+      # Ensure SETroubleshoot is not installed - Section 1.6.1.7
       it {
         is_expected.to contain_package('setroubleshoot').with(
           'ensure' => 'absent',
         )
       }
 
-      # Ensure MCS Translation Service is not installed - Section 1.7.1.8
+      # Ensure MCS Translation Service is not installed - Section 1.6.1.8
       it {
         is_expected.to contain_package('mcstrans').with(
           'ensure' => 'absent',

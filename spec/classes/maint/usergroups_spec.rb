@@ -28,7 +28,7 @@ describe 'cis_hardening::maint::usergroups' do
         )
       }
 
-      # Ensure the root account is the only UID 0 Account - Section 6.2.3
+      # Ensure the root account is the only UID 0 Account - Section 6.2.9
       it {
         is_expected.to contain_exec('only_one_uid0').with(
           'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -37,7 +37,7 @@ describe 'cis_hardening::maint::usergroups' do
         )
       }
 
-      # Ensure root PATH integrity - Section 6.2.4
+      # Ensure root PATH integrity - Section 6.2.10
 
       # Check for empty Directory in path
       it {

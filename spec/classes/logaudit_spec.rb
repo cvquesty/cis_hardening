@@ -17,9 +17,6 @@ describe 'cis_hardening::logaudit' do
       it {
         is_expected.to contain_class('cis_hardening::logaudit::logging')
       }
-      it {
-        is_expected.to contain_class('cis_hardening::logaudit::logrotate')
-      }
 
       # Ensure manifest compiles with all dependencies
       it {

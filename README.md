@@ -2,7 +2,7 @@
 
 Welcome to the CIS Hardening Module.
 This module implements the CIS hardening benchmarks to version 2.2.0 for CentOS7
-as per the CIS Benchmarks document v3.0.0 - 06-30-2020
+as per the CIS Benchmarks document v3.1.1 - 05-21-2021
 
 #### Table of Contents
 

@@ -273,14 +273,6 @@ describe 'cis_hardening::logaudit::accounting' do
       }
 
       it {
-        is_expected.to contain_file_line('faillog').with(
-          'ensure' => 'present',
-          'path'   => '/etc/audit/audit.rules',
-          'line'   => '-w /var/log/faillog -p wa -k logins',
-        )
-      }
-
-      it {
         is_expected.to contain_file_line('faillock').with(
           'ensure' => 'present',
           'path'   => '/etc/audit/audit.rules',
@@ -386,10 +378,10 @@ describe 'cis_hardening::logaudit::accounting' do
 
       # Ensure that Ensure system administrator actions (sudolog) are collected - Section 4.1.15
       it {
-        is_expected.to contain_file_line('sudolog').with(
+        is_expected.to contain_file_line('actions').with(
           'ensure' => 'present',
           'path'   => '/etc/audit/audit.rules',
-          'line'   => '-w /var/log/sudo.log -p wa -k actions',
+          'line'   => '-a always,exit -F arch=b32 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions',
         )
       }
 

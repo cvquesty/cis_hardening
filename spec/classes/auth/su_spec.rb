@@ -10,14 +10,14 @@ describe 'cis_hardening::auth::su' do
         is_expected.to contain_class('cis_hardening::auth::su')
       }
 
-      # Ensure that Ensure access to the su command is restricted - Section 5.6 Part 1
+      # Ensure that Ensure access to the su command is restricted - Section 5.7 Part 1
       it {
         is_expected.to contain_group('sugroup').with(
           'ensure' => 'present',
         )
       }
 
-      # Ensure that Ensure access to the su command is restricted - Section 5.6 Part 2
+      # Ensure that Ensure access to the su command is restricted - Section 5.7 Part 2
       it {
         is_expected.to contain_file_line('su_setting').with(
           'path' => '/etc/pam.d/su',

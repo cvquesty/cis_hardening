@@ -10,7 +10,7 @@ describe 'cis_hardening::setup::fim' do
         is_expected.to contain_class('cis_hardening::setup::fim')
       }
 
-      # Ensure AIDE is installed - Section 1.4.1
+      # Ensure AIDE is installed - Section 1.3.1
       it {
         is_expected.to contain_package('aide').with(
           'ensure' => 'present',
@@ -35,6 +35,7 @@ describe 'cis_hardening::setup::fim' do
         ).that_requires('Exec[aideinit]')
       }
 
+      # Ensure filesystem integrity is regularly checked - Section 1.3.2
       it {
         is_expected.to contain_cron('aide').with(
           'command' => '/usr/sbin/aide --check',
