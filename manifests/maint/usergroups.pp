@@ -43,12 +43,30 @@ class cis_hardening::maint::usergroups {
       onlyif  => 'test ! `echo "$PATH" |grep -q ":$"`',
     }
 
-    # TODO: Write fact to Ensure all User home directories exist - 6.2.11
-    # TODO: Write a fact to ensure users own their home directories - 6.2.12
-    # TODO: Write a fact to ensure users' home directory permissions are 750 or more restrictive - 6.2.13
-    # TODO: Write a fact to ensure users' dotfiles are not group or world writable - 6.2.14
-    # TODO: Write a fact to ensure no user has a .forward file - 6.2.15
-    # TODO: Write a fact to ensure no user as a .netrc file - 6.2.16
-    # TODO: Write a fact to ensure no users have .rhosts files - 6.2.17
+    # Write a fact to ensure shadow group is empty - Control 6.2.4
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/2
+    # AND Solve making sure shadow group is empty. - Control 6.2.4
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/3
+    # Write a fact to ensure no duplicate usernames exist - Control 6.2.5
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/4
+    # Write a fact to ensure no duplicate group names exist - Control 6.2.6
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/5
+    # Write a fact to reveal there are duplicate UIDs - Control 6.2.7
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/12
+    # Write a fact to expose whether duplicate GIDs exist - Control 6.2.8
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/13
+    # Write fact to expose whether all User home directories exist - Control 6.2.11
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/14
+    # Write a fact to ensure users own their home directories - 6.2.12
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/15
+    # Write a fact to expose whether  users home directory permissions are 750 or more restrictive - Control 6.2.13
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/16
+    # Write a fact to ensure users' dotfiles are not group or world writable - Control 6.2.14
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/17
+    # Write a fact to ensure no user has a .forward file or remove all .forward files - Control 6.2.15
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/18
+    # Ensure no user .netrc file exists - Control 6.2.16
+    #       Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/19
+    # Ensure no users have .rhosts files - Control 6.2.17
 
 }

@@ -28,5 +28,6 @@ class cis_hardening::network::unused_protocols {
   }
 
   # Ensure Wireless Interfaces are disabled - Section 3.1.2
-  # TODO: Create fact to find wireless interfaces for disabling
+  # Create fact to find wireless interfaces for disabling
+  #   Ticket Opened - https://github.com/cvquesty/cis_hardening/issues/21
 }
