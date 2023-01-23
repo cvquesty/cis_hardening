@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Check for presence of GDM and output as a fact
-if [[ -d /etc/dconf/profile/gdm ]]
-  then
-    echo "gdm=present"
-  else
-    echo "gdm=absent"
