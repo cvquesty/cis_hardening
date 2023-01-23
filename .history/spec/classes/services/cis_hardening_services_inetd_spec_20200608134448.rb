@@ -1,1 +1,0 @@
-# Ensure /etc/hosts.allow is configured - Section 3.4.2, 3.4.4
