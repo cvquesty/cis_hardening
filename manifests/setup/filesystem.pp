@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::setup::filesystem
 class cis_hardening::setup::filesystem {
-
   # Disable unused Filesystems - Section 1.1.1
 
   # Create CIS.conf to hold CIS specified filesystem configurations
@@ -58,7 +57,6 @@ class cis_hardening::setup::filesystem {
     command => 'logger -p crit "Filesystem /tmp is not set noexec"',
     onlyif  => "test ! 'mount |grep -E '\s/tmp\s' |grep -v noexec'",
   }
-
 
 # Ensure nodev option set on /tmp partition - Section 1.1.4
   exec { 'chktmp_nodev':
@@ -169,11 +167,10 @@ class cis_hardening::setup::filesystem {
   # Disable USB Storage - Section 1.1.24
   # NOTE: Managing individually for admins to disable atomically if desired
   file { '/etc/modprobe.d/cisusbstorage.conf':
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content =>  'install usb-storage /bin/true',
+    content => 'install usb-storage /bin/true',
   }
-
 }

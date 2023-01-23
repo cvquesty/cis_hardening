@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::network::firewall
 class cis_hardening::network::firewall {
-
   # Configure FirewallD - Section 3.5.1
   # This specification does not include the installation and usage of FirewallD, but IPTables.
   # Below is the configuration of IPTables as defined.
@@ -62,7 +61,7 @@ class cis_hardening::network::firewall {
 
   # Place IPTABLES config file
   file { '/etc/sysconfig/iptables':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0600',

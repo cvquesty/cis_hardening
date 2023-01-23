@@ -7,7 +7,6 @@
 # hardening guidelines for CentOS 7.x systems
 #
 class cis_hardening::setup {
-
   include cis_hardening::setup::filesystem        # Section 1.1 - Filesystem Configuration
   include cis_hardening::setup::updates           # Section 1.2 - Configure Software Updates
   include cis_hardening::setup::fim               # Section 1.4 - Filesystem Integrity Checking
@@ -15,5 +14,4 @@ class cis_hardening::setup {
   include cis_hardening::setup::prochardening     # Section 1.6 - Additional Process Hardening
   include cis_hardening::setup::accessctl         # Section 1.7 - Mandatory Access Control
   include cis_hardening::setup::banners           # Section 1.8 - Warning Banners
-
 }

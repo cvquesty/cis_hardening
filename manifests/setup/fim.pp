@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::setup::fim
 class cis_hardening::setup::fim {
-
   # Ensure AIDE is installed - Section 1.3.1
   package { 'aide':
     ensure => 'present',
@@ -34,5 +33,4 @@ class cis_hardening::setup::fim {
     hour    => 5,
     minute  => 0,
   }
-
 }

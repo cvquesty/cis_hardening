@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::network::edgeprotocols
 class cis_hardening::network::edgeprotocols {
-
   # Ensure DCCP is disabled - Section 3.4.1
   file_line { 'dccp_disable':
     ensure => 'present',
@@ -19,5 +18,4 @@ class cis_hardening::network::edgeprotocols {
     path   => '/etc/modprobe.d/CIS.conf',
     line   => 'install sctp /bin/true',
   }
-
 }

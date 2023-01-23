@@ -16,7 +16,7 @@ describe 'cis_hardening::setup::secboot' do
       # Ensure permissions on bootloader config are configured - Section 1.4.2
       it {
         is_expected.to contain_file('/boot/grub2/grub.cfg').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0600',
@@ -25,7 +25,7 @@ describe 'cis_hardening::setup::secboot' do
 
       it {
         is_expected.to contain_file('/boot/grub2/user.cfg').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0600',

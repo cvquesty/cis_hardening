@@ -7,9 +7,7 @@
 # published hardening guidelines for CentOS 7.x systems
 #
 class cis_hardening::logaudit {
-
   include cis_hardening::logaudit::accounting     # Section 4.1 - Configure System Accounting
   include cis_hardening::logaudit::logging        # Section 4.2 - Configure Logging
   include cis_hardening::logaudit::journald       # Section 4.2.2/3 - Configure Journald
-
 }

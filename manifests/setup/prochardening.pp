@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::setup::prochardening
 class cis_hardening::setup::prochardening {
-
   # Restart sysctl for prochardening items
   exec { 'restart_prochardening_sysctl':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -14,7 +13,7 @@ class cis_hardening::setup::prochardening {
 
   # Ensure Core Dumps are restricted - Section 1.5.1
   file { '/etc/security/limits.d/cis_coredumps.conf':
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',

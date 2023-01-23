@@ -30,7 +30,7 @@ describe 'cis_hardening::auth::cron' do
       # Check that Ensure permissions on /etc/crontab are configured - Section 5.1.2 is correct
       it {
         is_expected.to contain_file('/etc/crontab').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0600',

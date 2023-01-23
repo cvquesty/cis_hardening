@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::logaudit::journald
 class cis_hardening::logaudit::journald {
-
   # Ensure journald is configured to send logs to rsyslog - Section 4.2.2.1
   file_line { 'journald_to_rsyslog':
     ensure => 'present',
@@ -29,5 +28,4 @@ class cis_hardening::logaudit::journald {
     line   => 'Storage=persistent',
     match  => '^Storage\=',
   }
-
 }

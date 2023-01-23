@@ -50,7 +50,7 @@ describe 'cis_hardening::logaudit::accounting' do
 
       it {
         is_expected.to contain_file('/etc/audit/audit.rules').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0640',

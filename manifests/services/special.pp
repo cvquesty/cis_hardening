@@ -6,7 +6,6 @@
 # @example
 #   include cis_hardening::services::special
 class cis_hardening::services::special {
-
   # 2.2.1 - Time Synchronization
   # Ensure time synchronization is in use - Section 2.2.1.1
   package { 'ntp':
@@ -36,7 +35,7 @@ class cis_hardening::services::special {
 
   # Ensure ntp is configured - Section 2.2.1.3
   file { '/etc/ntp.conf':
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -45,7 +44,7 @@ class cis_hardening::services::special {
   }
 
   file { '/etc/sysconfig/ntpd':
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -162,5 +161,4 @@ class cis_hardening::services::special {
   package { 'rsync':
     ensure => 'absent',
   }
-
 }

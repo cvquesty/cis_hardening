@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::network::unused_protocols
 class cis_hardening::network::unused_protocols {
-
   # Restart sysctl for IPv6
   exec { 'restart_ipv6_sysctl':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',

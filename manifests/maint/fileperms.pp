@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::maint::fileperms
 class cis_hardening::maint::fileperms {
-
   # Audit System File Permissions - Section 6.1.1
   #
   # This item requires manual execution and inspection of output. It suggests a manual
@@ -20,21 +19,19 @@ class cis_hardening::maint::fileperms {
   # Upon completion, Investigate the results to ensure any discrepancies found are
   # understood and support proper secure operation of the system.
 
-
   # Ensure permissions on /etc/passwd are configured - Section 6.1.2
   # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
   file { '/etc/passwd':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
   }
 
-
   # Ensure permissions on /etc/passwd- are configured - Section 6.1.3
   # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
   file { '/etc/passwd-':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
@@ -43,7 +40,7 @@ class cis_hardening::maint::fileperms {
   # Ensure permissions on /etc/shadow are configured - Section 6.1.4
   # "verify Uid and Gid are 0/root , and Access is 0000"
   file { '/etc/shadow':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0000',
@@ -52,7 +49,7 @@ class cis_hardening::maint::fileperms {
   # Ensure permissions on /etc/shadow- are configured - Section 6.1.5
   # "verify Uid is 0/root, Gid is 0/root and Access is 0000"
   file { '/etc/shadow-':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0000',
@@ -61,7 +58,7 @@ class cis_hardening::maint::fileperms {
   # Ensure permissions on /etc/gshadow- are configured - Section 6.1.6
   # "verify Uid is 0/root, Gid is 0/root and Access is 0000"
   file { '/etc/gshadow-':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0000',
@@ -70,7 +67,7 @@ class cis_hardening::maint::fileperms {
   # Ensure Permissions on /etc/gshadow are configured - Section 6.1.7
   # "verify Uid is 0/root, Gid is 0/root and Access is 0000"
   file { '/etc/gshadow':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0000',
@@ -79,17 +76,16 @@ class cis_hardening::maint::fileperms {
   # Ensure permissions on /etc/group are configured - Section 6.1.8
   # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
   file { '/etc/group':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
   }
 
-
   # Ensure permissions on /etc/group- are configured - Section 6.1.9
   # "verify Uid and Gid are both 0/root and Access is 644 or more restrictive"
   file { '/etc/group-':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',

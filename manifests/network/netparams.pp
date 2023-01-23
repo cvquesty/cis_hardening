@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::network::netparams
 class cis_hardening::network::netparams {
-
   # Restart sysctl section to enact changes
   exec { 'restart_sysctl':
     path    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin',
@@ -53,7 +52,7 @@ class cis_hardening::network::netparams {
   }
 
   # Ensure ICMP redirects are not accepted - Section 3.3.2
-  file_line  {'icmp_redirects_all':
+  file_line { 'icmp_redirects_all':
     ensure => 'present',
     path   => '/etc/sysctl.d/99-sysctl.conf',
     line   => 'net.ipv4.conf.all.accept_redirects = 0',

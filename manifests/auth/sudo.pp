@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::auth::sudo
 class cis_hardening::auth::sudo {
-
   # Ensure sudo is installed - Section 5.2.1
   package { 'sudo':
     ensure => 'installed',
@@ -13,7 +12,7 @@ class cis_hardening::auth::sudo {
 
   # Ensure sudo commands use pty - Section 5.2.2
   file { '/etc/sudoers.d/cis_sudoers_defaults.conf':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0440',
@@ -33,5 +32,4 @@ class cis_hardening::auth::sudo {
     line    => 'Defaults logfile="/var/log/sudo.log"',
     require => File['/etc/sudoers.d/cis_sudoers_defaults.conf'],
   }
-
 }
