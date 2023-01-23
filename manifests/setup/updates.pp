@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::setup::updates
 class cis_hardening::setup::updates {
-
   # Ensure GPG keys are configured - Section 1.2.1
   #
   # Run "rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'" at the command line to
@@ -15,7 +14,6 @@ class cis_hardening::setup::updates {
   #
   # Run "yum repolist" to retrieve the full list of currently configured Repositories.
   # Manually compare against site policy
-
 
   # Ensure gpgcheck is globally activated - Section 1.2.3
   file_line { 'gpgcheck':
@@ -39,5 +37,4 @@ class cis_hardening::setup::updates {
     hasstatus  => true,
     hasrestart => true,
   }
-
 }

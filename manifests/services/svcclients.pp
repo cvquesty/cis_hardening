@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::services::svcclients
 class cis_hardening::services::svcclients {
-
   # Ensure NIS CLient is not installed - Section 2.3.1
   package { 'ypbind':
     ensure => 'absent',
@@ -35,5 +34,4 @@ class cis_hardening::services::svcclients {
   #
   # NOTE: This is a largely manual task, especially in environments with custom
   # or COTS software that runs as a daemon. Manual inspection required.
-
 }

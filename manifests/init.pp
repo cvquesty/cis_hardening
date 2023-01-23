@@ -1,7 +1,7 @@
 # @summary A module to implement CIS hardening standards for CentOS 7.x Systems
 #
-# This is the main entry point that selects each of the domains as outlined in CIS Hardening v3.0.0 
-# for CentOS 7 systems. 
+# This is the main entry point that selects each of the domains as outlined in CIS Hardening v3.0.0
+# for CentOS 7 systems.
 #
 class cis_hardening {
   include cis_hardening::setup        # Section 1 - Initial Setup

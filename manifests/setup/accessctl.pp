@@ -7,10 +7,10 @@
 class cis_hardening::setup::accessctl {
   # Configure SELinux - Section 1.6.1
 
-    # Ensure SELinux is installed - Section 1.6.1.1
-    package { 'libselinux':
-      ensure => 'present',
-    }
+  # Ensure SELinux is installed - Section 1.6.1.1
+  package { 'libselinux':
+    ensure => 'present',
+  }
 
   # Ensure SELinux is not disabled in bootloader configuration - Section 1.6.1.2
   file_line { 'grub_selinux_default':

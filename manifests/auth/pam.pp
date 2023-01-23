@@ -8,7 +8,7 @@
 class cis_hardening::auth::pam {
   # Ensure Password creation requirements are configured - Section 5.4.1
   file { '/etc/security/pwquality.conf':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',

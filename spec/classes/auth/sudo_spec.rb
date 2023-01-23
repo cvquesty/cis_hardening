@@ -24,7 +24,7 @@ describe 'cis_hardening::auth::sudo' do
       # Ensure sudo commands use pty - Section 5.2.2
       it {
         is_expected.to contain_file('/etc/sudoers.d/cis_sudoers_defaults.conf').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0440',

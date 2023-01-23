@@ -6,7 +6,6 @@
 # @example
 #   include cis_hardening::logaudit::logging
 class cis_hardening::logaudit::logging {
-
   # Configure rsyslog - Section 4.2.1
   #
   # Ensure rsyslog is installed - Section 4.2.1.1
@@ -70,9 +69,6 @@ class cis_hardening::logaudit::logging {
   #
   # NOTE: syslog-ng is not selected in favor of rsyslog, so this section does not apply if the above
   # section is used. They are mutually exclusive.
-
-
-
   # If using syslog-ng:
   # package { 'syslog-ng':
   #   ensure => 'present',
@@ -90,5 +86,4 @@ class cis_hardening::logaudit::logging {
   # dictate what and how these are to be configured. I recommend using the puppet-logrotate
   # module from the Puppet Forge, and instrumenting it with Hiera + a profile to be applied
   # to systems that need their logs rotated.
-
 }

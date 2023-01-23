@@ -13,7 +13,7 @@ describe 'cis_hardening::auth::pam' do
       # Ensure that Ensure Password creation requirements are configured - Section 5.4.1
       it {
         is_expected.to contain_file('/etc/security/pwquality.conf').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',

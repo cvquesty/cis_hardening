@@ -61,7 +61,7 @@ describe 'cis_hardening::network::firewall' do
       # Place IPTables config file
       it {
         is_expected.to contain_file('/etc/sysconfig/iptables').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0600',

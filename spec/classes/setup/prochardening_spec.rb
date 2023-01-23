@@ -22,7 +22,7 @@ describe 'cis_hardening::setup::prochardening' do
       # Ensure Core Dumps are restricted - Section 1.5.1
       it {
         is_expected.to contain_file('/etc/security/limits.d/cis_coredumps.conf').with(
-          'ensure'  => 'present',
+          'ensure'  => 'file',
           'owner'   => 'root',
           'group'   => 'root',
           'mode'    => '0644',

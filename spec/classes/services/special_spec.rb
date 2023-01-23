@@ -21,7 +21,7 @@ describe 'cis_hardening::services::special' do
       # Ensure ntp is configured - Section 2.2.1.3
       it {
         is_expected.to contain_file('/etc/ntp.conf').with(
-          'ensure'  => 'present',
+          'ensure'  => 'file',
           'owner'   => 'root',
           'group'   => 'root',
           'mode'    => '0644',
@@ -31,7 +31,7 @@ describe 'cis_hardening::services::special' do
 
       it {
         is_expected.to contain_file('/etc/sysconfig/ntpd').with(
-          'ensure'  => 'present',
+          'ensure'  => 'file',
           'owner'   => 'root',
           'group'   => 'root',
           'mode'    => '0644',

@@ -16,7 +16,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure permissions on /etc/passwd are configured - Section 6.1.2
       it {
         is_expected.to contain_file('/etc/passwd').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',
@@ -26,7 +26,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure permissions on /etc/passwd- are configured - Section 6.1.3
       it {
         is_expected.to contain_file('/etc/passwd-').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',
@@ -36,7 +36,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure permissions on /etc/shadow are configured - Section 6.1.4
       it {
         is_expected.to contain_file('/etc/shadow').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0000',
@@ -46,7 +46,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure permissions on /etc/shadow- are configured - Section 6.1.5
       it {
         is_expected.to contain_file('/etc/shadow-').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0000',
@@ -56,7 +56,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure permissions on /etc/gshadow- are configured - Section 6.1.6
       it {
         is_expected.to contain_file('/etc/gshadow-').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0000',
@@ -66,7 +66,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure Permissions on /etc/gshadow are configured - Section 6.1.7
       it {
         is_expected.to contain_file('/etc/gshadow').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0000',
@@ -76,7 +76,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure permissions on /etc/group are configured - Section 6.1.8
       it {
         is_expected.to contain_file('/etc/group').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',
@@ -86,7 +86,7 @@ describe 'cis_hardening::maint::fileperms' do
       # Ensure that Ensure permissions on /etc/group- are configured - Section 6.1.9
       it {
         is_expected.to contain_file('/etc/group-').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',

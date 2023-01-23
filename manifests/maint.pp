@@ -8,8 +8,6 @@
 #
 #
 class cis_hardening::maint {
-
   include cis_hardening::maint::fileperms     # Section 6.1 - System File Permissions
   include cis_hardening::maint::usergroups    # Section 6.2 - User and Group Settings
-
 }

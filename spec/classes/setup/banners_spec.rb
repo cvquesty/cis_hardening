@@ -14,7 +14,7 @@ describe 'cis_hardening::setup::banners' do
       # Ensure permisisons on /etc/motd are configured - Section 1.7.4
       it {
         is_expected.to contain_file('/etc/motd').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',
@@ -26,7 +26,7 @@ describe 'cis_hardening::setup::banners' do
       # Ensure permissions on /etc/issue are configured - Section 1.7.5
       it {
         is_expected.to contain_file('/etc/issue').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',
@@ -38,7 +38,7 @@ describe 'cis_hardening::setup::banners' do
       # Ensure permissions on /etc/issue.net are configured - Section 1.7.6
       it {
         is_expected.to contain_file('/etc/issue.net').with(
-          'ensure' => 'present',
+          'ensure' => 'file',
           'owner'  => 'root',
           'group'  => 'root',
           'mode'   => '0644',

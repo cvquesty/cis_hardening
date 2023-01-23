@@ -197,7 +197,7 @@ describe 'cis_hardening::setup::filesystem' do
       # NOTE: Managing individually for admins to disable atomically if desired
       it {
         is_expected.to contain_file('/etc/modprobe.d/cisusbstorage.conf').with(
-          'ensure'  => 'present',
+          'ensure'  => 'file',
           'owner'   => 'root',
           'group'   => 'root',
           'mode'    => '0755',

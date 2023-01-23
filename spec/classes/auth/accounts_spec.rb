@@ -79,7 +79,7 @@ describe 'cis_hardening::auth::accounts' do
       # Check that Ensure default user shell timeout is 900 seconds or less - Section 5.5.4
       it {
         is_expected.to contain_file('/etc/profile.d/cisusertimeout.sh').with(
-          'ensure'  => 'present',
+          'ensure'  => 'file',
           'owner'   => 'root',
           'group'   => 'root',
           'mode'    => '0755',
@@ -90,7 +90,7 @@ describe 'cis_hardening::auth::accounts' do
       # Check that Ensure default user umask is 027 or more restrictive - Section 5.5.5
       it {
         is_expected.to contain_file('/etc/profile.d/cisumaskprofile.sh').with(
-          'ensure'  => 'present',
+          'ensure'  => 'file',
           'owner'   => 'root',
           'group'   => 'root',
           'mode'    => '0644',

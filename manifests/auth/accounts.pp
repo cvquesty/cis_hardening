@@ -6,7 +6,6 @@
 # @example
 #   include cis_hardening::auth::accounts
 class cis_hardening::auth::accounts {
-
   # This is very near the entry point. cis_hardening uses perl quite a bit, so installing it here
   package { 'perl':
     ensure => 'present',
@@ -59,7 +58,6 @@ class cis_hardening::auth::accounts {
   # not deliver remediation.
   # Issue created for this: https://github.com/cvquesty/cis_hardening/issues/8
 
-
   # Ensure default group for the root account is GID 0 - Section 5.5.3
   user { 'root':
     ensure => 'present',
@@ -68,7 +66,7 @@ class cis_hardening::auth::accounts {
 
   # Ensure default user shell timeout is 900 seconds or less - Section 5.5.4
   file { '/etc/profile.d/cisusertimeout.sh':
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
@@ -77,7 +75,7 @@ class cis_hardening::auth::accounts {
 
   # Ensure default user umask is 027 or more restrictive - Section 5.5.5
   file { '/etc/profile.d/cisumaskprofile.sh':
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -89,5 +87,4 @@ class cis_hardening::auth::accounts {
   # The system has no way of understanding what consoles are "secure"
   # therefore the user must manually inspect /etc/securetty and determine
   # whether the consoles listed there are, in fact, secure.
-
 }

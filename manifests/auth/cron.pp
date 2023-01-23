@@ -3,7 +3,6 @@
 # Section 5.1 - Configure time-based job schedulers
 #
 class cis_hardening::auth::cron {
-
   # Install Cronie to run cron
   package { 'cronie':
     ensure => 'installed',
@@ -20,7 +19,7 @@ class cis_hardening::auth::cron {
 
   # Ensure permissions on /etc/crontab are configured - Section 5.1.2
   file { '/etc/crontab':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0600',
@@ -93,5 +92,4 @@ class cis_hardening::auth::cron {
     group  => 'root',
     mode   => '0600',
   }
-
 }

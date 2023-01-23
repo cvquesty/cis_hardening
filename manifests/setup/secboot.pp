@@ -5,7 +5,6 @@
 # @example
 #   include cis_hardening::setup::secboot
 class cis_hardening::setup::secboot {
-
   # Ensure bootloader password is set - Section 1.4.1
   # Check that Grub Password is set:
   #
@@ -19,14 +18,14 @@ class cis_hardening::setup::secboot {
   if $facts['virtual'] == 'docker' {
   } else {
     file { '/boot/grub2/grub.cfg':
-      ensure => 'present',
+      ensure => 'file',
       owner  => 'root',
       group  => 'root',
       mode   => '0600',
     }
 
     file { '/boot/grub2/user.cfg':
-      ensure => 'present',
+      ensure => 'file',
       owner  => 'root',
       group  => 'root',
       mode   => '0600',

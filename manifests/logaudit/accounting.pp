@@ -6,7 +6,6 @@
 # @example
 #   include cis_hardening::logaudit::accounting
 class cis_hardening::logaudit::accounting {
-
   # Ensure Auditing is enabled - Section 4.1.1
   # Ensure that auditd is installed - Section 4.1.1.1
   package { 'audit':
@@ -43,11 +42,10 @@ class cis_hardening::logaudit::accounting {
 
   # NOTE: Above audit.rules settings may require a reboot to become effective especially in regards
   # to those rules to be activated prior to Grub's loading
-
   # AuditD is using an include directory now, but I have opted for audit.rules for the time being.
   # Expect refactoring here
   file { '/etc/audit/audit.rules':
-    ensure  => 'present',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
@@ -360,5 +358,4 @@ class cis_hardening::logaudit::accounting {
     match              => '^-e\ ',
     append_on_no_match => true,
   }
-
 }

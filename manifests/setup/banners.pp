@@ -6,11 +6,10 @@
 # @example
 #   include cis_hardening::setup::banners
 class cis_hardening::setup::banners {
-
   # Ensure message of the day is configured properly - Section 1.7.1
   # Ensure permisisons on /etc/motd are configured - Section 1.7.4
   file { '/etc/motd':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
@@ -20,7 +19,7 @@ class cis_hardening::setup::banners {
   # Ensure local login warning banner is configured properly - Section 1.7.2
   # Ensure permissions on /etc/issue are configured - Section 1.7.5
   file { '/etc/issue':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
@@ -30,7 +29,7 @@ class cis_hardening::setup::banners {
   # Ensure remote login warning banner is configured properly - Section 1.7.3
   # Ensure permissions on /etc/issue.net are configured - Section 1.7.6
   file { '/etc/issue.net':
-    ensure => 'present',
+    ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0644',

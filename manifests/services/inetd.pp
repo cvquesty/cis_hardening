@@ -6,10 +6,8 @@
 # @example
 #   include cis_hardening::services::inetd
 class cis_hardening::services::inetd {
-
   # Esure XinetD is not installed - Section 2.1.1
   package { 'xinetd':
     ensure => 'absent',
   }
-
 }

@@ -6,7 +6,6 @@
 # Hardens SSH in line with CIS standards for CentOS 7.x Servers
 #
 class cis_hardening::auth::ssh {
-
   # Ensure permissions on /etc/ssh/sshd_config are configured - Section 5.3.1
   file { '/etc/ssh/sshd_config':
     ensure => 'file',
@@ -88,7 +87,7 @@ class cis_hardening::auth::ssh {
     ensure => 'present',
     path   => '/etc/ssh/sshd_config',
     line   => 'MaxAuthTries 4',
-    match  => '^MaxAuthTries\ '
+    match  => '^MaxAuthTries\ ',
   }
 
   # Ensure SSH IgnoreRhosts is enabled - Section 5.3.8
@@ -210,5 +209,4 @@ class cis_hardening::auth::ssh {
     line   => 'maxsessions 10',
     match  => '^maxsessions\ ',
   }
-
 }
